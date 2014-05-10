@@ -18,27 +18,7 @@ import loon.net.Base64Coder;
 import loon.utils.xml.XMLElement;
 
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.1.0
- */
+
 public class TMXLayer extends LLight implements LRelease {
 
 	private class MapTileSet {
@@ -81,13 +61,7 @@ public class TMXLayer extends LLight implements LRelease {
 	// 图层属性
 	public TMXProperty props;
 
-	/**
-	 * 根据TMX地图描述创建一个新层
-	 * 
-	 * @param map
-	 * @param element
-	 * @throws RuntimeException
-	 */
+	
 	public TMXLayer(TMXTiledMap map, XMLElement element)
 			throws RuntimeException {
 
@@ -162,24 +136,12 @@ public class TMXLayer extends LLight implements LRelease {
 		}
 	}
 
-	/**
-	 * 获得指定位置的瓦片ID
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public int getTileID(int x, int y) {
 		return data[x][y][2];
 	}
 
-	/**
-	 * 设置指定位置的瓦片ID
-	 * 
-	 * @param x
-	 * @param y
-	 * @param tile
-	 */
+	
 	public void setTileID(int x, int y, int tile) {
 		if (tile == 0) {
 			data[x][y][0] = -1;
@@ -193,20 +155,7 @@ public class TMXLayer extends LLight implements LRelease {
 		}
 	}
 
-	/**
-	 * 渲染当前层画面到LGraphics之上
-	 * 
-	 * @param g
-	 * @param x
-	 * @param y
-	 * @param sx
-	 * @param sy
-	 * @param width
-	 * @param ty
-	 * @param isLine
-	 * @param mapTileWidth
-	 * @param mapTileHeight
-	 */
+	
 	public void draw(GLEx g, int x, int y, int sx, int sy, int width,
 			int height, boolean isLine, int mapTileWidth, int mapTileHeight) {
 

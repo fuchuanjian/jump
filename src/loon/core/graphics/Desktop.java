@@ -9,27 +9,7 @@ import loon.core.graphics.opengl.GLEx;
 import loon.core.input.LInput;
 import loon.core.input.LInputFactory.Touch;
 
-/**
- * 
- * Copyright 2008 - 2009
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class Desktop implements LRelease {
 
 	// 空桌面布局
@@ -48,23 +28,14 @@ public class Desktop implements LRelease {
 
 	private LComponent[] clickComponent = new LComponent[1];
 
-	/**
-	 * 构造一个可用桌面
-	 * 
-	 * @param input
-	 * @param width
-	 * @param height
-	 */
+	
 	public Desktop(LInput input, int width, int height) {
 		this.contentPane = new LPanel(0, 0, width, height);
 		this.input = input;
 		this.setDesktop(this.contentPane);
 	}
 
-	/**
-	 * 空桌面布局
-	 * 
-	 */
+	
 	private Desktop() {
 		this.contentPane = new LPanel(0, 0, 1, 1);
 		this.input = null;
@@ -137,10 +108,7 @@ public class Desktop implements LRelease {
 
 	boolean isClicked;
 
-	/**
-	 * 刷新当前桌面
-	 * 
-	 */
+	
 	public void update(long timer) {
 		if (!this.contentPane.isVisible()) {
 			return;
@@ -198,10 +166,7 @@ public class Desktop implements LRelease {
 		this.contentPane.createUI(g);
 	}
 
-	/**
-	 * 事件监听
-	 * 
-	 */
+	
 	private void processEvents() {
 		// 鼠标滑动
 		this.processTouchMotionEvent();
@@ -216,10 +181,7 @@ public class Desktop implements LRelease {
 		}
 	}
 
-	/**
-	 * 鼠标运动事件
-	 * 
-	 */
+	
 	private void processTouchMotionEvent() {
 
 		if (this.hoverComponent != null && this.hoverComponent.isEnabled()
@@ -255,10 +217,7 @@ public class Desktop implements LRelease {
 		}
 	}
 
-	/**
-	 * 鼠标按下事件
-	 * 
-	 */
+	
 	private void processTouchEvent() {
 		int pressed = this.input.getTouchPressed(), released = this.input
 				.getTouchReleased();
@@ -286,10 +245,7 @@ public class Desktop implements LRelease {
 		this.isClicked = false;
 	}
 
-	/**
-	 * 触发键盘事件
-	 * 
-	 */
+	
 	private void processKeyEvent() {
 		if (this.input.getKeyPressed() != LInput.NO_KEY) {
 			this.selectedComponent.keyPressed();
@@ -300,13 +256,7 @@ public class Desktop implements LRelease {
 		}
 	}
 
-	/**
-	 * 查找指定坐标点成员
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	private LComponent findComponent(int x, int y) {
 		if (this.modal != null && !this.modal.isContainer()) {
 			return null;
@@ -318,9 +268,7 @@ public class Desktop implements LRelease {
 		return comp;
 	}
 
-	/**
-	 * 清除容器焦点
-	 */
+	
 	public void clearFocus() {
 		this.deselectComponent();
 	}
@@ -333,12 +281,7 @@ public class Desktop implements LRelease {
 		this.selectedComponent = null;
 	}
 
-	/**
-	 * 查找指定容器
-	 * 
-	 * @param comp
-	 * @return
-	 */
+	
 	boolean selectComponent(LComponent comp) {
 		if (!comp.isVisible() || !comp.isEnabled() || !comp.isFocusable()) {
 			return false;

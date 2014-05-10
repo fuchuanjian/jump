@@ -24,27 +24,7 @@ import loon.utils.MathUtils;
 
 
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1.1
- */
+
 
 @SuppressWarnings("rawtypes")
 public abstract class ActorLayer extends LContainer {
@@ -98,139 +78,72 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 添加一个独立事件，并选择是否暂不启动
-	 * 
-	 * @param action
-	 * @param obj
-	 * @param paused
-	 */
+	
 	public void addActionEvent(ActionEvent action, ActionBind obj, boolean paused) {
 		ActionControl.getInstance().addAction(action, obj, paused);
 	}
 
-	/**
-	 * 添加一个独立事件
-	 * 
-	 * @param action
-	 * @param obj
-	 */
+	
 	public void addActionEvent(ActionEvent action, ActionBind obj) {
 		ActionControl.getInstance().addAction(action, obj);
 	}
 
-	/**
-	 * 删除所有和指定对象有关的独立事件
-	 * 
-	 * @param actObject
-	 */
+	
 	public void removeActionEvents(ActionBind actObject) {
 		ActionControl.getInstance().removeAllActions(actObject);
 	}
 
-	/**
-	 * 获得当前独立事件总数
-	 * 
-	 * @return
-	 */
+	
 	public int getActionEventCount() {
 		return ActionControl.getInstance().getCount();
 	}
 
-	/**
-	 * 删除指定的独立事件
-	 * 
-	 * @param tag
-	 * @param actObject
-	 */
+	
 	public void removeActionEvent(Object tag, ActionBind actObject) {
 		ActionControl.getInstance().removeAction(tag, actObject);
 	}
 
-	/**
-	 * 删除指定的独立事件
-	 * 
-	 * @param action
-	 */
+	
 	public void removeActionEvent(ActionEvent action) {
 		ActionControl.getInstance().removeAction(action);
 	}
 
-	/**
-	 * 获得制定的独立事件
-	 * 
-	 * @param tag
-	 * @param actObject
-	 * @return
-	 */
+	
 	public ActionEvent getActionEvent(Object tag, ActionBind actObject) {
 		return ActionControl.getInstance().getAction(tag, actObject);
 	}
 
-	/**
-	 * 停止对象对应的自动事件
-	 * 
-	 * @param actObject
-	 */
+	
 	public void stopActionEvent(ActionBind actObject) {
 		ActionControl.getInstance().stop(actObject);
 	}
 
-	/**
-	 * 设定指定角色暂停状态
-	 * 
-	 * @param pause
-	 * @param actObject
-	 */
+	
 	public void pauseActionEvent(boolean pause, ActionBind actObject) {
 		ActionControl.getInstance().paused(pause, actObject);
 	}
 
-	/**
-	 * 设置是否暂停自动事件运行
-	 * 
-	 * @param pause
-	 */
+	
 	public void pauseActionEvent(boolean pause) {
 		ActionControl.getInstance().setPause(pause);
 	}
 
-	/**
-	 * 获得是否暂停了独立事件运行
-	 * 
-	 * @return
-	 */
+	
 	public boolean isPauseActionEvent() {
 		return ActionControl.getInstance().isPause();
 	}
 
-	/**
-	 * 启动指定对象对应的对立事件
-	 * 
-	 * @param actObject
-	 */
+	
 	public void startActionEvent(ActionBind actObject) {
 		ActionControl.getInstance().start(actObject);
 	}
 
-	/**
-	 * 停止独立事件运行用线程
-	 * 
-	 */
+	
 	public void stopActionEvent() {
 		ActionControl.getInstance().stop();
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param field
-	 * @param o
-	 * @param flag
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(Field2D field, ActionBind o, boolean flag, int x, int y) {
 		if (isClose) {
 			return null;
@@ -240,30 +153,12 @@ public abstract class ActorLayer extends LContainer {
 		return move;
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param field
-	 * @param o
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(Field2D field, ActionBind o, int x, int y) {
 		return callMoveTo(field, o, true, x, y);
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param o
-	 * @param flag
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(ActionBind o, boolean flag, int x, int y, int w, int h) {
 		if (isClose) {
 			return null;
@@ -276,53 +171,22 @@ public abstract class ActorLayer extends LContainer {
 		return move;
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param o
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(ActionBind o, int x, int y, int w, int h) {
 		return callMoveTo(o, true, x, y, w, h);
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param o
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(ActionBind o, int x, int y) {
 		return callMoveTo(o, x, y, 32, 32);
 	}
 
-	/**
-	 * 让指定对象执行MoveTo事件
-	 * 
-	 * @param o
-	 * @param x
-	 * @param y
-	 * @param flag
-	 * @return
-	 */
+	
 	public MoveTo callMoveTo(ActionBind o, int x, int y, boolean flag) {
 		return callMoveTo(o, flag, x, y, 32, 32);
 	}
 
-	/**
-	 * 让指定对象执行FadeTo事件
-	 * 
-	 * @param o
-	 * @param type
-	 * @param speed
-	 * @return
-	 */
+	
 	public FadeTo callFadeTo(ActionBind o, int type, int speed) {
 		if (isClose) {
 			return null;
@@ -332,36 +196,17 @@ public abstract class ActorLayer extends LContainer {
 		return fade;
 	}
 
-	/**
-	 * 让指定对象执行FadeTo淡入事件
-	 * 
-	 * @param o
-	 * @param speed
-	 * @return
-	 */
+	
 	public FadeTo callFadeInTo(ActionBind o, int speed) {
 		return callFadeTo(o, ISprite.TYPE_FADE_IN, speed);
 	}
 
-	/**
-	 * 让指定对象执行FadeTo淡出事件
-	 * 
-	 * @param o
-	 * @param speed
-	 * @return
-	 */
+	
 	public FadeTo callFadeOutTo(ActionBind o, int speed) {
 		return callFadeTo(o, ISprite.TYPE_FADE_OUT, speed);
 	}
 
-	/**
-	 * 让指定对象执行RotateTo旋转事件
-	 * 
-	 * @param o
-	 * @param angle
-	 * @param speed
-	 * @return
-	 */
+	
 	public RotateTo callRotateTo(ActionBind o, float angle, float speed) {
 		if (isClose) {
 			return null;
@@ -371,14 +216,7 @@ public abstract class ActorLayer extends LContainer {
 		return rotate;
 	}
 
-	/**
-	 * 让指定对象执行JumpTo跳跃事件
-	 * 
-	 * @param o
-	 * @param j
-	 * @param g
-	 * @return
-	 */
+	
 	public JumpTo callJumpTo(ActionBind o, int j, float g) {
 		if (isClose) {
 			return null;
@@ -388,14 +226,7 @@ public abstract class ActorLayer extends LContainer {
 		return jump;
 	}
 
-	/**
-	 * 让指定角色根据指定半径以指定速度循环转动
-	 * 
-	 * @param o
-	 * @param radius
-	 * @param velocity
-	 * @return
-	 */
+	
 	public CircleTo callCircleTo(ActionBind o, int radius, int velocity) {
 		if (isClose) {
 			return null;
@@ -405,15 +236,7 @@ public abstract class ActorLayer extends LContainer {
 		return circle;
 	}
 
-	/**
-	 * 向指定坐标以指定速度让指定角色做为子弹发射
-	 * 
-	 * @param o
-	 * @param x
-	 * @param y
-	 * @param speed
-	 * @return
-	 */
+	
 	public FireTo callFireTo(ActionBind o, int x, int y, double speed) {
 		if (isClose) {
 			return null;
@@ -423,14 +246,7 @@ public abstract class ActorLayer extends LContainer {
 		return fire;
 	}
 
-	/**
-	 * 让角色缩放指定大小
-	 * 
-	 * @param o
-	 * @param sx
-	 * @param sy
-	 * @return
-	 */
+	
 	public ScaleTo callScaleTo(ActionBind o, float sx, float sy) {
 		if (isClose) {
 			return null;
@@ -440,25 +256,12 @@ public abstract class ActorLayer extends LContainer {
 		return scale;
 	}
 
-	/**
-	 * 让角色缩放指定大小
-	 * 
-	 * @param o
-	 * @param s
-	 * @return
-	 */
+	
 	public ScaleTo callScaleTo(ActionBind o, float s) {
 		return callScaleTo(o, s, s);
 	}
 
-	/**
-	 * 让指定角色做箭状发射(抛物线)
-	 * 
-	 * @param o
-	 * @param tx
-	 * @param ty
-	 * @return
-	 */
+	
 	public ArrowTo callArrowTo(ActionBind o, float tx, float ty) {
 		if (isClose) {
 			return null;
@@ -468,13 +271,7 @@ public abstract class ActorLayer extends LContainer {
 		return arrow;
 	}
 	
-	/**
-	 * 以指定瓦片大小创建数组地图
-	 * 
-	 * @param tileWidth
-	 * @param tileHeight
-	 * @return
-	 */
+	
 	public Field2D createArrayMap(int tileWidth, int tileHeight) {
 		if (isClose) {
 			return null;
@@ -484,11 +281,7 @@ public abstract class ActorLayer extends LContainer {
 		return tmpField;
 	}
 
-	/**
-	 * 设定Layer对应的二维数组地图
-	 * 
-	 * @param map
-	 */
+	
 	public void setField2D(Field2D field) {
 		if (isClose) {
 			return;
@@ -508,23 +301,13 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 返回Layer对应的二维数据地图
-	 * 
-	 * @param map
-	 */
+	
 	@Override
 	public Field2D getField2D() {
 		return tmpField;
 	}
 
-	/**
-	 * 添加角色到Layer(在Layer中添加的角色将自动赋予碰撞检查)
-	 * 
-	 * @param object
-	 * @param x
-	 * @param y
-	 */
+	
 	public void addObject(Actor object, float x, float y) {
 		if (isClose) {
 			return;
@@ -538,11 +321,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 添加角色到Layer
-	 * 
-	 * @param object
-	 */
+	
 	public void addObject(Actor object) {
 		if (isClose) {
 			return;
@@ -550,11 +329,7 @@ public abstract class ActorLayer extends LContainer {
 		addObject(object, object.x(), object.y());
 	}
 
-	/**
-	 * 将指定角色于Layer前置
-	 * 
-	 * @param actor
-	 */
+	
 	void sendToFront(Actor actor) {
 		if (isClose) {
 			return;
@@ -568,11 +343,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 将指定角色于Layer后置
-	 * 
-	 * @param actor
-	 */
+	
 	void sendToBack(Actor actor) {
 		if (isClose) {
 			return;
@@ -586,13 +357,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 参考指定大小根据Layer范围生成一组不重复的随机坐标
-	 * 
-	 * @param act
-	 * @param count
-	 * @return
-	 */
+	
 	public RectBox[] getRandomLayerLocation(int nx, int ny, int nw, int nh,
 			int count) {
 		if (isClose) {
@@ -642,14 +407,7 @@ public abstract class ActorLayer extends LContainer {
 		return null;
 	}
 
-	/**
-	 * 参考指定大小根据Layer范围生成一组不重复的随机坐标
-	 * 
-	 * @param actorWidth
-	 * @param actorHeight
-	 * @param count
-	 * @return
-	 */
+	
 	public RectBox[] getRandomLayerLocation(int actorWidth, int actorHeight,
 			int count) {
 		if (isClose) {
@@ -658,13 +416,7 @@ public abstract class ActorLayer extends LContainer {
 		return getRandomLayerLocation(0, 0, actorWidth, actorHeight, count);
 	}
 
-	/**
-	 * 参考指定角色根据Layer范围生成一组不重复的随机坐标
-	 * 
-	 * @param actor
-	 * @param count
-	 * @return
-	 */
+	
 	public RectBox[] getRandomLayerLocation(Actor actor, int count) {
 		if (isClose) {
 			return null;
@@ -674,12 +426,7 @@ public abstract class ActorLayer extends LContainer {
 				rect.height, count);
 	}
 
-	/**
-	 * 参考指定Actor大小根据Layer生成一个不重复的随机坐标
-	 * 
-	 * @param actor
-	 * @return
-	 */
+	
 	public RectBox getRandomLayerLocation(Actor actor) {
 		if (isClose) {
 			return null;
@@ -691,11 +438,7 @@ public abstract class ActorLayer extends LContainer {
 		return null;
 	}
 
-	/**
-	 * 删除指定的角色
-	 * 
-	 * @param object
-	 */
+	
 	public void removeObject(Actor object) {
 		if (isClose) {
 			return;
@@ -712,11 +455,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 删除所有指定的游戏类
-	 * 
-	 * @param clazz
-	 */
+	
 	public void removeObject(Class clazz) {
 		if (isClose) {
 			return;
@@ -744,11 +483,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 删除指定集合中的所有角色
-	 * 
-	 * @param objects
-	 */
+	
 	public void removeObjects(List objects) {
 		if (isClose) {
 			return;
@@ -762,12 +497,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 获得含有指定角色碰撞的List集合
-	 * 
-	 * @param actor
-	 * @return
-	 */
+	
 	public List getCollisionObjects(Actor actor) {
 		if (isClose) {
 			return null;
@@ -775,10 +505,7 @@ public abstract class ActorLayer extends LContainer {
 		return getCollisionObjects(actor.getClass());
 	}
 
-	/**
-	 * 刷新缓存数据，重置世界
-	 * 
-	 */
+	
 	public void reset() {
 		if (isClose) {
 			return;
@@ -800,12 +527,7 @@ public abstract class ActorLayer extends LContainer {
 		}
 	}
 
-	/**
-	 * 获得指定类所产生角色碰撞的List集合
-	 * 
-	 * @param cls
-	 * @return
-	 */
+	
 	public List getCollisionObjects(Class cls) {
 		if (isClose) {
 			return null;
@@ -813,14 +535,7 @@ public abstract class ActorLayer extends LContainer {
 		return this.collisionChecker.getObjects(cls);
 	}
 
-	/**
-	 * 返回指定角色类在指定位置的List集合
-	 * 
-	 * @param x
-	 * @param y
-	 * @param cls
-	 * @return
-	 */
+	
 	public List getCollisionObjectsAt(float x, float y, Class cls) {
 		if (isClose) {
 			return null;
@@ -828,13 +543,7 @@ public abstract class ActorLayer extends LContainer {
 		return this.collisionChecker.getObjectsAt(x, y, cls);
 	}
 
-	/**
-	 * 返回指定区域对应的单一Actor
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public Actor getOnlyCollisionObjectsAt(float x, float y) {
 		if (isClose) {
 			return null;
@@ -842,13 +551,7 @@ public abstract class ActorLayer extends LContainer {
 		return objects.getOnlyCollisionObjectsAt(x, y);
 	}
 
-	/**
-	 * 返回指定区域和标记对应的单一Actor
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public Actor getOnlyCollisionObjectsAt(float x, float y, Object tag) {
 		if (isClose) {
 			return null;
@@ -856,11 +559,7 @@ public abstract class ActorLayer extends LContainer {
 		return objects.getOnlyCollisionObjectsAt(x, y, tag);
 	}
 
-	/**
-	 * 角色对象总数
-	 * 
-	 * @return
-	 */
+	
 	public int size() {
 		if (isClose) {
 			return 0;

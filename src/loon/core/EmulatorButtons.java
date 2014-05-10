@@ -12,26 +12,7 @@ import loon.core.input.MultitouchUtils;
 
 import android.view.MotionEvent;
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class EmulatorButtons implements LRelease {
 
 	private LTextureRegion dpad, buttons;
@@ -243,12 +224,7 @@ public class EmulatorButtons implements LRelease {
 		this.setLocation(0, 0);
 	}
 
-	/**
-	 * 移动模拟按钮集合位置(此为相对坐标，默认居于屏幕下方)
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public void setLocation(int x, int y) {
 		if (!visible) {
 			return;
@@ -375,11 +351,7 @@ public class EmulatorButtons implements LRelease {
 		return touches[changed];
 	}
 
-	/**
-	 * 当触发模拟按钮时，自动分配事件
-	 * 
-	 * @param e
-	 */
+	
 	public void onEmulatorButtonEvent(MotionEvent e) {
 		if (!visible) {
 			return;
@@ -510,11 +482,7 @@ public class EmulatorButtons implements LRelease {
 		return offsetY;
 	}
 
-	/**
-	 * 获得模拟按钮的集合
-	 * 
-	 * @return
-	 */
+	
 	public EmulatorButton[] getEmulatorButtons() {
 		return new EmulatorButton[] { up, left, right, down, triangle, square,
 				circle, cancel };

@@ -2,54 +2,19 @@ package loon.core.geom;
 
 import loon.action.collision.CollisionHelper;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class Circle extends Ellipse {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public float radius;
 
-	/**
-	 * 构建一个圆形
-	 * 
-	 * @param x
-	 * @param y
-	 * @param radius
-	 */
+	
 	public Circle(float x, float y, float radius) {
 		this(x, y, radius, DEFAULT_SEGMENT_MAX_COUNT);
 	}
 
-	/**
-	 * 构建一个圆形
-	 * 
-	 * @param x
-	 * @param y
-	 * @param radius
-	 * @param segment
-	 */
+	
 	public Circle(float x, float y, float radius, int segment) {
 		super(x, y, radius, radius, segment);
 		this.x = x - radius;
@@ -58,28 +23,19 @@ public class Circle extends Ellipse {
 		this.boundingCircleRadius = radius;
 	}
 
-	/**
-	 * 返回当前圆形的中心X点
-	 * 
-	 */
+	
 	@Override
 	public float getCenterX() {
 		return getX() + radius;
 	}
 
-	/**
-	 * 返回当前圆形的中心Y点
-	 */
+	
 	@Override
 	public float getCenterY() {
 		return getY() + radius;
 	}
 
-	/**
-	 * 设定当前圆形半径
-	 * 
-	 * @param radius
-	 */
+	
 	public void setRadius(float radius) {
 		if (radius != this.radius) {
 			pointsDirty = true;
@@ -88,18 +44,12 @@ public class Circle extends Ellipse {
 		}
 	}
 
-	/**
-	 * 返回当前圆形半径
-	 * 
-	 * @return
-	 */
+	
 	public float getRadius() {
 		return radius;
 	}
 
-	/**
-	 * 检查当前圆形与指定形状是否相交
-	 */
+	
 	@Override
 	public boolean intersects(Shape shape) {
 		if (shape instanceof Circle) {
@@ -126,12 +76,7 @@ public class Circle extends Ellipse {
 		}
 	}
 
-	/**
-	 * 检查当前圆形是否包含指定直线
-	 * 
-	 * @param line
-	 * @return
-	 */
+	
 	public boolean contains(Line line) {
 		return contains(line.getX1(), line.getY1())
 				&& contains(line.getX2(), line.getY2());

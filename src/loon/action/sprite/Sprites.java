@@ -15,26 +15,7 @@ import loon.utils.CollectionUtils;
 import loon.utils.MathUtils;
 
 
-/**
- * Copyright 2008 - 2010
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class Sprites implements Serializable, LRelease {
 
 	public static interface SpriteListener {
@@ -84,11 +65,7 @@ public class Sprites implements Serializable, LRelease {
 		this.sprites = new ISprite[capacity];
 	}
 
-	/**
-	 * 设定指定对象到图层最前
-	 * 
-	 * @param sprite
-	 */
+	
 	public void sendToFront(ISprite sprite) {
 		if (this.size <= 1 || this.sprites[0] == sprite) {
 			return;
@@ -108,11 +85,7 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 设定指定对象到图层最后
-	 * 
-	 * @param sprite
-	 */
+	
 	public void sendToBack(ISprite sprite) {
 		if (this.size <= 1 || this.sprites[this.size - 1] == sprite) {
 			return;
@@ -132,19 +105,12 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 按所在层级排序
-	 * 
-	 */
+	
 	public void sortSprites() {
 		Arrays.sort(this.sprites, this.comparator);
 	}
 
-	/**
-	 * 扩充当前集合容量
-	 * 
-	 * @param capacity
-	 */
+	
 	private void expandCapacity(int capacity) {
 		if (sprites.length < capacity) {
 			ISprite[] bagArray = new ISprite[capacity];
@@ -153,11 +119,7 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 压缩当前集合容量
-	 * 
-	 * @param capacity
-	 */
+	
 	private void compressCapacity(int capacity) {
 		if (capacity + this.size < sprites.length) {
 			ISprite[] newArray = new ISprite[this.size + 2];
@@ -166,13 +128,7 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 查找指定位置的精灵对象
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public synchronized ISprite find(int x, int y) {
 		ISprite[] snapshot = sprites;
 		for (int i = snapshot.length - 1; i >= 0; i--) {
@@ -185,12 +141,7 @@ public class Sprites implements Serializable, LRelease {
 		return null;
 	}
 
-	/**
-	 * 查找指定名称的精灵对象
-	 * 
-	 * @param name
-	 * @return
-	 */
+	
 	public synchronized ISprite find(String name) {
 		ISprite[] snapshot = sprites;
 		for (int i = snapshot.length - 1; i >= 0; i--) {
@@ -205,13 +156,7 @@ public class Sprites implements Serializable, LRelease {
 		return null;
 	}
 
-	/**
-	 * 在指定索引处插入一个精灵
-	 * 
-	 * @param index
-	 * @param sprite
-	 * @return
-	 */
+	
 	public synchronized boolean add(int index, ISprite sprite) {
 		if (sprite == null) {
 			return false;
@@ -239,11 +184,7 @@ public class Sprites implements Serializable, LRelease {
 		return sprites[index];
 	}
 
-	/**
-	 * 返回位于顶部的精灵
-	 * 
-	 * @return
-	 */
+	
 	public synchronized ISprite getTopSprite() {
 		if (size > 0) {
 			return sprites[0];
@@ -251,11 +192,7 @@ public class Sprites implements Serializable, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于底部的精灵
-	 * 
-	 * @return
-	 */
+	
 	public synchronized ISprite getBottomSprite() {
 		if (size > 0) {
 			return sprites[size - 1];
@@ -263,12 +200,7 @@ public class Sprites implements Serializable, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回所有指定类产生的精灵
-	 * 
-	 * @param clazz
-	 * @return
-	 */
+	
 	public synchronized ArrayList<ISprite> getSprites(
 			Class<? extends ISprite> clazz) {
 		if (clazz == null) {
@@ -286,12 +218,7 @@ public class Sprites implements Serializable, LRelease {
 		return l;
 	}
 
-	/**
-	 * 顺序添加精灵
-	 * 
-	 * @param sprite
-	 * @return
-	 */
+	
 	public synchronized boolean add(ISprite sprite) {
 		if (contains(sprite)) {
 			return false;
@@ -303,22 +230,12 @@ public class Sprites implements Serializable, LRelease {
 		return (sprites[size++] = sprite) != null;
 	}
 
-	/**
-	 * 顺序添加精灵
-	 * 
-	 * @param sprite
-	 * @return
-	 */
+	
 	public void append(ISprite sprite) {
 		add(sprite);
 	}
 
-	/**
-	 * 检查指定精灵是否存在
-	 * 
-	 * @param sprite
-	 * @return
-	 */
+	
 	public synchronized boolean contains(ISprite sprite) {
 		if (sprite == null) {
 			return false;
@@ -334,12 +251,7 @@ public class Sprites implements Serializable, LRelease {
 		return false;
 	}
 
-	/**
-	 * 删除指定索引处精灵
-	 * 
-	 * @param index
-	 * @return
-	 */
+	
 	public synchronized ISprite remove(int index) {
 		ISprite removed = this.sprites[index];
 		int size = this.size - index - 1;
@@ -353,21 +265,13 @@ public class Sprites implements Serializable, LRelease {
 		return removed;
 	}
 
-	/**
-	 * 清空所有精灵
-	 * 
-	 */
+	
 	public synchronized void removeAll() {
 		clear();
 		this.sprites = new ISprite[0];
 	}
 
-	/**
-	 * 删除所有指定类
-	 * 
-	 * @param clazz
-	 * @return
-	 */
+	
 	public synchronized void remove(Class<? extends ISprite> clazz) {
 		if (clazz == null) {
 			return;
@@ -389,12 +293,7 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 删除指定精灵
-	 * 
-	 * @param sprite
-	 * @return
-	 */
+	
 	public synchronized boolean remove(ISprite sprite) {
 		if (sprite == null) {
 			return false;
@@ -421,12 +320,7 @@ public class Sprites implements Serializable, LRelease {
 		return removed;
 	}
 
-	/**
-	 * 删除指定范围内精灵
-	 * 
-	 * @param startIndex
-	 * @param endIndex
-	 */
+	
 	public synchronized void remove(int startIndex, int endIndex) {
 		int numMoved = this.size - endIndex;
 		System.arraycopy(this.sprites, endIndex, this.sprites, startIndex,
@@ -460,10 +354,7 @@ public class Sprites implements Serializable, LRelease {
 		return p;
 	}
 
-	/**
-	 * 清空当前精灵集合
-	 * 
-	 */
+	
 	public synchronized void clear() {
 		for (int i = 0; i < sprites.length; i++) {
 			sprites[i] = null;
@@ -471,11 +362,7 @@ public class Sprites implements Serializable, LRelease {
 		size = 0;
 	}
 
-	/**
-	 * 刷新事务
-	 * 
-	 * @param elapsedTime
-	 */
+	
 	public void update(long elapsedTime) {
 		boolean listerner = (sprListerner != null);
 		for (int i = size - 1; i >= 0; i--) {
@@ -489,20 +376,12 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 创建UI图像
-	 * 
-	 * @param g
-	 */
+	
 	public void createUI(final GLEx g) {
 		createUI(g, 0, 0);
 	}
 
-	/**
-	 * 创建UI图像
-	 * 
-	 * @param g
-	 */
+	
 	public void createUI(final GLEx g, final int x, final int y) {
 		if (!visible) {
 			return;
@@ -549,14 +428,7 @@ public class Sprites implements Serializable, LRelease {
 		}
 	}
 
-	/**
-	 * 设定精灵集合在屏幕中的位置与大小
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public void setViewWindow(int x, int y, int width, int height) {
 		this.isViewWindowSet = true;
 		this.viewX = x;
@@ -565,12 +437,7 @@ public class Sprites implements Serializable, LRelease {
 		this.height = height;
 	}
 
-	/**
-	 * 设定精灵集合在屏幕中的位置
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public void setLocation(int x, int y) {
 		this.isViewWindowSet = true;
 		this.viewX = x;

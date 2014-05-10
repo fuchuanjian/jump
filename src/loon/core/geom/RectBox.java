@@ -2,31 +2,10 @@ package loon.core.geom;
 
 import loon.utils.MathUtils;
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class RectBox extends Shape {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public static class Rect2i {
@@ -558,49 +537,25 @@ public class RectBox extends Shape {
 		return width * height;
 	}
 
-	/**
-	 * 检查是否包含指定坐标
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	@Override
 	public boolean contains(float x, float y) {
 		return contains(x, y, 0, 0);
 	}
 
-	/**
-	 * 检查是否包含指定坐标
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
-	 */
+	
 	public boolean contains(float x, float y, float width, float height) {
 		return (x >= this.x && y >= this.y
 				&& ((x + width) <= (this.x + this.width)) && ((y + height) <= (this.y + this.height)));
 	}
 
-	/**
-	 * 检查是否包含指定坐标
-	 * 
-	 * @param rect
-	 * @return
-	 */
+	
 
 	public boolean contains(RectBox rect) {
 		return contains(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	/**
-	 * 设定矩形选框交集
-	 * 
-	 * @param rect
-	 * @return
-	 */
+	
 
 	public boolean intersects(RectBox rect) {
 		return intersects(rect.x, rect.y, rect.width, rect.height);
@@ -610,37 +565,18 @@ public class RectBox extends Shape {
 		return intersects(0, 0, width, height);
 	}
 
-	/**
-	 * 设定矩形选框交集
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
-	 */
+	
 	public boolean intersects(float x, float y, float width, float height) {
 		return x + width > this.x && x < this.x + this.width
 				&& y + height > this.y && y < this.y + this.height;
 	}
 
-	/**
-	 * 设定矩形选框交集
-	 * 
-	 * @param rect
-	 */
+	
 	public void intersection(RectBox rect) {
 		intersection(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	/**
-	 * 设定矩形选框交集
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public void intersection(float x, float y, float width, float height) {
 		int x1 = (int) MathUtils.max(this.x, x);
 		int y1 = (int) MathUtils.max(this.y, y);
@@ -649,24 +585,13 @@ public class RectBox extends Shape {
 		setBounds(x1, y1, Math.max(0, x2 - x1 + 1), Math.max(0, y2 - y1 + 1));
 	}
 
-	/**
-	 * 判定指定坐标是否位于当前RectBox内部
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public boolean inside(int x, int y) {
 		return (x >= this.x) && ((x - this.x) < this.width) && (y >= this.y)
 				&& ((y - this.y) < this.height);
 	}
 
-	/**
-	 * 返回当前的矩形选框交集
-	 * 
-	 * @param rect
-	 * @return
-	 */
+	
 	public RectBox getIntersection(RectBox rect) {
 		int x1 = (int) MathUtils.max(x, rect.x);
 		int x2 = (int) MathUtils.min(x + width, rect.x + rect.width);
@@ -675,23 +600,12 @@ public class RectBox extends Shape {
 		return new RectBox(x1, y1, x2 - x1, y2 - y1);
 	}
 
-	/**
-	 * 合并矩形选框
-	 * 
-	 * @param rect
-	 */
+	
 	public void union(RectBox rect) {
 		union(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	/**
-	 * 合并矩形选框
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public void union(float x, float y, float width, float height) {
 		int x1 = (int) MathUtils.min(this.x, x);
 		int y1 = (int) MathUtils.min(this.y, y);
@@ -740,63 +654,33 @@ public class RectBox extends Shape {
 		return resultPolygon;
 	}
 
-	/**
-	 * 水平移动X坐标执行长度
-	 * 
-	 * @param xMod
-	 */
+	
 	public final void modX(float xMod) {
 		x += xMod;
 	}
 
-	/**
-	 * 水平移动Y坐标指定长度
-	 * 
-	 * @param yMod
-	 */
+	
 	public final void modY(float yMod) {
 		y += yMod;
 	}
 
-	/**
-	 * 水平移动Width指定长度
-	 * 
-	 * @param w
-	 */
+	
 	public void modWidth(float w) {
 		this.width += w;
 	}
 
-	/**
-	 * 水平移动Height指定长度
-	 * 
-	 * @param h
-	 */
+	
 	public void modHeight(float h) {
 		this.height += h;
 	}
 
-	/**
-	 * 判断指定坐标是否在一条直线上
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @return
-	 */
+	
 	public final boolean intersectsLine(final float x1, final float y1,
 			final float x2, final float y2) {
 		return contains(x1, y1) || contains(x2, y2);
 	}
 
-	/**
-	 * 判定指定坐标是否位于当前RectBox内部
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
+	
 	public boolean inside(float x, float y) {
 		return (x >= this.x) && ((x - this.x) < this.width) && (y >= this.y)
 				&& ((y - this.y) < this.height);

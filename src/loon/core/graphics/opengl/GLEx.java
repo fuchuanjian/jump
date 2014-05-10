@@ -20,40 +20,10 @@ import loon.utils.MathUtils;
 
 import android.util.Log;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public final class GLEx implements LTrans {
 
-	/**
-	 * 以glQuad方式将所提交的全部纹理及信息渲染为图像
-	 * 
-	 * @param texture
-	 * @param vertexBuffer
-	 * @param coordsBuffer
-	 * @param count
-	 * @param x
-	 * @param y
-	 * @param rotaion
-	 */
+	
 	void glQuad(final LTexture texture, final FloatBuffer vertexBuffer,
 			final FloatBuffer coordsBuffer, int count, float x, float y,
 			float sx, float sy, float ax, float ay, float rotaion) {
@@ -155,15 +125,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 以glQuad方式将所提交的全部纹理及信息渲染为图像
-	 * 
-	 * @param texture
-	 * @param cache
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 */
+	
 	void glQuad(final LTexture texture, final LTextureBatch.GLCache cache,
 			float x, float y, float sx, float sy, float ax, float ay,
 			float rotation) {
@@ -171,30 +133,13 @@ public final class GLEx implements LTrans {
 				y, sx, sy, ax, ay, rotation);
 	}
 
-	/**
-	 * 以glDrawArrays方式将所提交的全部纹理及信息渲染为图像
-	 * 
-	 * @param texture
-	 * @param cache
-	 */
+	
 	void glDrawArrays(final LTexture texture, final LTextureBatch.GLCache cache) {
 		glDrawArrays(texture, cache.vertexBuffer, cache.coordsBuffer,
 				cache.colorBuffer, cache.isColor, cache.count, cache.x, cache.y);
 	}
 
-	/**
-	 * 以glDrawArrays方式将所提交的全部纹理及信息渲染为图像
-	 * 
-	 * @param texture
-	 * @param vertexBuffer
-	 * @param coordsBuffer
-	 * @param colorBuffer
-	 * @param indexBuffer
-	 * @param isColor
-	 * @param count
-	 * @param x
-	 * @param y
-	 */
+	
 	void glDrawArrays(final LTexture texture, final FloatBuffer vertexBuffer,
 			final FloatBuffer coordsBuffer, final FloatBuffer colorBuffer,
 			boolean isColor, int count, float x, float y) {
@@ -246,16 +191,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 以指定纹理为目标，复制一组图像到其上
-	 * 
-	 * @param texture
-	 * @param pix
-	 * @param x
-	 * @param y
-	 * @param remove
-	 * @param check
-	 */
+	
 	public synchronized void copyImageToTexture(LTexture texture, LImage pix,
 			int x, int y) {
 		if (!texture.isVisible) {
@@ -446,10 +382,7 @@ public final class GLEx implements LTrans {
 		return (int) viewPort.getHeight();
 	}
 
-	/**
-	 * 变更画布基础设置
-	 * 
-	 */
+	
 	public final void update() {
 		if (isClose) {
 			return;
@@ -499,11 +432,7 @@ public final class GLEx implements LTrans {
 
 	private GLBatch glBatch;
 
-	/**
-	 * 模拟标准OpenGL的glBegin(实际为重新初始化顶点集合)
-	 * 
-	 * @param mode
-	 */
+	
 	public final void glBegin(int mode) {
 		if (isClose) {
 			return;
@@ -516,16 +445,7 @@ public final class GLEx implements LTrans {
 		this.useBegin = true;
 	}
 
-	/**
-	 * 在模拟标准OpenGL的环境中传入指定像素点
-	 * 
-	 * @param x
-	 * @param y
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 */
+	
 	public void putPixel4ES(float x, float y, float r, float g, float b, float a) {
 		if (isClose || !useBegin) {
 			return;
@@ -540,36 +460,17 @@ public final class GLEx implements LTrans {
 		this.glColor(r, g, b, a);
 	}
 
-	/**
-	 * 在模拟标准OpenGL的环境中传入指定像素点
-	 * 
-	 * @param x
-	 * @param y
-	 * @param c
-	 */
+	
 	public void putPixel4ES(float x, float y, LColor c) {
 		putPixel4ES(x, y, c.r, c.g, c.b, c.a);
 	}
 
-	/**
-	 * 在模拟标准OpenGL的环境中传入指定像素点
-	 * 
-	 * @param x
-	 * @param y
-	 * @param r
-	 * @param g
-	 * @param b
-	 */
+	
 	public void putPixel3ES(float x, float y, float r, float g, float b) {
 		putPixel4ES(x, y, r, g, b, 1);
 	}
 
-	/**
-	 * 设置纹理坐标
-	 * 
-	 * @param fcol
-	 * @param frow
-	 */
+	
 	public final void glTexCoord2f(float fcol, float frow) {
 		if (isClose || !useBegin) {
 			return;
@@ -577,12 +478,7 @@ public final class GLEx implements LTrans {
 		glBatch.texCoord(fcol, frow);
 	}
 
-	/**
-	 * 添加二维纹理
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public final void glVertex2f(float x, float y) {
 		if (isClose || !useBegin) {
 			return;
@@ -590,13 +486,7 @@ public final class GLEx implements LTrans {
 		glVertex3f(x, y, 0);
 	}
 
-	/**
-	 * 添加三维纹理
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
+	
 	public final void glVertex3f(float x, float y, float z) {
 		if (isClose || !useBegin) {
 			return;
@@ -604,14 +494,7 @@ public final class GLEx implements LTrans {
 		glBatch.vertex(x, y, z);
 	}
 
-	/**
-	 * 定义色彩
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 */
+	
 	public void glColor(float r, float g, float b, float a) {
 		if (isClose || !useBegin) {
 			return;
@@ -619,11 +502,7 @@ public final class GLEx implements LTrans {
 		glBatch.color(r, g, b, a);
 	}
 
-	/**
-	 * 定义色彩
-	 * 
-	 * @param c
-	 */
+	
 	public void glColor(LColor c) {
 		if (isClose) {
 			return;
@@ -631,62 +510,27 @@ public final class GLEx implements LTrans {
 		glBatch.color(c);
 	}
 
-	/**
-	 * 定义色彩
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 */
+	
 	public void glColor(float r, float g, float b) {
 		glColor(r, g, b, 1);
 	}
 
-	/**
-	 * 绘制线段(模式应为GL.GL_LINES)
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 */
+	
 	public void glLine(float x1, float y1, float x2, float y2) {
 		$drawLine(x1, y1, x2, y2, false);
 	}
 
-	/**
-	 * 绘制矩形(模式应为GL.GL_POLYGON)
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public void glDrawRect(float x, float y, float width, float height) {
 		glRect(x, y, width, height, false);
 	}
 
-	/**
-	 * 绘制矩形(模式应为GL.GL_POLYGON)
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public void glFillRect(float x, float y, float width, float height) {
 		glRect(x, y, width, height, true);
 	}
 
-	/**
-	 * 绘制矩形(模式应为GL.GL_POLYGON)
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param fill
-	 */
+	
 	private final void glRect(float x, float y, float width, float height,
 			boolean fill) {
 		float[] xs = new float[4];
@@ -706,41 +550,22 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制多边形(模式应为GL.GL_LINE_LOOP)
-	 * 
-	 * @param xPoints
-	 * @param yPoints
-	 * @param nPoints
-	 */
+	
 	public void glDrawPoly(float[] xPoints, float[] yPoints, int nPoints) {
 		$drawPolygon(xPoints, yPoints, nPoints, false);
 	}
 
-	/**
-	 * 填充多边形(模式应为GL.GL_LINE_LOOP)
-	 * 
-	 * @param xPoints
-	 * @param yPoints
-	 * @param nPoints
-	 */
+	
 	public void glFillPoly(float[] xPoints, float[] yPoints, int nPoints) {
 		$fillPolygon(xPoints, yPoints, nPoints, false);
 	}
 
-	/**
-	 * 检查是否开启了glbegin函数
-	 * 
-	 * @return
-	 */
+	
 	public boolean useGLBegin() {
 		return useBegin;
 	}
 
-	/**
-	 * 模拟标准OpenGL的glEnd(实际为提交顶点坐标给OpenGL)
-	 * 
-	 */
+	
 	public final void glEnd() {
 		if (isClose || !useBegin) {
 			useBegin = false;
@@ -750,10 +575,7 @@ public final class GLEx implements LTrans {
 		useBegin = false;
 	}
 
-	/**
-	 * 开启2D纹理设置(禁用此前的纹理操作)
-	 * 
-	 */
+	
 	public final void glTex2DDisable() {
 		if (isClose) {
 			return;
@@ -764,10 +586,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 关闭2D纹理设置(允许新的纹理操作)
-	 * 
-	 */
+	
 	public final void glTex2DEnable() {
 		if (isClose) {
 			return;
@@ -778,10 +597,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 允许顶点数组操作
-	 * 
-	 */
+	
 	public final void glTex2DARRAYEnable() {
 		if (isClose) {
 			return;
@@ -793,10 +609,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 禁用定点数组操作
-	 * 
-	 */
+	
 	public final void glTex2DARRAYDisable() {
 		if (isClose) {
 			return;
@@ -808,11 +621,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定当前使用的色彩混合模式
-	 * 
-	 * @param mode
-	 */
+	
 	public final void setBlendMode(int mode) {
 		if (isClose) {
 			return;
@@ -872,11 +681,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 判断当前系统是否支持VBO
-	 * 
-	 * @return
-	 */
+	
 	public final static boolean checkVBO() {
 		if (isVboSupported()) {
 			return true;
@@ -900,46 +705,27 @@ public final class GLEx implements LTrans {
 		return false;
 	}
 
-	/**
-	 * 判定是否使用VBO
-	 * 
-	 * @return
-	 */
+	
 	public final static boolean isVbo() {
 		return GLEx.vboOn;
 	}
 
-	/**
-	 * 设定是否使用VBO
-	 * 
-	 * @param vboOn
-	 */
+	
 	public final static void setVbo(boolean vbo) {
 		GLEx.vboOn = vbo;
 	}
 
-	/**
-	 * 判定是否支持VBO
-	 * 
-	 * @return
-	 */
+	
 	public static boolean isVboSupported() {
 		return vboSupported;
 	}
 
-	/**
-	 * 设定是否支持VBO
-	 * 
-	 * @param vboSupported
-	 */
+	
 	public final static void setVBOSupported(boolean vboSupported) {
 		GLEx.vboSupported = vboSupported;
 	}
 
-	/**
-	 * 保存当前的矩阵设置
-	 * 
-	 */
+	
 	public final void glPushMatrix() {
 		if (isClose) {
 			return;
@@ -947,10 +733,7 @@ public final class GLEx implements LTrans {
 		gl10.glPushMatrix();
 	}
 
-	/**
-	 * 还原上次保存的矩阵设置
-	 * 
-	 */
+	
 	public final void glPopMatrix() {
 		if (isClose) {
 			return;
@@ -958,11 +741,7 @@ public final class GLEx implements LTrans {
 		gl10.glPopMatrix();
 	}
 
-	/**
-	 * 清除当前帧色彩
-	 * 
-	 * @param clear
-	 */
+	
 	public void reset(boolean clear) {
 		if (isClose) {
 			return;
@@ -979,10 +758,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 清空屏幕
-	 * 
-	 */
+	
 	public final void drawClear() {
 		if (isClose) {
 			return;
@@ -990,11 +766,7 @@ public final class GLEx implements LTrans {
 		drawClear(LColor.black);
 	}
 
-	/**
-	 * 以指定色彩清空屏幕
-	 * 
-	 * @param color
-	 */
+	
 	public final void drawClear(LColor color) {
 		if (isClose) {
 			return;
@@ -1003,11 +775,7 @@ public final class GLEx implements LTrans {
 		gl10.glClear(GL.GL_COLOR_BUFFER_BIT);
 	}
 
-	/**
-	 * 设定色彩透明度
-	 * 
-	 * @param alpha
-	 */
+	
 	public void setAlphaValue(int alpha) {
 		if (isClose) {
 			return;
@@ -1023,11 +791,7 @@ public final class GLEx implements LTrans {
 		return onAlpha;
 	}
 
-	/**
-	 * 设定色彩透明度
-	 * 
-	 * @param alpha
-	 */
+	
 	public void setAlpha(float alpha) {
 		if (alpha == _lastAlpha) {
 			return;
@@ -1044,23 +808,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 返回当前的色彩透明度
-	 * 
-	 * @return
-	 */
+	
 	public float getAlpha() {
 		return _color.a;
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 */
+	
 	public void setColorValue(int r, int g, int b, int a) {
 		float red = r / 255.0f;
 		float green = g / 255.0f;
@@ -1069,10 +822,7 @@ public final class GLEx implements LTrans {
 		setColor(red, green, blue, alpha);
 	}
 
-	/**
-	 * 释放颜色设定
-	 * 
-	 */
+	
 	public final void resetColor() {
 		if (isClose) {
 			return;
@@ -1084,11 +834,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param color
-	 */
+	
 	public final void setColorRGB(LColor c) {
 		if (isClose) {
 			return;
@@ -1100,11 +846,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param color
-	 */
+	
 	public final void setColorARGB(LColor c) {
 		if (isClose) {
 			return;
@@ -1117,33 +859,18 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param pixel
-	 */
+	
 	public final void setColor(int pixel) {
 		int[] rgbs = LColor.getRGBs(pixel);
 		setColorValue(rgbs[0], rgbs[1], rgbs[2], (int) (_lastAlpha * 255));
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param c
-	 */
+	
 	public final void setColor(LColor c) {
 		setColorARGB(c);
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 */
+	
 	public final void setColor(final float r, final float g, final float b,
 			final float a) {
 		if (isClose) {
@@ -1172,13 +899,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定画布颜色
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 */
+	
 	public final void setColor(final float r, final float g, final float b) {
 		setColor(r, g, b, _lastAlpha);
 	}
@@ -1187,11 +908,7 @@ public final class GLEx implements LTrans {
 		setColor(r, g, b, (int) (_lastAlpha * 255));
 	}
 
-	/**
-	 * 获得当前画布颜色
-	 * 
-	 * @return
-	 */
+	
 	public final LColor getColor() {
 		return new LColor(_color);
 	}
@@ -1204,11 +921,7 @@ public final class GLEx implements LTrans {
 		return _color.getARGB();
 	}
 
-	/**
-	 * 是否采用清晰的绘图模式
-	 * 
-	 * @param flag
-	 */
+	
 	public void setAntiAlias(boolean flag) {
 		if (isClose) {
 			return;
@@ -1225,14 +938,7 @@ public final class GLEx implements LTrans {
 		return isAntialias;
 	}
 
-	/**
-	 * 绘制五角星
-	 * 
-	 * @param color
-	 * @param x
-	 * @param y
-	 * @param r
-	 */
+	
 	public void drawSixStart(LColor color, float x, float y, float r) {
 		if (isClose) {
 			return;
@@ -1242,14 +948,7 @@ public final class GLEx implements LTrans {
 		drawRTriangle(color, x, y, r);
 	}
 
-	/**
-	 * 绘制正三角
-	 * 
-	 * @param color
-	 * @param x
-	 * @param y
-	 * @param r
-	 */
+	
 	public void drawTriangle(LColor color, float x, float y, float r) {
 		if (isClose) {
 			return;
@@ -1272,14 +971,7 @@ public final class GLEx implements LTrans {
 		fillPolygon(xpos, ypos, 3);
 	}
 
-	/**
-	 * 绘制倒三角
-	 * 
-	 * @param color
-	 * @param x
-	 * @param y
-	 * @param r
-	 */
+	
 	public void drawRTriangle(LColor color, float x, float y, float r) {
 		if (isClose) {
 			return;
@@ -1302,16 +994,7 @@ public final class GLEx implements LTrans {
 		fillPolygon(xpos, ypos, 3);
 	}
 
-	/**
-	 * 绘制三角形
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param x3
-	 * @param y3
-	 */
+	
 	public void drawTriangle(final float x1, final float y1, final float x2,
 			final float y2, final float x3, final float y3) {
 		if (isClose) {
@@ -1324,16 +1007,7 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 填充三角形
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param x3
-	 * @param y3
-	 */
+	
 	public void fillTriangle(final float x1, final float y1, final float x2,
 			final float y2, final float x3, final float y3) {
 		if (isClose) {
@@ -1347,22 +1021,12 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 绘制并填充一组三角
-	 * 
-	 * @param ts
-	 */
+	
 	public void fillTriangle(Triangle2f[] ts) {
 		fillTriangle(ts, 0, 0);
 	}
 
-	/**
-	 * 绘制并填充一组三角
-	 * 
-	 * @param ts
-	 * @param x
-	 * @param y
-	 */
+	
 	public void fillTriangle(Triangle2f[] ts, int x, int y) {
 		if (isClose) {
 			return;
@@ -1376,22 +1040,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制并填充一组三角
-	 * 
-	 * @param t
-	 */
+	
 	public void fillTriangle(Triangle2f t) {
 		fillTriangle(t, 0, 0);
 	}
 
-	/**
-	 * 绘制并填充一组三角
-	 * 
-	 * @param t
-	 * @param x
-	 * @param y
-	 */
+	
 	public void fillTriangle(Triangle2f t, float x, float y) {
 		if (isClose) {
 			return;
@@ -1410,22 +1064,12 @@ public final class GLEx implements LTrans {
 		fillPolygon(xpos, ypos, 3);
 	}
 
-	/**
-	 * 绘制一组三角
-	 * 
-	 * @param ts
-	 */
+	
 	public void drawTriangle(Triangle2f[] ts) {
 		drawTriangle(ts, 0, 0);
 	}
 
-	/**
-	 * 绘制一组三角
-	 * 
-	 * @param ts
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawTriangle(Triangle2f[] ts, int x, int y) {
 		if (isClose) {
 			return;
@@ -1439,22 +1083,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制三角
-	 * 
-	 * @param t
-	 */
+	
 	public void drawTriangle(Triangle2f t) {
 		drawTriangle(t, 0, 0);
 	}
 
-	/**
-	 * 绘制三角
-	 * 
-	 * @param t
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawTriangle(Triangle2f t, int x, int y) {
 		if (isClose) {
 			return;
@@ -1473,38 +1107,17 @@ public final class GLEx implements LTrans {
 		drawPolygon(xpos, ypos, 3);
 	}
 
-	/**
-	 * 绘制椭圆
-	 * 
-	 * @param centerX
-	 * @param centerY
-	 * @param r
-	 * @param a
-	 */
+	
 	public void drawOval(float x1, float y1, float width, float height) {
 		this.drawArc(x1, y1, width, height, 32, 0, 360);
 	}
 
-	/**
-	 * 填充椭圆
-	 * 
-	 * @param centerX
-	 * @param centerY
-	 * @param r
-	 * @param a
-	 */
+	
 	public void fillOval(float x1, float y1, float width, float height) {
 		this.fillArc(x1, y1, width, height, 32, 0, 360);
 	}
 
-	/**
-	 * 画线
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 */
+	
 	public void drawLine(float x1, float y1, float x2, float y2) {
 		if (isClose) {
 			return;
@@ -1537,12 +1150,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制色彩点
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawPoint(float x, float y) {
 		if (isClose) {
 			return;
@@ -1552,13 +1160,7 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 绘制一组色彩点
-	 * 
-	 * @param x
-	 * @param y
-	 * @param size
-	 */
+	
 	public void drawPoints(float[] x, float[] y, int size) {
 		if (isClose) {
 			return;
@@ -1570,11 +1172,7 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 绘制指定图形
-	 * 
-	 * @param shape
-	 */
+	
 	public final void draw(Shape shape) {
 		if (isClose) {
 			return;
@@ -1593,11 +1191,7 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 填充指定图形
-	 * 
-	 * @param shape
-	 */
+	
 	public final void fill(Shape shape) {
 		if (isClose) {
 			return;
@@ -1619,14 +1213,7 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 结合纹理绘制指定形状
-	 * 
-	 * @param shape
-	 * @param image
-	 * @param scaleX
-	 * @param scaleY
-	 */
+	
 	public void draw(Shape shape, final LTexture image, final float scaleX,
 			final float scaleY) {
 		if (shape == null) {
@@ -1653,24 +1240,12 @@ public final class GLEx implements LTrans {
 		batch.glEnd();
 	}
 
-	/**
-	 * 结合纹理绘制指定形状，且自动修正大小
-	 * 
-	 * @param shape
-	 * @param image
-	 */
+	
 	public void drawFit(Shape shape, LTexture image) {
 		drawFit(shape, image, 1f, 1f);
 	}
 
-	/**
-	 * 结合纹理绘制指定形状，且自动修正大小
-	 * 
-	 * @param shape
-	 * @param image
-	 * @param scaleX
-	 * @param scaleY
-	 */
+	
 	public void drawFit(Shape shape, final LTexture image, final float scaleX,
 			final float scaleY) {
 		if (shape == null) {
@@ -1708,13 +1283,7 @@ public final class GLEx implements LTrans {
 		batch.glEnd();
 	}
 
-	/**
-	 * 绘制多边形到指定位置
-	 * 
-	 * @param p
-	 * @param x
-	 * @param y
-	 */
+	
 	public void draw(final Shape p, final float x, final float y) {
 		if (isClose) {
 			return;
@@ -1725,12 +1294,7 @@ public final class GLEx implements LTrans {
 		gl10.glPopMatrix();
 	}
 
-	/**
-	 * 绘制多边形为指定旋转方向
-	 * 
-	 * @param p
-	 * @param rotation
-	 */
+	
 	public void draw(final Shape p, final float rotation) {
 		if (isClose) {
 			return;
@@ -1741,13 +1305,7 @@ public final class GLEx implements LTrans {
 		gl10.glPopMatrix();
 	}
 
-	/**
-	 * 填充多边形到指定位置
-	 * 
-	 * @param p
-	 * @param x
-	 * @param y
-	 */
+	
 	public void fill(final Shape p, final float x, final float y) {
 		if (isClose) {
 			return;
@@ -1758,12 +1316,7 @@ public final class GLEx implements LTrans {
 		gl10.glPopMatrix();
 	}
 
-	/**
-	 * 填充多边形为指定旋转方向
-	 * 
-	 * @param p
-	 * @param rotation
-	 */
+	
 	public void fill(final Shape p, final float rotation) {
 		if (isClose) {
 			return;
@@ -1774,22 +1327,12 @@ public final class GLEx implements LTrans {
 		gl10.glPopMatrix();
 	}
 
-	/**
-	 * 填充多边形
-	 * 
-	 * @param p
-	 */
+	
 	public void fillPolygon(Polygon p) {
 		fill(p);
 	}
 
-	/**
-	 * 填充多边形
-	 * 
-	 * @param xPoints
-	 * @param yPoints
-	 * @param nPoints
-	 */
+	
 	public void fillPolygon(float xPoints[], float yPoints[], int nPoints) {
 		if (isClose) {
 			return;
@@ -1812,22 +1355,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制多边形轮廓
-	 * 
-	 * @param p
-	 */
+	
 	public void drawPolygon(Polygon p) {
 		draw(p);
 	}
 
-	/**
-	 * 绘制多边形轮廓
-	 * 
-	 * @param xPoints
-	 * @param yPoints
-	 * @param nPoints
-	 */
+	
 	public void drawPolygon(float[] xPoints, float[] yPoints, int nPoints) {
 		if (isClose) {
 			return;
@@ -1848,27 +1381,13 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制一个矩形
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 */
+	
 	public final void drawRect(final float x1, final float y1, final float x2,
 			final float y2) {
 		setRect(x1, y1, x2, y2, false);
 	}
 
-	/**
-	 * 填充一个矩形
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 */
+	
 	public final void fillRect(final float x1, final float y1, final float x2,
 			final float y2) {
 		setRect(x1, y1, x2, y2, true);
@@ -1878,15 +1397,7 @@ public final class GLEx implements LTrans {
 
 	private float[] temp_ys = new float[4];
 
-	/**
-	 * 设置矩形图案
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param fill
-	 */
+	
 	public final void setRect(float x, float y, float width, float height,
 			boolean fill) {
 		if (isClose) {
@@ -1909,29 +1420,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制指定大小的弧度
-	 * 
-	 * @param rect
-	 * @param segments
-	 * @param start
-	 * @param end
-	 */
+	
 	public final void drawArc(RectBox rect, int segments, float start, float end) {
 		drawArc(rect.x, rect.y, rect.width, rect.height, segments, start, end);
 	}
 
-	/**
-	 * 绘制指定大小的弧度
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param width
-	 * @param height
-	 * @param segments
-	 * @param start
-	 * @param end
-	 */
+	
 	public final void drawArc(float x1, float y1, float width, float height,
 			int segments, float start, float end) {
 		if (isClose) {
@@ -1957,32 +1451,13 @@ public final class GLEx implements LTrans {
 		glEnd();
 	}
 
-	/**
-	 * 填充指定大小的弧度
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param width
-	 * @param height
-	 * @param start
-	 * @param end
-	 */
+	
 	public final void fillArc(float x1, float y1, float width, float height,
 			float start, float end) {
 		fillArc(x1, y1, width, height, 40, start, end);
 	}
 
-	/**
-	 * 填充指定大小的弧度
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param width
-	 * @param height
-	 * @param segments
-	 * @param start
-	 * @param end
-	 */
+	
 	public final void fillArc(float x1, float y1, float width, float height,
 			int segments, float start, float end) {
 		if (isClose) {
@@ -2034,30 +1509,13 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制圆形边框
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param radius
-	 */
+	
 	public final void drawRoundRect(float x, float y, float width,
 			float height, int radius) {
 		drawRoundRect(x, y, width, height, radius, 40);
 	}
 
-	/**
-	 * 绘制圆形边框
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param radius
-	 * @param segs
-	 */
+	
 	public final void drawRoundRect(float x, float y, float width,
 			float height, int radius, int segs) {
 		if (isClose) {
@@ -2085,30 +1543,13 @@ public final class GLEx implements LTrans {
 		drawArc(x, y, d, d, segs, 180, 270);
 	}
 
-	/**
-	 * 填充圆形边框
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param cornerRadius
-	 */
+	
 	public final void fillRoundRect(float x, float y, float width,
 			float height, int cornerRadius) {
 		fillRoundRect(x, y, width, height, cornerRadius, 40);
 	}
 
-	/**
-	 * 填充圆形边框
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param radius
-	 * @param segs
-	 */
+	
 	public final void fillRoundRect(float x, float y, float width,
 			float height, int radius, int segs) {
 		if (isClose) {
@@ -2236,22 +1677,12 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 验证是否为2的N次幂
-	 * 
-	 * @param value
-	 * @return
-	 */
+	
 	public static boolean isPowerOfTwo(int value) {
 		return value != 0 && (value & value - 1) == 0;
 	}
 
-	/**
-	 * 转换数值为2的N次幂
-	 * 
-	 * @param value
-	 * @return
-	 */
+	
 	public static int toPowerOfTwo(int value) {
 		if (value == 0) {
 			return 1;
@@ -2267,10 +1698,7 @@ public final class GLEx implements LTrans {
 		return value + 1;
 	}
 
-	/**
-	 * 清空剪切后的显示区域
-	 * 
-	 */
+	
 	public void clearClip() {
 		if (isClose) {
 			return;
@@ -2287,14 +1715,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 设定指定剪切区域显示图像
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public final void setClip(int x, int y, int width, int height) {
 		if (isClose) {
 			return;
@@ -2311,11 +1732,7 @@ public final class GLEx implements LTrans {
 				(int) (height * LSystem.scaleHeight));
 	}
 
-	/**
-	 * 设定指定剪切区域显示图像
-	 * 
-	 * @param c
-	 */
+	
 	public final void setClip(Clip c) {
 		if (isClose) {
 			return;
@@ -2327,11 +1744,7 @@ public final class GLEx implements LTrans {
 		setClip(c.x, c.y, c.width, c.height);
 	}
 
-	/**
-	 * 返回当前的剪切区域
-	 * 
-	 * @return
-	 */
+	
 	public Clip getClip() {
 		return new Clip(clip);
 	}
@@ -2450,11 +1863,7 @@ public final class GLEx implements LTrans {
 		gl10.glRotatef(angle, x, y, z);
 	}
 
-	/**
-	 * 设定背景颜色
-	 * 
-	 * @param color
-	 */
+	
 	public final void setBackground(LColor color) {
 		if (isClose) {
 			return;
@@ -2462,13 +1871,7 @@ public final class GLEx implements LTrans {
 		gl10.glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	/**
-	 * 渲染纹理到指定位置
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y) {
 		if (isClose || texture == null || texture.isClose) {
 			return;
@@ -2506,14 +1909,7 @@ public final class GLEx implements LTrans {
 				Direction.TRANS_MIRROR);
 	}
 
-	/**
-	 * 渲染纹理到指定位置并修正为指定色彩
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2526,19 +1922,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, color, 0, null, null);
 	}
 
-	/**
-	 * 按照Java中近似作用函数切分纹理
-	 * 
-	 * @param texture
-	 * @param dx1
-	 * @param dy1
-	 * @param dx2
-	 * @param dy2
-	 * @param sx1
-	 * @param sy1
-	 * @param sx2
-	 * @param sy2
-	 */
+	
 	public final void drawJavaTexture(LTexture texture, float dx1, float dy1,
 			float dx2, float dy2, float sx1, float sy1, float sx2, float sy2) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2551,14 +1935,7 @@ public final class GLEx implements LTrans {
 				sy2, _color, 0, null, null);
 	}
 
-	/**
-	 * 渲染纹理到指定位置并修正为指定角度
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float rotation) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2571,14 +1948,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, _color, rotation, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			Direction dir) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2591,15 +1961,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, _color, 0, null, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			LColor color, float rotation) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2612,15 +1974,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, color, rotation, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			LColor color, Direction dir) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2633,17 +1987,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, color, 0, null, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param rotation
-	 * @param origin
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			LColor color, float rotation, Vector2f origin, Direction dir) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2656,18 +2000,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, color, rotation, origin, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param rotation
-	 * @param origin
-	 * @param scale
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			LColor color, float rotation, Vector2f origin, float scale,
 			Direction dir) {
@@ -2682,15 +2015,7 @@ public final class GLEx implements LTrans {
 				origin, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2703,16 +2028,7 @@ public final class GLEx implements LTrans {
 				texture.height, _color, 0, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2725,16 +2041,7 @@ public final class GLEx implements LTrans {
 				texture.height, color, 0, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, float rotation) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2747,15 +2054,7 @@ public final class GLEx implements LTrans {
 				texture.height, _color, rotation, null, null);
 	}
 
-	/**
-	 * 渲染纹理到指定位置
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 * @param d
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float rotation, Direction d) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2768,16 +2067,7 @@ public final class GLEx implements LTrans {
 				texture.width, texture.height, _color, rotation, null, d);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, Direction dir) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2790,17 +2080,7 @@ public final class GLEx implements LTrans {
 				texture.height, _color, 0, null, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param color
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, float rotation, LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2813,17 +2093,7 @@ public final class GLEx implements LTrans {
 				texture.height, color, rotation, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param color
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, LColor color, Direction dir) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2836,19 +2106,7 @@ public final class GLEx implements LTrans {
 				texture.height, color, 0, null, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param color
-	 * @param rotation
-	 * @param origin
-	 * @param dir
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, LColor color, float rotation,
 			Vector2f origin, Direction dir) {
@@ -2862,19 +2120,7 @@ public final class GLEx implements LTrans {
 				texture.height, color, rotation, origin, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param dx1
-	 * @param dy1
-	 * @param dx2
-	 * @param dy2
-	 * @param sx1
-	 * @param sy1
-	 * @param sx2
-	 * @param sy2
-	 */
+	
 	public final void drawTexture(LTexture texture, float dx1, float dy1,
 			float dx2, float dy2, float sx1, float sy1, float sx2, float sy2) {
 		if (isClose || texture == null || texture.isClose) {
@@ -2889,20 +2135,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param dx1
-	 * @param dy1
-	 * @param dx2
-	 * @param dy2
-	 * @param sx1
-	 * @param sy1
-	 * @param sx2
-	 * @param sy2
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, float dx1, float dy1,
 			float dx2, float dy2, float sx1, float sy1, float sx2, float sy2,
 			LColor color) {
@@ -2918,21 +2151,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param dx1
-	 * @param dy1
-	 * @param dx2
-	 * @param dy2
-	 * @param sx1
-	 * @param sy1
-	 * @param sx2
-	 * @param sy2
-	 * @param rotation
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, float dx1, float dy1,
 			float dx2, float dy2, float sx1, float sy1, float sx2, float sy2,
 			float rotation, LColor color) {
@@ -2948,20 +2167,7 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 使用GL11扩展的OES进行贴图
-	 * 
-	 * @param texture
-	 * @param dx1
-	 * @param dy1
-	 * @param dx2
-	 * @param dy2
-	 * @param sx1
-	 * @param sy1
-	 * @param sx2
-	 * @param sy2
-	 * @param c
-	 */
+	
 	public void drawOESTexture(LTexture texture, float dx1, float dy1,
 			float dx2, float dy2, float sx1, float sy1, float sx2, float sy2,
 			LColor c) {
@@ -3027,39 +2233,14 @@ public final class GLEx implements LTrans {
 		}
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x_src
-	 * @param y_src
-	 * @param width
-	 * @param height
-	 * @param transform
-	 * @param x_dst
-	 * @param y_dst
-	 * @param anchor
-	 */
+	
 	public void drawRegion(LTexture texture, int x_src, int y_src, int width,
 			int height, int transform, int x_dst, int y_dst, int anchor) {
 		drawRegion(texture, x_src, y_src, width, height, transform, x_dst,
 				y_dst, anchor, _color);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param x_src
-	 * @param y_src
-	 * @param width
-	 * @param height
-	 * @param transform
-	 * @param x_dst
-	 * @param y_dst
-	 * @param anchor
-	 * @param c
-	 */
+	
 	public void drawRegion(LTexture texture, int x_src, int y_src, int width,
 			int height, int transform, int x_dst, int y_dst, int anchor,
 			LColor c) {
@@ -3175,12 +2356,7 @@ public final class GLEx implements LTrans {
 				+ width, y_src + height, c, rotate, null, dir);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param destRect
-	 */
+	
 	public final void drawTexture(LTexture texture, RectBox destRect) {
 		if (isClose || texture == null || texture.isClose) {
 			return;
@@ -3193,13 +2369,7 @@ public final class GLEx implements LTrans {
 				null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param destRect
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, RectBox destRect,
 			LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -3213,13 +2383,7 @@ public final class GLEx implements LTrans {
 				null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param destRect
-	 * @param srcRect
-	 */
+	
 	public final void drawTexture(LTexture texture, RectBox destRect,
 			RectBox srcRect) {
 		if (isClose || texture == null || texture.isClose) {
@@ -3233,14 +2397,7 @@ public final class GLEx implements LTrans {
 				srcRect.height, _color, 0, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param destRect
-	 * @param srcRect
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, RectBox destRect,
 			RectBox srcRect, LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -3254,14 +2411,7 @@ public final class GLEx implements LTrans {
 				srcRect.height, color, 0, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param destRect
-	 * @param srcRect
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, RectBox destRect,
 			RectBox srcRect, float rotation) {
 		if (isClose || texture == null || texture.isClose) {
@@ -3275,12 +2425,7 @@ public final class GLEx implements LTrans {
 				srcRect.height, _color, rotation, null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param position
-	 */
+	
 	public final void drawTexture(LTexture texture, Vector2f position) {
 		if (isClose || texture == null || texture.isClose) {
 			return;
@@ -3293,13 +2438,7 @@ public final class GLEx implements LTrans {
 				null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定状态
-	 * 
-	 * @param texture
-	 * @param position
-	 * @param color
-	 */
+	
 	public final void drawTexture(LTexture texture, Vector2f position,
 			LColor color) {
 		if (isClose || texture == null || texture.isClose) {
@@ -3313,21 +2452,7 @@ public final class GLEx implements LTrans {
 				null, null);
 	}
 
-	/**
-	 * 渲染纹理为指定设置
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 * @param c
-	 * @param rotation
-	 */
+	
 	public final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, float srcX, float srcY, float srcWidth,
 			float srcHeight, LColor c, float rotation) {
@@ -3337,23 +2462,7 @@ public final class GLEx implements LTrans {
 
 	private boolean updateColor;
 
-	/**
-	 * 渲染纹理为指定设置
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 * @param color
-	 * @param rotation
-	 * @param origin
-	 * @param dir
-	 */
+	
 	private final void drawTexture(LTexture texture, float x, float y,
 			float width, float height, float srcX, float srcY, float srcWidth,
 			float srcHeight, LColor c, float rotation, Vector2f origin,
@@ -3502,15 +2611,7 @@ public final class GLEx implements LTrans {
 
 	private float lastX, lastY, lastWidth, LastHeight;
 
-	/**
-	 * 将指定纹理文件作为矩形区域注入画布
-	 * 
-	 * @param texture
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 */
+	
 	private final void put(LTexture texture, float srcX, float srcY,
 			float srcWidth, float srcHeight) {
 
@@ -3546,58 +2647,28 @@ public final class GLEx implements LTrans {
 
 	}
 
-	/**
-	 * 清空画布为指定色彩
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 */
+	
 	public void clear(float r, float g, float b) {
 		GLUtils.setClearColor(gl10, r, g, b, 1f);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param position
-	 */
+	
 	public final void drawString(String string, Vector2f position) {
 		drawString(string, position.x, position.y, _color);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param position
-	 * @param color
-	 */
+	
 	public final void drawString(final String string, Vector2f position,
 			LColor color) {
 		drawString(string, position.x, position.y, color);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param x
-	 * @param y
-	 */
+	
 	public final void drawString(final String string, float x, float y) {
 		drawString(string, x, y, _color);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param color
-	 */
+	
 	public final void drawString(final String string, float x, float y,
 			LColor color) {
 		if (isClose) {
@@ -3606,14 +2677,7 @@ public final class GLEx implements LTrans {
 		drawString(string, x, y, 0, color);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 */
+	
 	public final void drawString(final String string, float x, float y,
 			float rotation) {
 		if (isClose) {
@@ -3622,16 +2686,7 @@ public final class GLEx implements LTrans {
 		drawString(string, x, y, rotation, _color);
 	}
 
-	/**
-	 * 输出字符串
-	 * 
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 * @param c
-	 * @param check
-	 */
+	
 	public void drawString(final String string, float x, float y,
 			float rotation, LColor c) {
 
@@ -3647,51 +2702,22 @@ public final class GLEx implements LTrans {
 		LSTRDictionary.drawString(font, string, x, y, rotation, c);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param chars
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawChar(char chars, float x, float y) {
 		drawChar(chars, x, y, 0);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param chars
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 */
+	
 	public void drawChar(char chars, float x, float y, float rotation) {
 		drawChar(chars, x, y, rotation, _color);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param chars
-	 * @param x
-	 * @param y
-	 * @param rotation
-	 * @param c
-	 */
+	
 	public void drawChar(char chars, float x, float y, float rotation, LColor c) {
 		drawString(String.valueOf(chars), x, y, rotation, c);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param message
-	 * @param offset
-	 * @param length
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawBytes(byte[] message, int offset, int length, int x, int y) {
 		if (isClose) {
 			return;
@@ -3699,15 +2725,7 @@ public final class GLEx implements LTrans {
 		drawString(new String(message, offset, length), x, y);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param message
-	 * @param offset
-	 * @param length
-	 * @param x
-	 * @param y
-	 */
+	
 	public void drawChars(char[] message, int offset, int length, int x, int y) {
 		if (isClose) {
 			return;
@@ -3715,14 +2733,7 @@ public final class GLEx implements LTrans {
 		drawString(new String(message, offset, length), x, y);
 	}
 
-	/**
-	 * 输出字符
-	 * 
-	 * @param message
-	 * @param x
-	 * @param y
-	 * @param anchor
-	 */
+	
 	public void drawString(String message, int x, int y, int anchor) {
 		if (isClose) {
 			return;
@@ -3773,11 +2784,7 @@ public final class GLEx implements LTrans {
 		drawString(message, x, y);
 	}
 
-	/**
-	 * 绑定指定纹理ID
-	 * 
-	 * @param id
-	 */
+	
 	public void bind(int id) {
 		if (lazyTextureID != id) {
 			gl10.glBindTexture(GL.GL_TEXTURE_2D, id);

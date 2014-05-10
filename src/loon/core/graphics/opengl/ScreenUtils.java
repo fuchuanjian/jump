@@ -10,26 +10,7 @@ import loon.core.graphics.opengl.LTexture.Format;
 import loon.jni.NativeSupport;
 
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email ceponline javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class ScreenUtils {
 
 	private static HashMap<Integer, ScreenCache> screenCache = new HashMap<Integer, ScreenCache>(
@@ -130,15 +111,7 @@ public class ScreenUtils {
 		}
 	}
 
-	/**
-	 * 获得当前游戏屏幕截图
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
-	 */
+	
 	public synchronized static LImage toScreenCaptureImage(int x, int y,
 			int width, int height) {
 		if (GLEx.gl10 == null) {
@@ -185,25 +158,13 @@ public class ScreenUtils {
 		return cache.commit;
 	}
 
-	/**
-	 * 获得当前游戏屏幕截图
-	 * 
-	 * @return
-	 */
+	
 	public static LImage toScreenCaptureImage() {
 		return toScreenCaptureImage(0, 0, LSystem.screenRect.width,
 				LSystem.screenRect.height);
 	}
 
-	/**
-	 * 将当前游戏截屏转化为纹理
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
-	 */
+	
 	public synchronized static LTexture toScreenCaptureTexture(int x, int y,
 			int width, int height) {
 		if (GLEx.gl10 == null) {
@@ -219,11 +180,7 @@ public class ScreenUtils {
 		return texture;
 	}
 
-	/**
-	 * 将当前游戏截屏转化为纹理
-	 * 
-	 * @return
-	 */
+	
 	public static LTexture toScreenCaptureTexture() {
 		return toScreenCaptureTexture(0, 0, LSystem.screenRect.width,
 				LSystem.screenRect.height);

@@ -26,27 +26,7 @@ import loon.utils.MathUtils;
 
 
 
-/**
- * 
- * Copyright 2008 - 2010
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class Actor extends LObject implements ActionBind,LRelease {
 
 	private static int sequenceNumber = 0;
@@ -134,180 +114,94 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		}
 	}
 
-	/**
-	 * 移动当前角色到指定位置并返回MoveTo控制器(flag为true时八方向行走，否则为四方向)
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public MoveTo moveTo(int x, int y) {
 		failIfNotInLayer();
 		return gameLayer.callMoveTo(this, x, y);
 	}
 
-	/**
-	 * 移动当前角色到指定位置并返回MoveTo控制器(flag为true时八方向行走，否则为四方向)
-	 * 
-	 * @param x
-	 * @param y
-	 * @param flag
-	 * @return
-	 */
+	
 	public MoveTo moveTo(int x, int y, boolean flag) {
 		failIfNotInLayer();
 		return gameLayer.callMoveTo(this, x, y, flag);
 	}
 
-	/**
-	 * 命令当前角色执行淡出操作
-	 * 
-	 * @return
-	 */
+	
 	public FadeTo fadeOut() {
 		failIfNotInLayer();
 		return gameLayer.callFadeOutTo(this, 60);
 	}
 
-	/**
-	 * 命令当前角色执行淡入操作
-	 * 
-	 * @return
-	 */
+	
 	public FadeTo fadeIn() {
 		failIfNotInLayer();
 		return gameLayer.callFadeInTo(this, 60);
 	}
 
-	/**
-	 * 以指定速度渐进式旋转当前角色到指定角度
-	 * 
-	 * @param rotate
-	 * @param speed
-	 * @return
-	 */
+	
 	public RotateTo rotateTo(float rotate, float speed) {
 		failIfNotInLayer();
 		return gameLayer.callRotateTo(this, rotate, speed);
 	}
 
-	/**
-	 * 渐进式旋转当前角色到指定角度
-	 * 
-	 * @param rotate
-	 * @return
-	 */
+	
 	public RotateTo rotateTo(float rotate) {
 		return rotateTo(rotate, 2.0F);
 	}
 
-	/**
-	 * 以指定加速度指定重力跳跃当前角色
-	 * 
-	 * @param jump
-	 * @param g
-	 * @return
-	 */
+	
 	public JumpTo jumpTo(int jump, float g) {
 		failIfNotInLayer();
 		return gameLayer.callJumpTo(this, -jump, g);
 	}
 
-	/**
-	 * 以指定加速度跳跃当前角色
-	 * 
-	 * @param jump
-	 * @return
-	 */
+	
 	public JumpTo jumpTo(int jump) {
 		return jumpTo(jump, 0.3F);
 	}
 
-	/**
-	 * 让指定角色根据指定半径以指定速度循环转动
-	 * 
-	 * @param radius
-	 * @param velocity
-	 * @return
-	 */
+	
 	public CircleTo circleTo(int radius, int velocity) {
 		failIfNotInLayer();
 		return gameLayer.callCircleTo(this, radius, velocity);
 	}
 
-	/**
-	 * 将当前角色作为子弹以指定速度向指定坐标发射
-	 * 
-	 * @param endX
-	 * @param endY
-	 * @param speed
-	 * @return
-	 */
+	
 	public FireTo fireTo(int endX, int endY, double speed) {
 		failIfNotInLayer();
 		return gameLayer.callFireTo(this, endX, endY, speed);
 	}
 
-	/**
-	 * 将当前角色向指定坐标发射
-	 * 
-	 * @param endX
-	 * @param endY
-	 * @return
-	 */
+	
 	public FireTo fireTo(int endX, int endY) {
 		return fireTo(endX, endY, 10);
 	}
 
-	/**
-	 * 让当前角色缩放指定大小
-	 * 
-	 * @param sx
-	 * @param sy
-	 * @return
-	 */
+	
 	public ScaleTo scaleTo(float sx, float sy) {
 		failIfNotInLayer();
 		return gameLayer.callScaleTo(this, sx, sy);
 	}
 
-	/**
-	 * 让当前角色缩放指定大小
-	 * 
-	 * @param sx
-	 * @param sy
-	 * @return
-	 */
+	
 	public ScaleTo scaleTo(float s) {
 		failIfNotInLayer();
 		return gameLayer.callScaleTo(this, s, s);
 	}
 
-	/**
-	 * 让指定角色做箭状发射(抛物线)
-	 * 
-	 * @param tx
-	 * @param ty
-	 * @return
-	 */
+	
 	public ArrowTo arrowTo(float tx, float ty) {
 		failIfNotInLayer();
 		return gameLayer.callArrowTo(this, tx, ty);
 	}
 
-	/**
-	 * 删除所有以当前Actor注册的动作事件
-	 * 
-	 */
+	
 	public void removeActionEvents() {
 		failIfNotInLayer();
 		gameLayer.removeActionEvents(this);
 	}
 
-	/**
-	 * 缩放当前角色
-	 * 
-	 * @param scale
-	 */
+	
 	public void setScale(final float s) {
 		this.setScale(s, s);
 	}
@@ -331,50 +225,32 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		return this.scaleY;
 	}
 
-	/**
-	 * 按下
-	 * 
-	 */
+	
 	public void downClick(int x, int y) {
 
 	}
 
-	/**
-	 * 放开
-	 * 
-	 */
+	
 	public void upClick(int x, int y) {
 
 	}
 
-	/**
-	 * 键盘按下
-	 * 
-	 */
+	
 	public void downKey() {
 
 	}
 
-	/**
-	 * 键盘放开
-	 * 
-	 */
+	
 	public void upKey() {
 
 	}
 
-	/**
-	 * 拖拽
-	 * 
-	 */
+	
 	public void drag(int x, int y) {
 
 	}
 
-	/**
-	 * 动作处理(内部传参)
-	 * 
-	 */
+	
 	@Override
 	public void update(long elapsedTime) {
 		if (timer.action(elapsedTime)) {
@@ -390,29 +266,17 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		}
 	}
 
-	/**
-	 * 设定动作触发延迟时间
-	 * 
-	 * @param delay
-	 */
+	
 	public void setDelay(long delay) {
 		timer.setDelay(delay);
 	}
 
-	/**
-	 * 返回动作触发延迟时间
-	 * 
-	 * @return
-	 */
+	
 	public long getDelay() {
 		return timer.getDelay();
 	}
 
-	/**
-	 * 动作处理
-	 * 
-	 * @param elapsedTime
-	 */
+	
 	public void action(long elapsedTime) {
 
 	}
@@ -442,11 +306,7 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		return this.rotation;
 	}
 
-	/**
-	 * 决定当前对象旋转方向
-	 * 
-	 * @param rotation
-	 */
+	
 	@Override
 	public void setRotation(float rotation) {
 		if (rotation >= 360) {
@@ -485,11 +345,7 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		return getRectBox().height;
 	}
 
-	/**
-	 * 根据旋转方向移动坐标
-	 * 
-	 * @param distance
-	 */
+	
 	public void move(double distance) {
 		double angle = Math.toRadians(getRotation());
 		int x = (int) Math.round(getX() + Math.cos(angle) * distance);
@@ -646,11 +502,7 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		this.setLocation(x, y);
 	}
 
-	/**
-	 * 获得当前Actor碰撞盒
-	 * 
-	 * @return
-	 */
+	
 	@Override
 	public RectBox getRectBox() {
 		RectBox tmp = getBoundingRect();
@@ -662,11 +514,7 @@ public class Actor extends LObject implements ActionBind,LRelease {
 				* scaleY);
 	}
 
-	/**
-	 * 获得当前Actor碰撞盒(内部使用)
-	 * 
-	 * @return
-	 */
+	
 	RectBox getBoundingRect() {
 		if (this.boundingRect == null) {
 			this.calcBounds();
@@ -674,21 +522,14 @@ public class Actor extends LObject implements ActionBind,LRelease {
 		return this.boundingRect;
 	}
 
-	/**
-	 * 绘图接口，用以绘制额外的图形到Actor
-	 * 
-	 * @param g
-	 */
+	
 	public void draw(GLEx g) {
 
 	}
 
 	public boolean isConsumerDrawing = true;
 	
-	/**
-	 * 矫正当前图像大小
-	 * 
-	 */
+	
 	private void calcBounds() {
 		ActorLayer layer = this.getLLayer();
 		if (layer != null) {

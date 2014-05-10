@@ -15,27 +15,7 @@ import loon.core.graphics.opengl.LTexture.Format;
 import loon.core.input.LInput;
 import loon.core.input.LInputFactory.Key;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1.1
- */
+
 
 public abstract class LComponent extends LObject implements ActionBind, LRelease {
 
@@ -111,14 +91,7 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 
 	protected LTexture background;
 
-	/**
-	 * 构造可用组件
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
+	
 	public LComponent(int x, int y, int width, int height) {
 		this.setLocation(x, y);
 		this.width = width;
@@ -140,12 +113,7 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 		return screenRect.height;
 	}
 
-	/**
-	 * 让当前组件向指定的中心点位置居中
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public void moveCamera(int x, int y) {
 		if (!this.isLimitMove) {
 			setLocation(x, y);
@@ -215,20 +183,13 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 		return false;
 	}
 
-	/**
-	 * 返回当前组件对象是否为容器
-	 * 
-	 * @return
-	 */
+	
 	@Override
 	public boolean isContainer() {
 		return false;
 	}
 
-	/**
-	 * 更新组件状态
-	 * 
-	 */
+	
 	@Override
 	public void update(long elapsedTime) {
 		if (isClose) {
@@ -245,11 +206,7 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 	public abstract void createUI(GLEx g, int x, int y, LComponent component,
 			LTexture[] buttonImage);
 
-	/**
-	 * 渲染当前组件画面于指定绘图器之上
-	 * 
-	 * @param g
-	 */
+	
 	public void createUI(GLEx g) {
 		if (isClose) {
 			return;
@@ -303,15 +260,7 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 		}
 	}
 
-	/**
-	 * 自定义UI
-	 * 
-	 * @param g
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 */
+	
 	protected void createCustomUI(GLEx g, int x, int y, int w, int h) {
 	}
 
@@ -622,10 +571,7 @@ public abstract class LComponent extends LObject implements ActionBind, LRelease
 		this.processKeyPressed();
 	}
 
-	/**
-	 * 检测键盘事件焦点
-	 * 
-	 */
+	
 	protected void checkFocusKey() {
 		if (this.input.getKeyPressed() == Key.ENTER) {
 

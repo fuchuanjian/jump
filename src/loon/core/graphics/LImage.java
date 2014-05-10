@@ -18,32 +18,10 @@ import loon.utils.StringUtils;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 
-/**
- * 
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 public class LImage implements LRelease {
 
-	/**
-	 * 0.3.3版新增类，用以处理TGA格式图像（仅支持24&32位图）
-	 */
+	
 	public static class LFormatTGA {
 
 		private static final int TGA_HEADER_SIZE = 18;
@@ -526,15 +504,7 @@ public class LImage implements LRelease {
 		return GraphicsUtils.loadImage(fileName);
 	}
 
-	/**
-	 * 以指定像素集合生成LImage文件
-	 * 
-	 * @param rgb
-	 * @param width
-	 * @param height
-	 * @param processAlpha
-	 * @return
-	 */
+	
 	public static final LImage createRGBImage(int[] rgb, int width, int height,
 			boolean processAlpha) {
 		Bitmap bitmap = null;
@@ -559,17 +529,7 @@ public class LImage implements LRelease {
 		return new LImage(bitmap);
 	}
 
-	/**
-	 * 生成旋转为指定角度的图像
-	 * 
-	 * @param image
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param transform
-	 * @return
-	 */
+	
 	public static LImage createImage(LImage image, int x, int y, int width,
 			int height, int transform) {
 		int[] buf = new int[width * height];
@@ -644,15 +604,7 @@ public class LImage implements LRelease {
 		return createRGBImage(buf, tw, th, true);
 	}
 
-	/**
-	 * 创建指定数量的LImage
-	 * 
-	 * @param count
-	 * @param w
-	 * @param h
-	 * @param transparency
-	 * @return
-	 */
+	
 	public static LImage[] createImage(int count, int w, int h,
 			boolean transparency) {
 		LImage[] image = new LImage[count];
@@ -662,15 +614,7 @@ public class LImage implements LRelease {
 		return image;
 	}
 
-	/**
-	 * 创建指定数量的LImage
-	 * 
-	 * @param count
-	 * @param w
-	 * @param h
-	 * @param config
-	 * @return
-	 */
+	
 	public static LImage[] createImage(int count, int w, int h, Config config) {
 		LImage[] image = new LImage[count];
 		for (int i = 0; i < image.length; i++) {
@@ -724,13 +668,7 @@ public class LImage implements LRelease {
 		this(width, height, false);
 	}
 
-	/**
-	 * 构建一个LImage(true:ARGB8888或false:RGB565)
-	 * 
-	 * @param width
-	 * @param height
-	 * @param transparency
-	 */
+	
 	public LImage(int width, int height, boolean transparency) {
 		try {
 			LSystem.gc(1000, 1);
@@ -923,41 +861,18 @@ public class LImage implements LRelease {
 		bitmap.setPixel(x, y, rgb);
 	}
 
-	/**
-	 * 截小图
-	 * 
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @param transparency
-	 * @return
-	 */
+	
 	public LImage getSubImage(int x, int y, int w, int h, Config config) {
 		return GraphicsUtils.drawClipImage(this, w, h, x, y, config);
 	}
 
-	/**
-	 * 截小图
-	 * 
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @return
-	 */
+	
 	public LImage getSubImage(int x, int y, int w, int h) {
 		return GraphicsUtils
 				.drawClipImage(this, w, h, x, y, bitmap.getConfig());
 	}
 
-	/**
-	 * 扩充图像为指定大小
-	 * 
-	 * @param w
-	 * @param h
-	 * @return
-	 */
+	
 	public LImage scaledInstance(int w, int h) {
 		int width = getWidth();
 		int height = getHeight();
@@ -988,10 +903,7 @@ public class LImage implements LRelease {
 		}
 	}
 
-	/**
-	 * 返回LImage的hash序列
-	 * 
-	 */
+	
 	@Override
 	public int hashCode() {
 		return GraphicsUtils.hashBitmap(bitmap);
@@ -1020,11 +932,7 @@ public class LImage implements LRelease {
 		return texture;
 	}
 
-	/**
-	 * 判定当前LImage是否已被关闭
-	 * 
-	 * @return
-	 */
+	
 	public boolean isClose() {
 		return isClose || bitmap == null
 				|| (bitmap != null ? bitmap.isRecycled() : false);

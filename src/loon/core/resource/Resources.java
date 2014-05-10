@@ -18,76 +18,31 @@ import loon.utils.collection.ArrayByte;
 
 import android.content.res.AssetManager;
 
-/**
- * 
- * Copyright 2008 - 2009
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.1.0
- */
+
 public abstract class Resources {
 
 	// 以下为0.3.2版中新增资源读取方法(为避免冲突，同时保留了原始读取方式)
-	/**
-	 * 从类中读取资源
-	 * 
-	 * @param path
-	 * @return
-	 */
+	
 	public static Resource classRes(String path) {
 		return new ClassRes(path);
 	}
 
-	/**
-	 * 从文件中读取资源
-	 * 
-	 * @param path
-	 * @return
-	 */
+	
 	public static Resource fileRes(String path) {
 		return new FileRes(path);
 	}
 
-	/**
-	 * 从远程地址读取资源
-	 * 
-	 * @param path
-	 * @return
-	 */
+	
 	public static Resource remoteRes(String path) {
 		return new RemoteRes(path);
 	}
 
-	/**
-	 * 从SD卡中读取资源
-	 * 
-	 * @param path
-	 * @return
-	 */
+	
 	public static Resource sdRes(String path) {
 		return new SDRes(path);
 	}
 
-	/**
-	 * 以字符串命令，加载任意类型资源
-	 * 
-	 * @param path
-	 * @return
-	 */
+	
 	public final static InputStream strRes(final String path) {
 		if (path == null) {
 			return null;
@@ -130,34 +85,21 @@ public abstract class Resources {
 		}
 	}
 
-	/**
-	 * 获得资源名迭代器
-	 * 
-	 * @return
-	 */
+	
 	public static Iterator<String> getNames() {
 		synchronized (lock) {
 			return lazyResources.keySet().iterator();
 		}
 	}
 
-	/**
-	 * 检查指定资源名是否存在
-	 * 
-	 * @param resName
-	 * @return
-	 */
+	
 	public static boolean contains(String resName) {
 		synchronized (lock) {
 			return (lazyResources.get(resName) != null);
 		}
 	}
 
-	/**
-	 * 删除指定名称的资源
-	 * 
-	 * @param resName
-	 */
+	
 	public static void remove(String resName) {
 		synchronized (lock) {
 			lazyResources.remove(resName);
@@ -173,42 +115,22 @@ public abstract class Resources {
 		destroy();
 	}
 
-	/**
-	 * 获得当前系统的ClassLoader
-	 * 
-	 * @return
-	 */
+	
 	public final static ClassLoader getClassLoader() {
 		return classLoader;
 	}
 
-	/**
-	 * 获得指定类的ClassLoader
-	 * 
-	 * @param clazz
-	 * @return
-	 */
+	
 	public final static ClassLoader getClassLoader(Class<?> clazz) {
 		return clazz.getClassLoader();
 	}
 
-	/**
-	 * 返回针对当前游戏应用的资源管理器
-	 * 
-	 * @return
-	 */
+	
 	public final static android.content.res.Resources getResources() {
 		return LSystem.screenActivity.getResources();
 	}
 
-	/**
-	 * 打开一个指定的ClassLoader资源
-	 * 
-	 * @param resName
-	 * @param cl
-	 * @return
-	 * @throws IOException
-	 */
+	
 	public static InputStream openResource(String resName, final ClassLoader c)
 			throws IOException {
 		if (resName.indexOf("\\") != -1) {
@@ -224,13 +146,7 @@ public abstract class Resources {
 
 	private final static String assetsFlag = "assets";
 
-	/**
-	 * 打开当前类加载器下的资源文件
-	 * 
-	 * @param resName
-	 * @return
-	 * @throws IOException
-	 */
+	
 	public static InputStream openResource(String resName) throws IOException {
 		InputStream resource = strRes(resName);
 		if (resource != null) {
@@ -282,12 +198,7 @@ public abstract class Resources {
 		}
 	}
 
-	/**
-	 * 加载资源文件
-	 * 
-	 * @param resName
-	 * @return
-	 */
+	
 	public final static ArrayByte getResource(String resName) {
 		if (resName == null) {
 			return null;
@@ -356,12 +267,7 @@ public abstract class Resources {
 		return byteArray;
 	}
 
-	/**
-	 * 加载资源文件为InputStream格式
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	public static InputStream getResourceAsStream(final String fileName) {
 		if ((fileName.indexOf("file:") >= 0) || (fileName.indexOf(":/") > 0)) {
 			try {
@@ -374,12 +280,7 @@ public abstract class Resources {
 		return new ByteArrayInputStream(getResource(fileName).getData());
 	}
 
-	/**
-	 * 将InputStream转为byte[]
-	 * 
-	 * @param is
-	 * @return
-	 */
+	
 	final static public byte[] getDataSource(InputStream is) {
 		if (is == null) {
 			return null;

@@ -3,27 +3,7 @@ package loon.utils;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
-/**
- * 
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 final public class StringUtils {
 
 	public static final String ASCII_CHARSET = "US-ASCII";
@@ -41,12 +21,7 @@ final public class StringUtils {
 	private StringUtils() {
 	}
 
-	/**
-	 * 拼接指定对象数组为String
-	 * 
-	 * @param res
-	 * @return
-	 */
+	
 	public static String concat(Object... res) {
 		StringBuffer sbr = new StringBuffer(res.length);
 		for (int i = 0; i < res.length; i++) {
@@ -59,12 +34,7 @@ final public class StringUtils {
 		return sbr.toString();
 	}
 
-	/**
-	 * 判定是否由纯粹的西方字符组成
-	 * 
-	 * @param string
-	 * @return
-	 */
+	
 	public static boolean isEnglishAndNumeric(String string) {
 		if (string == null || string.length() == 0) {
 			return false;
@@ -81,12 +51,7 @@ final public class StringUtils {
 		return true;
 	}
 
-	/**
-	 * 判定是否为半角符号
-	 * 
-	 * @param c
-	 * @return
-	 */
+	
 	public static boolean isSingle(final char c) {
 		return (':' == c || '：' == c)
 				|| (',' == c || '，' == c)
@@ -98,13 +63,7 @@ final public class StringUtils {
 
 	}
 
-	/**
-	 * 分解字符串
-	 * 
-	 * @param string
-	 * @param tag
-	 * @return
-	 */
+	
 	public static String[] split(final String string, final String tag) {
 		StringTokenizer str = new StringTokenizer(string, tag);
 		String[] result = new String[str.countTokens()];
@@ -115,14 +74,7 @@ final public class StringUtils {
 		return result;
 	}
 
-	/**
-	 * 过滤指定字符串
-	 * 
-	 * @param string
-	 * @param oldString
-	 * @param newString
-	 * @return
-	 */
+	
 	public static final String replace(String string, String oldString,
 			String newString) {
 		if (string == null)
@@ -150,14 +102,7 @@ final public class StringUtils {
 		}
 	}
 
-	/**
-	 * 不匹配大小写的过滤指定字符串
-	 * 
-	 * @param line
-	 * @param oldString
-	 * @param newString
-	 * @return
-	 */
+	
 	public static final String replaceIgnoreCase(String line, String oldString,
 			String newString) {
 		if (line == null)
@@ -185,15 +130,7 @@ final public class StringUtils {
 		}
 	}
 
-	/**
-	 * 不匹配大小写的过滤指定字符串
-	 * 
-	 * @param line
-	 * @param oldString
-	 * @param newString
-	 * @param count
-	 * @return
-	 */
+	
 	public static final String replaceIgnoreCase(String line, String oldString,
 			String newString, int count[]) {
 		if (line == null)
@@ -224,15 +161,7 @@ final public class StringUtils {
 		}
 	}
 
-	/**
-	 * 以指定条件过滤字符串
-	 * 
-	 * @param line
-	 * @param oldString
-	 * @param newString
-	 * @param count
-	 * @return
-	 */
+	
 	public static final String replace(String line, String oldString,
 			String newString, int count[]) {
 		if (line == null)
@@ -261,12 +190,7 @@ final public class StringUtils {
 		}
 	}
 
-	/**
-	 * 检查一组字符串是否完全由中文组成
-	 * 
-	 * @param str
-	 * @return
-	 */
+	
 	public static boolean isChinaLanguage(char[] chars) {
 		int[] ints = new int[2];
 		boolean isChinese = false;
@@ -292,23 +216,12 @@ final public class StringUtils {
 		return c >= 0x4e00 && c <= 0x9fa5;
 	}
 
-	/**
-	 * 判断是否为null
-	 * 
-	 * @param param
-	 * @return
-	 */
+	
 	public static boolean isEmpty(String param) {
 		return param == null || param.length() == 0 || param.trim().equals("");
 	}
 
-	/**
-	 * 检查指定字符串中是否存在中文字符。
-	 * 
-	 * @param checkStr
-	 *            指定需要检查的字符串。
-	 * @return 逻辑值（True Or False）。
-	 */
+	
 	public static final boolean hasChinese(String checkStr) {
 		boolean checkedStatus = false;
 		boolean isError = false;
@@ -328,12 +241,7 @@ final public class StringUtils {
 		return checkedStatus;
 	}
 
-	/**
-	 * 检查是否为纯字母
-	 * 
-	 * @param value
-	 * @return
-	 */
+	
 	public final static boolean isAlphabet(String value) {
 		if (value == null || value.length() == 0)
 			return false;
@@ -345,12 +253,7 @@ final public class StringUtils {
 		return false;
 	}
 
-	/**
-	 * 检查是否为字母与数字混合
-	 * 
-	 * @param value
-	 * @return
-	 */
+	
 	public static boolean isAlphabetNumeric(String value) {
 		if (value == null || value.trim().length() == 0)
 			return true;
@@ -364,14 +267,7 @@ final public class StringUtils {
 		return true;
 	}
 
-	/**
-	 * 替换指定字符串
-	 * 
-	 * @param line
-	 * @param oldString
-	 * @param newString
-	 * @return
-	 */
+	
 	public static String replaceMatch(String line, String oldString,
 			String newString) {
 		int i = 0;
@@ -394,13 +290,7 @@ final public class StringUtils {
 		}
 	}
 
-	/**
-	 * 获得特定字符总数
-	 * 
-	 * @param str
-	 * @param chr
-	 * @return
-	 */
+	
 	public static int charCount(String str, char chr) {
 		int count = 0;
 		if (str != null) {

@@ -9,26 +9,7 @@ import loon.jni.NativeSupport;
 import loon.utils.CollectionUtils;
 import loon.utils.collection.ArrayByte;
 
-/**
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 public abstract class LPKResource {
 
 	//如果此项为true，已加载数据会自动缓存。
@@ -61,13 +42,7 @@ public abstract class LPKResource {
 		return pakRes;
 	}
 
-	/**
-	 * 查找指定资源包中的指定资源文件并返回为Byte[]
-	 * 
-	 * @param fileName
-	 * @param resName
-	 * @return
-	 */
+	
 	public static byte[] openResource(String fileName, String resName) {
 		try {
 			PAK pak = pakRes.get(fileName);
@@ -129,13 +104,7 @@ public abstract class LPKResource {
 		}
 	}
 
-	/**
-	 * 返回指定资源文件中的指定资源为LImage
-	 * 
-	 * @param fileName
-	 * @param resName
-	 * @return
-	 */
+	
 	public static LImage openImage(String fileName, String resName) {
 		byte[] buffer = null;
 		try {
@@ -146,13 +115,7 @@ public abstract class LPKResource {
 		}
 	}
 
-	/**
-	 * 返回LTexture
-	 * 
-	 * @param fileName
-	 * @param resName
-	 * @return
-	 */
+	
 	public static LTexture openTexture(String fileName, String resName) {
 		try {
 			LImage image = openImage(fileName, resName);
@@ -163,13 +126,7 @@ public abstract class LPKResource {
 		}
 	}
 
-	/**
-	 * 读取头文件
-	 * 
-	 * @param dis
-	 * @return
-	 * @throws Exception
-	 */
+	
 	public static LPKHeader readHeader(ArrayByte dis) throws Exception {
 		LPKHeader header = new LPKHeader();
 		header.setPAKIdentity(dis.readInt());
@@ -180,14 +137,7 @@ public abstract class LPKResource {
 		return header;
 	}
 
-	/**
-	 * 读取文件列表
-	 * 
-	 * @param dis
-	 * @param fileTableNumber
-	 * @return
-	 * @throws Exception
-	 */
+	
 	public static LPKTable[] readLPKTable(ArrayByte dis, int fileTableNumber)
 			throws Exception {
 		LPKTable[] fileTable = new LPKTable[fileTableNumber];
@@ -201,15 +151,7 @@ public abstract class LPKResource {
 		return fileTable;
 	}
 
-	/**
-	 * 读取数据流
-	 * 
-	 * @param dis
-	 * @param header
-	 * @param fileTable
-	 * @return
-	 * @throws Exception
-	 */
+	
 	public static byte[] readFileFromPak(ArrayByte dis, int size,
 			LPKTable fileTable) throws Exception {
 		dis.skip(fileTable.getOffSet() - size);

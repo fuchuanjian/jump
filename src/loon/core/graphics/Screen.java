@@ -39,27 +39,7 @@ import loon.media.SoundBox;
 
 import android.view.View;
 
-/**
- * 
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 public abstract class Screen extends SoundBox implements LInput, LRelease {
 
 	private ArrayList<ScreenListener> screens;
@@ -524,12 +504,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return LSystem.screenRect.contains(x, y, w, h);
 	}
 
-	/**
-	 * 当Screen被创建(或再次加载)时将调用此函数
-	 * 
-	 * @param width
-	 * @param height
-	 */
+	
 	public void onCreate(int width, int height) {
 		this.mode = SCREEN_CANVAS_REPAINT;
 		this.baseInput = this;
@@ -610,21 +585,12 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 当执行Screen转换时将调用此函数(如果返回的LTransition不为null，则渐变效果会被执行)
-	 * 
-	 * @return
-	 */
+	
 	public LTransition onTransition() {
 		return null;
 	}
 
-	/**
-	 * 设定重力系统是否启动
-	 * 
-	 * @param g
-	 * @return
-	 */
+	
 	public GravityHandler setGravity(boolean g) {
 		if (g && gravityHandler == null) {
 			gravityHandler = new GravityHandler();
@@ -633,93 +599,53 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return gravityHandler;
 	}
 
-	/**
-	 * 判断重力系统是否启动
-	 * 
-	 * @return
-	 */
+	
 	public boolean isGravity() {
 		return this.isGravity;
 	}
 
-	/**
-	 * 获得当前重力器句柄
-	 * 
-	 * @return
-	 */
+	
 	public GravityHandler getGravityHandler() {
 		return setGravity(true);
 	}
 
-	/**
-	 * 获得当前游戏事务运算时间是否被锁定
-	 * 
-	 * @return
-	 */
+	
 	public boolean isLock() {
 		return isLock;
 	}
 
-	/**
-	 * 锁定游戏事务运算时间
-	 * 
-	 * @param lock
-	 */
+	
 	public void setLock(boolean lock) {
 		this.isLock = lock;
 	}
 
-	/**
-	 * 关闭游戏
-	 * 
-	 * @param close
-	 */
+	
 	public void setClose(boolean close) {
 		this.isClose = close;
 	}
 
-	/**
-	 * 判断游戏是否被关闭
-	 * 
-	 * @return
-	 */
+	
 	public boolean isClose() {
 		return isClose;
 	}
 
-	/**
-	 * 设定当前帧
-	 * 
-	 * @param frame
-	 */
+	
 	public void setFrame(int frame) {
 		this.frame = frame;
 	}
 
-	/**
-	 * 返回当前帧
-	 * 
-	 * @return
-	 */
+	
 	public int getFrame() {
 		return frame;
 	}
 
-	/**
-	 * 移动当前帧
-	 * 
-	 * @return
-	 */
+	
 	public synchronized boolean next() {
 		this.frame++;
 		return isNext;
 	}
 
-	/**
-	 * 暂停当前Screen指定活动帧数
-	 * 
-	 * @param i
-	 */
+	
 	public synchronized void waitFrame(int i) {
 		for (int wait = frame + i; frame < wait;) {
 			try {
@@ -729,11 +655,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 暂停当前Screen指定时间
-	 * 
-	 * @param i
-	 */
+	
 	public synchronized void waitTime(long i) {
 		for (long time = System.currentTimeMillis() + i; System
 				.currentTimeMillis() < time;)
@@ -743,99 +665,69 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 			}
 	}
 
-	/**
-	 * 初始化时加载的数据
-	 */
+	
 	public void onLoad() {
 
 	}
 
-	/**
-	 * 初始化加载完毕
-	 * 
-	 */
+	
 	public void onLoaded() {
 
 	}
 
-	/**
-	 * 改变资源加载状态
-	 */
+	
 	public void setOnLoadState(boolean flag) {
 		this.isLoad = flag;
 	}
 
-	/**
-	 * 获得当前资源加载是否完成
-	 */
+	
 	public boolean isOnLoadComplete() {
 		return isLoad;
 	}
 
-	/**
-	 * 取出第一个Screen并执行
-	 * 
-	 */
+	
 	public void runFirstScreen() {
 		if (handler != null) {
 			handler.runFirstScreen();
 		}
 	}
 
-	/**
-	 * 取出最后一个Screen并执行
-	 */
+	
 	public void runLastScreen() {
 		if (handler != null) {
 			handler.runLastScreen();
 		}
 	}
 
-	/**
-	 * 运行指定位置的Screen
-	 * 
-	 * @param index
-	 */
+	
 	public void runIndexScreen(int index) {
 		if (handler != null) {
 			handler.runIndexScreen(index);
 		}
 	}
 
-	/**
-	 * 运行自当前Screen起的上一个Screen
-	 */
+	
 	public void runPreviousScreen() {
 		if (handler != null) {
 			handler.runPreviousScreen();
 		}
 	}
 
-	/**
-	 * 运行自当前Screen起的下一个Screen
-	 */
+	
 	public void runNextScreen() {
 		if (handler != null) {
 			handler.runNextScreen();
 		}
 	}
 
-	/**
-	 * 向缓存中添加Screen数据，但是不立即执行
-	 * 
-	 * @param screen
-	 */
+	
 	public void addScreen(Screen screen) {
 		if (handler != null) {
 			handler.addScreen(screen);
 		}
 	}
 
-	/**
-	 * 获得保存的Screen列表
-	 * 
-	 * @return
-	 */
+	
 	public LinkedList<Screen> getScreens() {
 		if (handler != null) {
 			return handler.getScreens();
@@ -843,9 +735,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 获得缓存的Screen总数
-	 */
+	
 	public int getScreenCount() {
 		if (handler != null) {
 			return handler.getScreenCount();
@@ -853,11 +743,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return 0;
 	}
 
-	/**
-	 * 返回精灵监听
-	 * 
-	 * @return
-	 */
+	
 
 	public SpriteListener getSprListerner() {
 		if (sprites == null) {
@@ -866,11 +752,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return sprites.getSprListerner();
 	}
 
-	/**
-	 * 监听Screen中精灵
-	 * 
-	 * @param sprListerner
-	 */
+	
 
 	public void setSprListerner(SpriteListener sprListerner) {
 		if (sprites == null) {
@@ -879,16 +761,12 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		sprites.setSprListerner(sprListerner);
 	}
 
-	/**
-	 * 获得当前Screen类名
-	 */
+	
 	public String getName() {
 		return getClass().getSimpleName();
 	}
 
-	/**
-	 * 设定模拟按钮监听器
-	 */
+	
 
 	public void setEmulatorListener(EmulatorListener emulator) {
 		if (LSystem.screenProcess != null) {
@@ -896,11 +774,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 返回模拟按钮集合
-	 * 
-	 * @return
-	 */
+	
 
 	public EmulatorButtons getEmulatorButtons() {
 		if (LSystem.screenProcess != null) {
@@ -909,11 +783,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 设定模拟按钮组是否显示
-	 * 
-	 * @param visible
-	 */
+	
 
 	public void emulatorButtonsVisible(boolean visible) {
 		if (LSystem.screenProcess != null) {
@@ -925,58 +795,35 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 添加指定的View到游戏界面
-	 * 
-	 * @param view
-	 */
+	
 	public void addView(final View view) {
 		if (LSystem.screenActivity != null) {
 			LSystem.screenActivity.addView(view);
 		}
 	}
 
-	/**
-	 * 从游戏界面中删除指定的View
-	 * 
-	 * @param view
-	 */
+	
 	public void removeView(final View view) {
 		if (LSystem.screenActivity != null) {
 			LSystem.screenActivity.removeView(view);
 		}
 	}
 
-	/**
-	 * 添加指定的View到游戏界面的指定位置
-	 * 
-	 * @param view
-	 * @param location
-	 */
+	
 	public void addView(final View view, Location location) {
 		if (LSystem.screenActivity != null) {
 			LSystem.screenActivity.addView(view, location);
 		}
 	}
 
-	/**
-	 * 添加指定的View到游戏界面的指定位置，并将View设置为指定大小
-	 * 
-	 * @param view
-	 * @param location
-	 */
+	
 	public void addView(final View view, int w, int h, Location location) {
 		if (LSystem.screenActivity != null) {
 			LSystem.screenActivity.addView(view, w, h, location);
 		}
 	}
 
-	/**
-	 * 弹出一个Android信息框，用以显示指定的HTML文档
-	 * 
-	 * @param title
-	 * @param assetsFileName
-	 */
+	
 	public void showAndroidOpenHTML(final ClickEvent listener,
 			final String title, final String url) {
 		if (LSystem.screenActivity != null) {
@@ -984,12 +831,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 弹出一个Android选择框，并返回选择结果
-	 * 
-	 * @param text
-	 * @return
-	 */
+	
 	public void showAndroidSelect(final SelectEvent listener,
 			final String title, final String[] text) {
 		if (LSystem.screenActivity != null) {
@@ -997,12 +839,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 弹出一个Android输入框，并返回选择结果
-	 * 
-	 * @param text
-	 * @return
-	 */
+	
 	public void showAndroidTextInput(final TextEvent listener,
 			final String title, final String text) {
 		if (LSystem.screenActivity != null) {
@@ -1010,17 +847,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 弹出一个Android是否选择框，并执行选择结果
-	 * 
-	 * @param title
-	 * @param message
-	 * @param cancelable
-	 * @param yes
-	 * @param no
-	 * @param onYesClick
-	 * @param onNoClick
-	 */
+	
 	public void showAndroidYesOrNo(String title, String message,
 			boolean cancelable, String yes, String no,
 			android.content.DialogInterface.OnClickListener onYesClick,
@@ -1031,20 +858,12 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 设定常规图像加载方法的扩大值
-	 * 
-	 * @param sampleSize
-	 */
+	
 	public void setSizeImage(int sampleSize) {
 		LSystem.setPoorImage(sampleSize);
 	}
 
-	/**
-	 * 设定背景图像
-	 * 
-	 * @param screen
-	 */
+	
 	public void setBackground(LTexture background) {
 		if (background != null) {
 			setRepaintMode(SCREEN_BITMAP_REPAINT);
@@ -1066,19 +885,13 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 设定背景图像
-	 */
+	
 	public void setBackground(String fileName) {
 		this.setBackground(new LTexture(fileName, Format.STATIC,
 				android.graphics.Bitmap.Config.RGB_565));
 	}
 
-	/**
-	 * 设定背景颜色
-	 * 
-	 * @param c
-	 */
+	
 	public void setBackground(LColor c) {
 		setRepaintMode(SCREEN_COLOR_REPAINT);
 		if (color == null) {
@@ -1092,11 +905,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return color;
 	}
 
-	/**
-	 * 返回背景图像
-	 * 
-	 * @return
-	 */
+	
 	public LTexture getBackground() {
 		return currentScreen;
 	}
@@ -1109,9 +918,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return sprites;
 	}
 
-	/**
-	 * 返回与指定类匹配的组件
-	 */
+	
 
 	public ArrayList<LComponent> getComponents(Class<? extends LComponent> clazz) {
 		if (desktop != null) {
@@ -1120,11 +927,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于屏幕顶部的组件
-	 * 
-	 * @return
-	 */
+	
 
 	public LComponent getTopComponent() {
 		if (desktop != null) {
@@ -1133,11 +936,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于屏幕底部的组件
-	 * 
-	 * @return
-	 */
+	
 
 	public LComponent getBottomComponent() {
 		if (desktop != null) {
@@ -1146,9 +945,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于屏幕顶部的图层
-	 */
+	
 
 	public LLayer getTopLayer() {
 		if (desktop != null) {
@@ -1157,9 +954,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于屏幕底部的图层
-	 */
+	
 
 	public LLayer getBottomLayer() {
 		if (desktop != null) {
@@ -1168,10 +963,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回所有指定类产生的精灵
-	 * 
-	 */
+	
 
 	public ArrayList<ISprite> getSprites(Class<? extends ISprite> clazz) {
 		if (sprites != null) {
@@ -1180,10 +972,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于数据顶部的精灵
-	 * 
-	 */
+	
 
 	public ISprite getTopSprite() {
 		if (sprites != null) {
@@ -1192,10 +981,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 返回位于数据底部的精灵
-	 * 
-	 */
+	
 
 	public ISprite getBottomSprite() {
 		if (sprites != null) {
@@ -1204,11 +990,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return null;
 	}
 
-	/**
-	 * 添加游戏精灵
-	 * 
-	 * @param sprite
-	 */
+	
 
 	public void add(ISprite sprite) {
 		if (sprites != null) {
@@ -1216,11 +998,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 添加游戏组件
-	 * 
-	 * @param comp
-	 */
+	
 
 	public void add(LComponent comp) {
 		if (desktop != null) {
@@ -1261,12 +1039,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 判断是否点中指定精灵
-	 * 
-	 * @param sprite
-	 * @return
-	 */
+	
 
 	public boolean onClick(ISprite sprite) {
 		if (sprite == null) {
@@ -1282,12 +1055,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return false;
 	}
 
-	/**
-	 * 判断是否点中指定组件
-	 * 
-	 * @param component
-	 * @return
-	 */
+	
 
 	public boolean onClick(LComponent component) {
 		if (component == null) {
@@ -1323,29 +1091,19 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		LObject.bottomOn(object, getWidth(), getHeight());
 	}
 
-	/**
-	 * 获得背景显示模式
-	 */
+	
 	@Override
 	public int getRepaintMode() {
 		return mode;
 	}
 
-	/**
-	 * 设定背景刷新模式
-	 * 
-	 * @param mode
-	 */
+	
 	@Override
 	public void setRepaintMode(int mode) {
 		this.mode = mode;
 	}
 
-	/**
-	 * 增减一个线程事件
-	 * 
-	 * @param event
-	 */
+	
 	public void callEvent(final LEvent event) {
 		if (event == null) {
 			return;
@@ -1359,22 +1117,14 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		callEvent(runnable);
 	}
 
-	/**
-	 * 增减一个线程事件
-	 * 
-	 * @param runnable
-	 */
+	
 	public final void callEvent(Runnable runnable) {
 		synchronized (runnables) {
 			runnables.add(runnable);
 		}
 	}
 
-	/**
-	 * 暂停指定的线程事件
-	 * 
-	 * @param runnable
-	 */
+	
 	public final void callEventWait(Runnable runnable) {
 		synchronized (runnable) {
 			synchronized (runnables) {
@@ -1387,10 +1137,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 中断所有线程事件
-	 * 
-	 */
+	
 	public final void callEventInterrupt() {
 		synchronized (runnables) {
 			for (Iterator<Runnable> it = runnables.iterator(); it.hasNext();) {
@@ -1405,19 +1152,12 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 运行线程事件
-	 * 
-	 */
+	
 	public final void callEvents() {
 		callEvents(true);
 	}
 
-	/**
-	 * 执行或中断指定的线程事件
-	 * 
-	 * @param execute
-	 */
+	
 	public final void callEvents(boolean execute) {
 		if (!execute) {
 			synchronized (runnables) {
@@ -1775,9 +1515,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 
 	public abstract void alter(LTimerContext timer);
 
-	/**
-	 * 设定游戏窗体
-	 */
+	
 	public void setScreen(Screen screen) {
 		if (handler != null) {
 			this.handler.setScreen(screen);
@@ -1794,9 +1532,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return height;
 	}
 
-	/**
-	 * 刷新基础设置
-	 */
+	
 	@Override
 	public void refresh() {
 		for (int i = 0; i < touchType.length; i++) {
@@ -1915,11 +1651,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		}
 	}
 
-	/**
-	 * 设置键盘按下事件
-	 * 
-	 * @param code
-	 */
+	
 	@Override
 	public void setKeyDown(int button) {
 		try {
@@ -2226,10 +1958,7 @@ public abstract class Screen extends SoundBox implements LInput, LRelease {
 		return false;
 	}
 
-	/**
-	 * 释放函数内资源
-	 * 
-	 */
+	
 	@Override
 	public void dispose() {
 

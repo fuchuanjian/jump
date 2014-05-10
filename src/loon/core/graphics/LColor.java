@@ -3,32 +3,10 @@ package loon.core.graphics;
 import java.io.Serializable;
 import java.nio.FloatBuffer;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class LColor implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2290994222887151982L;
 
 	public static float[] toRGBA(int pixel) {
@@ -70,12 +48,7 @@ public class LColor implements Serializable {
 		return bytes;
 	}
 
-	/**
-	 * 将图片用ARGB格式转化为贴图用RGBA格式
-	 * 
-	 * @param pixels
-	 * @return
-	 */
+	
 	public static byte[] argbToRGBA(int[] pixels) {
 		int size = pixels.length;
 		byte[] bytes = new byte[size * 4];
@@ -96,12 +69,7 @@ public class LColor implements Serializable {
 		return bytes;
 	}
 
-	/**
-	 * 将图片用ARGB格式转化为贴图用RGB格式
-	 * 
-	 * @param pixels
-	 * @return
-	 */
+	
 	public static byte[] argbToRGB(int[] pixels) {
 		int size = pixels.length;
 		byte[] bytes = new byte[size * 3];
@@ -120,54 +88,24 @@ public class LColor implements Serializable {
 		return bytes;
 	}
 
-	/**
-	 * 获得RGB565格式数据
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @return
-	 */
+	
 	public static int rgb565(float r, float g, float b) {
 		return ((int) (r * 31) << 11) | ((int) (g * 63) << 5) | (int) (b * 31);
 	}
 
-	/**
-	 * 获得RGBA4444格式数据
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 * @return
-	 */
+	
 	public static int rgba4444(float r, float g, float b, float a) {
 		return ((int) (r * 15) << 12) | ((int) (g * 15) << 8)
 				| ((int) (b * 15) << 4) | (int) (a * 15);
 	}
 
-	/**
-	 * 获得RGB888格式数据
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @return
-	 */
+	
 	public static int rgb888(float r, float g, float b) {
 		return ((int) (r * 255) << 16) | ((int) (g * 255) << 8)
 				| (int) (b * 255);
 	}
 
-	/**
-	 * 获得RGBA8888格式数据
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param a
-	 * @return
-	 */
+	
 	public static int rgba8888(float r, float g, float b, float a) {
 		return ((int) (r * 255) << 24) | ((int) (g * 255) << 16)
 				| ((int) (b * 255) << 8) | (int) (a * 255);
@@ -474,22 +412,12 @@ public class LColor implements Serializable {
 		this.a *= c.a;
 	}
 
-	/**
-	 * 直接复制一个Color
-	 * 
-	 * @param c
-	 * @return
-	 */
+	
 	public LColor copy(LColor c) {
 		return new LColor(r, g, b, a);
 	}
 
-	/**
-	 * 获得像素相加的Color
-	 * 
-	 * @param c
-	 * @return
-	 */
+	
 	public LColor addCopy(LColor c) {
 		LColor copy = new LColor(r, g, b, a);
 		copy.r += c.r;
@@ -499,12 +427,7 @@ public class LColor implements Serializable {
 		return copy;
 	}
 
-	/**
-	 * 获得像素相减的Color
-	 * 
-	 * @param c
-	 * @return
-	 */
+	
 	public LColor subCopy(LColor c) {
 		LColor copy = new LColor(r, g, b, a);
 		copy.r -= c.r;
@@ -514,12 +437,7 @@ public class LColor implements Serializable {
 		return copy;
 	}
 
-	/**
-	 * 获得像素相乘的Color
-	 * 
-	 * @param c
-	 * @return
-	 */
+	
 	public LColor mulCopy(LColor c) {
 		LColor copy = new LColor(r, g, b, a);
 		copy.r *= c.r;
@@ -533,42 +451,22 @@ public class LColor implements Serializable {
 		return new LColor(r * s, g * s, b * s, a * s);
 	}
 
-	/**
-	 * 返回ARGB
-	 * 
-	 * @return
-	 */
+	
 	public int getARGB() {
 		return getARGB(getRed(), getGreen(), getBlue(), getAlpha());
 	}
 
-	/**
-	 * 返回RGB
-	 * 
-	 * @return
-	 */
+	
 	public int getRGB() {
 		return getRGB(getRed(), getGreen(), getBlue());
 	}
 
-	/**
-	 * 获得24位色
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @return
-	 */
+	
 	public static int getRGB(int r, int g, int b) {
 		return getARGB(r, g, b, 0xff);
 	}
 
-	/**
-	 * 获得RGB颜色
-	 * 
-	 * @param pixels
-	 * @return
-	 */
+	
 	public static int getRGB(int pixels) {
 		int r = (pixels >> 16) & 0xff;
 		int g = (pixels >> 8) & 0xff;
@@ -576,55 +474,27 @@ public class LColor implements Serializable {
 		return getRGB(r, g, b);
 	}
 
-	/**
-	 * 获得32位色
-	 * 
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @param alpha
-	 * @return
-	 */
+	
 	public static int getARGB(int r, int g, int b, int alpha) {
 		return (alpha << 24) | (r << 16) | (g << 8) | b;
 	}
 
-	/**
-	 * 获得Aplha
-	 * 
-	 * @param color
-	 * @return
-	 */
+	
 	public static int getAlpha(int color) {
 		return color >>> 24;
 	}
 
-	/**
-	 * 获得Red
-	 * 
-	 * @param color
-	 * @return
-	 */
+	
 	public static int getRed(int color) {
 		return (color >> 16) & 0xff;
 	}
 
-	/**
-	 * 获得Green
-	 * 
-	 * @param color
-	 * @return
-	 */
+	
 	public static int getGreen(int color) {
 		return (color >> 8) & 0xff;
 	}
 
-	/**
-	 * 获得Blud
-	 * 
-	 * @param color
-	 * @return
-	 */
+	
 	public static int getBlue(int color) {
 		return color & 0xff;
 	}
@@ -640,12 +510,7 @@ public class LColor implements Serializable {
 		return i1 + (int) ((i2 - i1) * amount);
 	}
 
-	/**
-	 * 像素前乘
-	 * 
-	 * @param argbColor
-	 * @return
-	 */
+	
 	public static int premultiply(int argbColor) {
 		int a = argbColor >>> 24;
 		if (a == 0) {
@@ -663,13 +528,7 @@ public class LColor implements Serializable {
 		}
 	}
 
-	/**
-	 * 像素前乘
-	 * 
-	 * @param rgbColor
-	 * @param alpha
-	 * @return
-	 */
+	
 	public static int premultiply(int rgbColor, int alpha) {
 		if (alpha <= 0) {
 			return 0;
@@ -687,12 +546,7 @@ public class LColor implements Serializable {
 		}
 	}
 
-	/**
-	 * 获得r,g,b
-	 * 
-	 * @param pixel
-	 * @return
-	 */
+	
 	public static int[] getRGBs(final int pixel) {
 		int[] rgbs = new int[3];
 		rgbs[0] = (pixel >> 16) & 0xff;

@@ -1,23 +1,4 @@
-/**
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 package loon.action.sprite;
 
 import java.util.HashMap;
@@ -54,19 +35,7 @@ public class SpriteBatch implements LRelease {
 		font.drawString(this, cs, x, y, color);
 	}
 
-	/**
-	 * Sample: batch.draw(font, "Test", new Vector2f(150, 150), LColor.red, 0,
-	 * Vector2f.Zero, new Vector2f(1f, 1f), SpriteEffects.None);
-	 * 
-	 * @param font
-	 * @param cs
-	 * @param local
-	 * @param color
-	 * @param rotation
-	 * @param origin
-	 * @param scale
-	 * @param spriteEffects
-	 */
+	
 	public void draw(SpriteFont font, CharSequence cs, Vector2f local,
 			LColor color, float rotation, Vector2f origin, Vector2f scale,
 			SpriteEffects spriteEffects) {

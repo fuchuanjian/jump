@@ -1,34 +1,11 @@
-/**
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 package loon.utils.collection;
 
 import loon.core.LRelease;
 import loon.utils.CollectionUtils;
 import loon.utils.MathUtils;
 
-/*
- * 0.3.3新增类，以非数组，而是对象链表的方式构建集合.
- * 
- * 此方式在插入数据,删除数据,或者检索索引ID时速度损耗较大.而在检索对象，遍历特定对象的线性关系时速度较快.
- */
+
 public class Array<T> implements LRelease {
 
 	public static class ArrayNode<T> {
@@ -463,29 +440,6 @@ public class Array<T> implements LRelease {
 		_items = null;
 	}
 
-	/*
-	 * public static void main(String[] args) { Array<String> s = new
-	 * Array<String>(); s.add("A"); s.add("B"); s.add("C"); s.add("X");
-	 * 
-	 * System.out.println(s.first()); System.out.println(s.last());
-	 * 
-	 * s.set(0, "D");
-	 * 
-	 * System.out.println(s.contains("A")); System.out.println(s.contains("D"));
-	 * System.out.println(s.indexOf("B")); System.out.println(s.indexOf("Z"));
-	 * System.out.println("last:" + s.lastIndexOf("C"));
-	 * System.out.println(s.remove("X"));
-	 * 
-	 * for (; s.idxNext() < s.size();) { String t = s.next();
-	 * System.out.println("1:" + t); } s.stopNext(); for (;;) { String t =
-	 * s.previous(); if (t != null) { System.out.println("2:" + t); } else {
-	 * break; } } for (;;) { String t = s.next(); if (t != null) {
-	 * System.out.println("3:" + t); } else { break; } } for (;;) { String t =
-	 * s.next(); if (t != null) { System.out.println("4:" + t); } else { break;
-	 * } }
-	 * 
-	 * s.clear(); for (;;) { String t = s.next(); if (t != null) {
-	 * System.out.println("5:" + t); } else { break; } } }
-	 */
+	
 
 }

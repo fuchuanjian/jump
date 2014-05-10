@@ -3,27 +3,7 @@ package loon.utils;
 import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1.1
- */
+
 
 final public class CollectionUtils {
 
@@ -33,13 +13,7 @@ final public class CollectionUtils {
 		super();
 	}
 
-	/**
-	 * 判定指定对象是否存在于指定对象数组中
-	 * 
-	 * @param array
-	 * @param obj
-	 * @return
-	 */
+	
 	public static int indexOf(Object[] array, Object obj) {
 		for (int i = 0; i < array.length; ++i) {
 			if (obj == array[i]) {
@@ -49,12 +23,7 @@ final public class CollectionUtils {
 		throw new NoSuchElementException("" + obj);
 	}
 
-	/**
-	 * 获得指定2维数组的HashCode
-	 * 
-	 * @param arrays
-	 * @return
-	 */
+	
 	public static int hashCode(int[][] arrays) {
 		if (arrays == null) {
 			return 0;
@@ -73,14 +42,7 @@ final public class CollectionUtils {
 		return result;
 	}
 
-	/**
-	 * 扩充指定数组
-	 * 
-	 * @param obj
-	 * @param i
-	 * @param flag
-	 * @return
-	 */
+	
 	public static Object expand(Object obj, int i, boolean flag) {
 		int j = Array.getLength(obj);
 		Object obj1 = Array.newInstance(obj.getClass().getComponentType(), j
@@ -89,26 +51,12 @@ final public class CollectionUtils {
 		return obj1;
 	}
 
-	/**
-	 * 扩充指定数组
-	 * 
-	 * @param obj
-	 * @param size
-	 * @return
-	 */
+	
 	public static Object expand(Object obj, int size) {
 		return expand(obj, size, true);
 	}
 
-	/**
-	 * 扩充指定数组
-	 * 
-	 * @param obj
-	 * @param size
-	 * @param flag
-	 * @param class1
-	 * @return
-	 */
+	
 	public static Object expand(Object obj, int size, boolean flag,
 			Class<?> class1) {
 		if (obj == null) {
@@ -118,13 +66,7 @@ final public class CollectionUtils {
 		}
 	}
 
-	/**
-	 * 剪切出指定长度的数组
-	 * 
-	 * @param obj
-	 * @param size
-	 * @return
-	 */
+	
 	public static Object cut(Object obj, int size) {
 		int j;
 		if ((j = Array.getLength(obj)) == 1) {
@@ -140,12 +82,7 @@ final public class CollectionUtils {
 		return obj1;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param src
-	 * @return
-	 */
+	
 	public static Object copyOf(Object src) {
 		int srcLength = Array.getLength(src);
 		Class<?> srcComponentType = src.getClass().getComponentType();
@@ -160,12 +97,7 @@ final public class CollectionUtils {
 		return dest;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static int[][] copyOf(int[][] obj) {
 		int size = obj.length;
 		int[][] copy = new int[size][];
@@ -178,48 +110,24 @@ final public class CollectionUtils {
 		return copy;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static String[] copyOf(String[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static String[] copyOf(String[] obj, int newSize) {
 		String tempArr[] = new String[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param original
-	 * @param newLength
-	 * @return
-	 */
+	
 	public static Object[] copyOf(Object[] original, int newLength) {
 		return copyOf(original, newLength, original.getClass());
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param original
-	 * @param newLength
-	 * @param newType
-	 * @return
-	 */
+	
 	public static Object[] copyOf(Object[] original, int newLength,
 			Class<?> newType) {
 		Object[] copy = (newType == Object[].class) ? new Object[newLength]
@@ -230,161 +138,84 @@ final public class CollectionUtils {
 		return copy;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static int[] copyOf(int[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static int[] copyOf(int[] obj, int newSize) {
 		int tempArr[] = new int[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static double[] copyOf(double[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static double[] copyOf(double[] obj, int newSize) {
 		double tempArr[] = new double[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static float[] copyOf(float[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static float[] copyOf(float[] obj, int newSize) {
 		float tempArr[] = new float[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static byte[] copyOf(byte[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static byte[] copyOf(byte[] obj, int newSize) {
 		byte tempArr[] = new byte[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static char[] copyOf(char[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static char[] copyOf(char[] obj, int newSize) {
 		char tempArr[] = new char[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static long[] copyOf(long[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static long[] copyOf(long[] obj, int newSize) {
 		long tempArr[] = new long[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));
 		return tempArr;
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	
 	public static boolean[] copyOf(boolean[] obj) {
 		return copyOf(obj, obj.length);
 	}
 
-	/**
-	 * copy指定长度的数组数据
-	 * 
-	 * @param obj
-	 * @param newSize
-	 * @return
-	 */
+	
 	public static boolean[] copyOf(boolean[] obj, int newSize) {
 		boolean tempArr[] = new boolean[newSize];
 		System.arraycopy(obj, 0, tempArr, 0, MathUtils.min(obj.length, newSize));

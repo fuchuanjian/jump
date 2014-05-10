@@ -4,18 +4,16 @@ import loon.LGame;
 import loon.LSetting;
 import loon.core.graphics.opengl.LTexture;
 
-public class MainActivity extends LGame {
+public class JumpMainActivity extends LGame {
 
 	@Override
 	public void onGamePaused() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onGameResumed() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

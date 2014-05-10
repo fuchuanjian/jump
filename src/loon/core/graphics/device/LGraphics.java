@@ -20,27 +20,7 @@ import android.graphics.RectF;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PorterDuff.Mode;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.1.2
- */
+
 public final class LGraphics implements LTrans {
 
 	private final static android.graphics.DashPathEffect dashPathEffect = new android.graphics.DashPathEffect(
@@ -76,9 +56,7 @@ public final class LGraphics implements LTrans {
 		this.initGraphics();
 	}
 
-	/**
-	 * 初始化画布
-	 */
+	
 	public void initGraphics() {
 		if (paint == null) {
 			paint = new Paint();
@@ -110,17 +88,13 @@ public final class LGraphics implements LTrans {
 		this.isClose = false;
 	}
 
-	/**
-	 * 刷新Font数据
-	 */
+	
 	public void resetFont() {
 		this.paint.setColor(0xFFFFFFFF);
 		this.setFont(defaultFont);
 	}
 
-	/**
-	 * 刷新画布
-	 */
+	
 	public void reset() {
 		if (canvas != null && !isClose) {
 			if (paint == null) {
@@ -149,9 +123,7 @@ public final class LGraphics implements LTrans {
 		}
 	}
 
-	/**
-	 * 执行Canvas的restore
-	 */
+	
 	public void restore() {
 		if (isClose) {
 			return;
@@ -159,11 +131,7 @@ public final class LGraphics implements LTrans {
 		canvas.restore();
 	}
 
-	/**
-	 * 执行Canvas的save
-	 * 
-	 * @param flag
-	 */
+	
 	public void save(int flag) {
 		if (isClose) {
 			return;
@@ -171,10 +139,7 @@ public final class LGraphics implements LTrans {
 		canvas.save(flag);
 	}
 
-	/**
-	 * 执行Canvas的save
-	 * 
-	 */
+	
 	public void save() {
 		if (isClose) {
 			return;
@@ -183,9 +148,7 @@ public final class LGraphics implements LTrans {
 	}
 
 
-	/**
-	 * 创建一个新的 LGraphics对象，它是当前LGraphics对象的克隆
-	 */
+	
 	public LGraphics create() {
 		if (isClose) {
 			return null;
@@ -193,10 +156,7 @@ public final class LGraphics implements LTrans {
 		return new LGraphics(Bitmap.createBitmap(grapBitmap));
 	}
 
-	/**
-	 * 基于此 LGraphics创建一个新的 LGraphics对象，但是使用新的转换和剪贴区域
-	 * 
-	 */
+	
 	public LGraphics create(int x, int y, int w, int h) {
 		if (isClose) {
 			return null;
@@ -392,9 +352,7 @@ public final class LGraphics implements LTrans {
 		this.font = font;
 	}
 
-	/**
-	 * 重新分配画布图像为缓存图
-	 */
+	
 	public void allocate() {
 		if (isClose) {
 			return;
@@ -402,9 +360,7 @@ public final class LGraphics implements LTrans {
 		canvas.setBitmap(grapBitmap);
 	}
 
-	/**
-	 * 翻转画布为指定角度
-	 */
+	
 	public void setTransform(int transform, int width, int height) {
 		switch (transform) {
 		case TRANS_ROT90: {
@@ -1159,19 +1115,12 @@ public final class LGraphics implements LTrans {
 				hasAlpha, paint);
 	}
 
-	/**
-	 * 以当前画布颜色填充全屏
-	 * 
-	 */
+	
 	public void fill() {
 		drawClear(paint.getColor());
 	}
 
-	/**
-	 * 以指定颜色清空屏幕
-	 * 
-	 * @param c
-	 */
+	
 	public void drawClear(int c) {
 		if (isClose) {
 			return;
@@ -1179,11 +1128,7 @@ public final class LGraphics implements LTrans {
 		canvas.drawColor(c);
 	}
 
-	/**
-	 * 以指定颜色清空屏幕
-	 * 
-	 * @param c
-	 */
+	
 	public void drawClear(LColor c) {
 		if (isClose) {
 			return;
@@ -1191,9 +1136,7 @@ public final class LGraphics implements LTrans {
 		canvas.drawColor(c.getARGB());
 	}
 
-	/**
-	 * 清空屏幕
-	 */
+	
 	public void drawClear() {
 		if (isClose) {
 			return;
@@ -1201,9 +1144,7 @@ public final class LGraphics implements LTrans {
 		canvas.drawColor(0, Mode.CLEAR);
 	}
 
-	/**
-	 * 设置 LGraphics的背景色
-	 */
+	
 	public void setBackground(LColor color) {
 		if (isClose) {
 			return;
@@ -1212,9 +1153,7 @@ public final class LGraphics implements LTrans {
 		canvas.drawColor(color.getRGB());
 	}
 
-	/**
-	 * 获得LGraphics的背景色
-	 */
+	
 	public LColor getBackground() {
 		return getColor();
 	}
@@ -1387,9 +1326,7 @@ public final class LGraphics implements LTrans {
 		}
 	}
 
-	/**
-	 * 绘制指定矩形的 3D突出显示边框
-	 */
+	
 	public void draw3DRect(int x, int y, int width, int height, boolean raised) {
 		if (isClose) {
 			return;

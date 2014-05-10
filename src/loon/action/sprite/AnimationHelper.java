@@ -10,26 +10,7 @@ import loon.core.graphics.opengl.TextureUtils;
 import loon.utils.CollectionUtils;
 
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class AnimationHelper {
 
 	private final static HashMap<String, AnimationHelper> animations = new HashMap<String, AnimationHelper>();
@@ -46,51 +27,27 @@ public class AnimationHelper {
 	// 角色向右
 	public LTexture[] rightImages;
 
-	/**
-	 * 以RMVX的角色格式创建对象(总图大小96x128，每格大小32x32)
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	public static AnimationHelper makeRMVXObject(String fileName) {
 		return makeObject(fileName, 4, 3, 32, 32);
 	}
 
-	/**
-	 * 以RMXP的角色格式创建对象(总图大小128x192，每格大小32x48)
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	public static AnimationHelper makeRMXPObject(String fileName) {
 		return makeObject(fileName, 4, 4, 32, 48);
 	}
 
-	/**
-	 * 以E社的角色格式创建对象(总图大小200x200，每格大小40x50)
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	public static AnimationHelper makeEObject(String fileName) {
 		return makeObject(fileName, 40, 50, LColor.green);
 	}
 
-	/**
-	 * 以RMVX的角色格式创建分解头象
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	public static LTexture[] makeFace(String fileName) {
 		return TextureUtils.getSplitTextures(fileName, 96, 96);
 	}
 
-	/**
-	 * 绘制一个RMVX样式的游标
-	 * 
-	 * @return
-	 */
+	
 	public static LTexture makeCursor(int w, int h) {
 		LImage cursor = LImage.createImage(w, h, true);
 		LGraphics g = cursor.getLGraphics();

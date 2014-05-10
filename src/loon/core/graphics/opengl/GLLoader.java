@@ -13,27 +13,7 @@ import loon.jni.NativeSupport;
 import loon.utils.CollectionUtils;
 import loon.utils.FileUtils;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public final class GLLoader extends LTextureData {
 
 	private static final boolean IS_LITTLE_ENDIAN = (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN);
@@ -117,12 +97,7 @@ public final class GLLoader extends LTextureData {
 		this.fileName = fileName;
 	}
 
-	/**
-	 * 将LImage转化为LTextureData
-	 * 
-	 * @param image
-	 * @return
-	 */
+	
 	private void create(LImage image) {
 		if (image == null) {
 			return;
@@ -218,18 +193,7 @@ public final class GLLoader extends LTextureData {
 
 	}
 
-	/**
-	 * 复制指定的LImage图像区域
-	 * 
-	 * @param image
-	 * @param g
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param dx
-	 * @param dy
-	 */
+	
 	public static void copyArea(LImage image, LGraphics g, int x, int y,
 			int width, int height, int dx, int dy) {
 		LImage tmp = image.getSubImage(x, y, width, height);
@@ -238,26 +202,19 @@ public final class GLLoader extends LTextureData {
 		tmp = null;
 	}
 
-	/**
-	 * 复制当前LTextureData
-	 * 
-	 */
+	
 	@Override
 	public LTextureData copy() {
 		return new GLLoader(this, true);
 	}
 
-	/**
-	 * 创建纹理
-	 */
+	
 	@Override
 	public void createTexture() {
 		submitGL(this);
 	}
 
-	/**
-	 * 提交纹理数据到GL渲染器
-	 */
+	
 	public final static void submitGL(LTextureData data) {
 		if (data.source == null && data.fileName != null) {
 			if (data.multipyAlpha) {
@@ -327,19 +284,12 @@ public final class GLLoader extends LTextureData {
 		}
 	}
 
-	/**
-	 * 添加纹理到当前纹理之上
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	public void addTexture(int x, int y) {
 		addGL(this, x, y);
 	}
 
-	/**
-	 * 添加纹理数据到GL渲染器
-	 */
+	
 	public final static void addGL(LTextureData data, int x, int y) {
 		if (data.multipyAlpha) {
 			data.multipyAlpha = isPNGExt(data.fileName);
@@ -388,12 +338,7 @@ public final class GLLoader extends LTextureData {
 		return false;
 	}
 
-	/**
-	 * 像素修正
-	 * 
-	 * @param bitmap
-	 * @return
-	 */
+	
 	public static int[] getFixPixels(android.graphics.Bitmap bitmap) {
 		final int[] rgba = GraphicsUtils.getPixels(bitmap);
 		PixelFormat format = PixelFormat.getPixelFormat(bitmap.getConfig());

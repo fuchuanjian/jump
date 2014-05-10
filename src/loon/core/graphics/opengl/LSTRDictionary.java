@@ -8,26 +8,7 @@ import loon.core.LSystem;
 import loon.core.graphics.LColor;
 import loon.core.graphics.LFont;
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public final class LSTRDictionary {
 
 	private final static HashMap<String, LFont> cacheList = new HashMap<String, LFont>(
@@ -154,13 +135,7 @@ public final class LSTRDictionary {
 		}
 	}
 
-	/**
-	 * 生成特定字符串的缓存用ID
-	 * 
-	 * @param font
-	 * @param text
-	 * @return
-	 */
+	
 	public static String makeStringLazyKey(final LFont font, final String text) {
 		int hashCode = 0;
 		hashCode = LSystem.unite(hashCode, font.getSize());
@@ -181,12 +156,7 @@ public final class LSTRDictionary {
 		return lazyKey.toString();
 	}
 
-	/**
-	 * 生成一组西方字符缓存键值
-	 * 
-	 * @param font
-	 * @return
-	 */
+	
 	private static String makeLazyWestKey(LFont font) {
 		if (lazyKey == null) {
 			lazyKey = new StringBuffer();
@@ -202,9 +172,7 @@ public final class LSTRDictionary {
 		return lazyKey.toString();
 	}
 
-	/**
-	 * 清空西文字体缓存
-	 */
+	
 	public static void clearEnglishLazy() {
 		synchronized (lazyEnglish) {
 			for (LSTRFont str : lazyEnglish.values()) {

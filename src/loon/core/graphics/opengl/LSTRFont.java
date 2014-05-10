@@ -12,54 +12,19 @@ import loon.core.graphics.opengl.LTexture.Format;
 import loon.core.graphics.opengl.LTextureBatch.GLCache;
 
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.2
- */
+
 public class LSTRFont implements LRelease {
 
 	private boolean useCache;
 
-	/**
-	 * 获得指定字符串的LImage图像
-	 * 
-	 * @param fontName
-	 * @param style
-	 * @param size
-	 * @param color
-	 * @param text
-	 * @return
-	 */
+	
 	public static LImage createFontImage(String fontName, int style, int size,
 			LColor color, String text) {
 		return createFontImage(LFont.getFont(fontName, style, size), color,
 				text);
 	}
 
-	/**
-	 * 获得指定字符串的LImage图像
-	 * 
-	 * @param font
-	 * @param color
-	 * @param text
-	 * @return
-	 */
+	
 	public static LImage createFontImage(LFont font, LColor color, String text) {
 		LImage image = new LImage(font.stringWidth(text), font.getHeight(),
 				true);

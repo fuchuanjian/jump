@@ -6,26 +6,7 @@ import loon.core.graphics.LImage;
 import loon.core.graphics.device.LGraphics;
 import loon.core.graphics.opengl.LTexture.Format;
 
-/**
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 public class TextureUtils {
 
 	public static LTexture filterColor(String res, LColor height) {
@@ -194,15 +175,7 @@ public class TextureUtils {
 		return textures;
 	}
 
-	/**
-	 * 0.3.2版起新增的分割图片方法，与上述近似作用的Split函数不同的是，可以指定个别图块大小。
-	 * 
-	 * @param fileName
-	 * @param division
-	 * @param width
-	 * @param height
-	 * @return
-	 */
+	
 	public static LTexture[] getDivide(String fileName, int count, int[] width,
 			int[] height) {
 		if (count <= 0) {
@@ -240,25 +213,12 @@ public class TextureUtils {
 		return images;
 	}
 
-	/**
-	 * 0.3.2版起新增的分割图片方法，成比例切分图片为指定数量
-	 * 
-	 * @param fileName
-	 * @param count
-	 * @return
-	 */
+	
 	public static LTexture[] getDivide(String fileName, int count) {
 		return getDivide(fileName, count, null, null);
 	}
 
-	/**
-	 * 创建一张指定色彩的纹理
-	 * 
-	 * @param width
-	 * @param height
-	 * @param c
-	 * @return
-	 */
+	
 	public static LTexture createTexture(int width, int height, LColor c) {
 		LImage image = new LImage(width, height, false);
 		LGraphics g = image.getLGraphics();

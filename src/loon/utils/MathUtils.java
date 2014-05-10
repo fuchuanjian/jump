@@ -4,26 +4,7 @@ import android.util.FloatMath;
 import loon.core.LSystem;
 import loon.core.geom.RectBox;
 
-/**
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.3.3
- */
+
 public class MathUtils {
 
 	public static RectBox getBounds(float x, float y, float width,
@@ -61,24 +42,12 @@ public class MathUtils {
 	final static private String[] zeros = { "", "0", "00", "000", "0000",
 			"00000", "000000", "0000000", "00000000", "000000000", "0000000000" };
 
-	/**
-	 * 为指定数值补足位数
-	 * 
-	 * @param number
-	 * @param numDigits
-	 * @return
-	 */
+	
 	public static String addZeros(long number, int numDigits) {
 		return addZeros(String.valueOf(number), numDigits);
 	}
 
-	/**
-	 * 为指定数值补足位数
-	 * 
-	 * @param number
-	 * @param numDigits
-	 * @return
-	 */
+	
 	public static String addZeros(String number, int numDigits) {
 		int length = numDigits - number.length();
 		if (length != 0) {
@@ -87,12 +56,7 @@ public class MathUtils {
 		return number;
 	}
 
-	/**
-	 * 判断是否为数字
-	 * 
-	 * @param param
-	 * @return
-	 */
+	
 	public static boolean isNan(String str) {
 		if (StringUtils.isEmpty(str)) {
 			return false;

@@ -7,26 +7,7 @@ import loon.utils.collection.ArrayMap;
 import loon.utils.collection.ArrayMap.Entry;
 
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 public class CSVTable {
 
 	public static class CSVItem extends ArrayMap {
@@ -39,13 +20,7 @@ public class CSVTable {
 
 	}
 
-	/**
-	 * 载入CSV数据后转化为指定类的Object[]
-	 * 
-	 * @param fileName
-	 * @param clazz
-	 * @return
-	 */
+	
 	final static public Object[] load(final String fileName,
 			final Class<?> clazz) {
 		Object[] obj = null;
@@ -75,12 +50,7 @@ public class CSVTable {
 		return obj;
 	}
 
-	/**
-	 * 载入CSV数据到CSVItem数组
-	 * 
-	 * @param fileName
-	 * @return
-	 */
+	
 	final static public CSVItem[] load(final String fileName) {
 		CSVItem[] items = null;
 		try {
@@ -110,13 +80,7 @@ public class CSVTable {
 		return items;
 	}
 
-	/**
-	 * 注册指定对象中指定名称函数为指定数值
-	 * 
-	 * @param object
-	 * @param beanProperty
-	 * @param value
-	 */
+	
 	private static void register(final Object object,
 			final String beanProperty, final String value) {
 		Object[] beanObject = bind(object.getClass(), beanProperty);
@@ -157,13 +121,7 @@ public class CSVTable {
 		}
 	}
 
-	/**
-	 * 绑定指定类与方法
-	 * 
-	 * @param clazz
-	 * @param beanProperty
-	 * @return
-	 */
+	
 	final static private Object[] bind(final Class<? extends Object> clazz,
 			final String beanProperty) {
 		Object[] result = new Object[2];

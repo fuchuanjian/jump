@@ -9,26 +9,7 @@ import java.util.ArrayList;
 import loon.core.LSystem;
 
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.1.1
- */
+
 public class CSVReader extends BufferedReader {
 
 	private String delimiter = ",";
@@ -91,12 +72,7 @@ public class CSVReader extends BufferedReader {
 		return super.readLine();
 	}
 
-	/**
-	 * 返回CSV数值的字符串数组
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
+	
 	public String[] readLineAsArray() throws IOException {
 		ArrayList<String> v = readLineAsList();
 		if (v == null){
@@ -121,12 +97,7 @@ public class CSVReader extends BufferedReader {
 		return nowLine;
 	}
 
-	/**
-	 * 分割CSV文件数值,并返回List
-	 * 
-	 * @param line
-	 * @return
-	 */
+	
 	private ArrayList<String> getCSVItems(String line) {
 		ArrayList<String> v = new ArrayList<String>();
 		int startIdx = 0;

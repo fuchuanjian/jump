@@ -10,26 +10,7 @@ import loon.core.graphics.opengl.LTexture.Format;
 import loon.jni.NativeSupport;
 import loon.utils.MathUtils;
 
-/**
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1
- */
+
 // 此类专为批量渲染单一纹理而设置（比如处理海量精灵块，地图块等），允许提交缓存中数据到渲染器
 public final class LTextureBatch implements LRelease {
 
@@ -356,19 +337,12 @@ public final class LTextureBatch implements LRelease {
 		this.isLocked = false;
 	}
 
-	/**
-	 * 开始批处理
-	 * 
-	 */
+	
 	public void glBegin() {
 		glBegin(GL.GL_TRIANGLES);
 	}
 
-	/**
-	 * 以指定渲染形式开始批处理
-	 * 
-	 * @param type
-	 */
+	
 	public void glBegin(int type) {
 		this.batchType = type;
 		this.useBegin = true;
@@ -379,10 +353,7 @@ public final class LTextureBatch implements LRelease {
 		}
 	}
 
-	/**
-	 * 构建顶点Buffer
-	 * 
-	 */
+	
 	private void make(int size) {
 		if (vertexBuffer == null) {
 			vertexBuffer = NativeSupport.newFloatBuffer(size * 3);
@@ -396,10 +367,7 @@ public final class LTextureBatch implements LRelease {
 		this.maxCount = size;
 	}
 
-	/**
-	 * 注入顶点数据
-	 * 
-	 */
+	
 	private void insertVertices() {
 		if (isLocked) {
 			return;
@@ -418,10 +386,7 @@ public final class LTextureBatch implements LRelease {
 		oldCoordCount = size;
 	}
 
-	/**
-	 * 提交顶点数据到渲染器
-	 * 
-	 */
+	
 	public void glEnd() {
 		if (count == 0 || !useBegin) {
 			this.useBegin = false;
@@ -433,11 +398,7 @@ public final class LTextureBatch implements LRelease {
 		this.useBegin = false;
 	}
 
-	/**
-	 * 提交顶点数据到渲染器，渲染结果用来处理文字
-	 * 
-	 * @param c
-	 */
+	
 	public void commitQuad(LColor c, float x, float y, float sx, float sy,
 			float ax, float ay, float rotaion) {
 		if (count == 0 || !useBegin) {
@@ -457,11 +418,7 @@ public final class LTextureBatch implements LRelease {
 		this.useBegin = false;
 	}
 
-	/**
-	 * 提交缓存数据到渲染器，渲染结果用来处理文字
-	 * 
-	 * @param c
-	 */
+	
 	public void commitCacheQuad(LColor c, float x, float y, float sx, float sy,
 			float ax, float ay, float rotaion) {
 		if (count == 0) {
@@ -479,10 +436,7 @@ public final class LTextureBatch implements LRelease {
 		}
 	}
 
-	/**
-	 * 提交缓存中的数据
-	 * 
-	 */
+	
 	public void glCacheCommit() {
 		if (count == 0) {
 			return;
@@ -493,12 +447,7 @@ public final class LTextureBatch implements LRelease {
 		}
 	}
 
-	/**
-	 * 提交缓存数据
-	 * 
-	 * @param tex2d
-	 * @param cache
-	 */
+	
 	public final static void commit(LTexture tex2d, GLCache cache) {
 		if (cache.count == 0) {
 			return;
@@ -506,15 +455,7 @@ public final class LTextureBatch implements LRelease {
 		GLEx.self.glDrawArrays(tex2d, cache);
 	}
 
-	/**
-	 * 提交缓存数据进行文字渲染
-	 * 
-	 * @param tex2d
-	 * @param cache
-	 * @param c
-	 * @param x
-	 * @param y
-	 */
+	
 	public final static void commitQuad(LTexture tex2d, GLCache cache,
 			LColor c, float x, float y, float sx, float sy, float ax, float ay,
 			float rotation) {
@@ -549,19 +490,7 @@ public final class LTextureBatch implements LRelease {
 		draw(colors, x, y, width, height, 0, 0, texture.width, texture.height);
 	}
 
-	/**
-	 * 以指定的色彩，顶点绘制出指定区域内的纹理到指定位置
-	 * 
-	 * @param colors
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 */
+	
 	public void draw(LColor[] colors, float x, float y, float width,
 			float height, float srcX, float srcY, float srcWidth,
 			float srcHeight) {

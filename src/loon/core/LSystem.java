@@ -26,27 +26,7 @@ import android.os.Build;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 
-/**
- * 
- * Copyright 2008 - 2012
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com.cn
- * @version 0.3.3
- */
+
 public final class LSystem {
 
 	public String getLanguage() {
@@ -113,13 +93,7 @@ public final class LSystem {
 		}
 	}
 
-	/***
-	 * 获得指定名称资源的数据流
-	 * 
-	 * @param resName
-	 * @return
-	 * @throws FileNotFoundException
-	 */
+	
 	public final static InputStream getResourceAsStream(String resName)
 			throws FileNotFoundException {
 		try {
@@ -138,11 +112,7 @@ public final class LSystem {
 		}
 	}
 
-	/**
-	 * 执行一个位于Screen线程中的Runnable
-	 * 
-	 * @param runnable
-	 */
+	
 	public final static void callScreenRunnable(Runnable runnable) {
 		LProcess process = LSystem.screenProcess;
 		if (process != null) {
@@ -281,12 +251,7 @@ public final class LSystem {
 	private static HashMap<String, Object> settings = new HashMap<String, Object>(
 			5);
 
-	/**
-	 * 设定一组键值对到缓存当中
-	 * 
-	 * @param key
-	 * @param value
-	 */
+	
 	public static void set(String key, Object value) {
 		if (key == null || "".equals(key)) {
 			return;
@@ -294,12 +259,7 @@ public final class LSystem {
 		settings.put(key, value);
 	}
 
-	/**
-	 * 获得指定键所对应的数值
-	 * 
-	 * @param key
-	 * @return
-	 */
+	
 	public static Object get(String key) {
 		if (key == null || "".equals(key)) {
 			return null;
@@ -327,11 +287,7 @@ public final class LSystem {
 				&& BULID_MODEL.indexOf("sdk") != -1;
 	}
 
-	/**
-	 * 设定常规图像加载方法（非全部）的默认劣化值
-	 * 
-	 * @param sampleSize
-	 */
+	
 	public static void setPoorImage(int sampleSize) {
 		if (sampleSize > 0) {
 			LSystem.IMAGE_SIZE = sampleSize;
@@ -340,52 +296,29 @@ public final class LSystem {
 		}
 	}
 
-	/**
-	 * 判定是否使用了“奇异”的三星机型
-	 * 
-	 * @return
-	 */
+	
 	public static boolean isSamsung7500() {
 		return isDevice("GT-I7500");
 	}
 
-	/**
-	 * 判断手机驱动
-	 * 
-	 * @param d
-	 * @return
-	 */
+	
 	public static boolean isDevice(String d) {
 		return BULIDM_DEVICE.equalsIgnoreCase(d);
 	}
 
-	/**
-	 * 设定LayoutParams为全屏模式
-	 * 
-	 * @return
-	 */
+	
 	public static LayoutParams createFillLayoutParams() {
 		return new LayoutParams(0xffffffff, 0xffffffff);
 	}
 
-	/**
-	 * 生成一个对应指定位置的RelativeLayout
-	 * 
-	 * @param location
-	 * @return
-	 */
+	
 	public static RelativeLayout.LayoutParams createRelativeLayout(
 			Location location) {
 		return createRelativeLayout(location, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 	}
 
-	/**
-	 * 生成一个对应指定位置的RelativeLayout
-	 * 
-	 * @param location
-	 * @return
-	 */
+	
 	public static RelativeLayout.LayoutParams createRelativeLayout(
 			Location location, int w, int h) {
 		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
@@ -462,11 +395,7 @@ public final class LSystem {
 		return relativeParams;
 	}
 
-	/**
-	 * 跳转到指定的Activity
-	 * 
-	 * @param from
-	 */
+	
 	public static void action(android.app.Activity from, Class<?> clazz) {
 
 		screenActivity.setDestroy(false);
@@ -475,12 +404,7 @@ public final class LSystem {
 		from.startActivity(intent);
 	}
 
-	/**
-	 * 跳转到指定的Activity,并将其设定为最初的Activity
-	 * 
-	 * @param from
-	 * @param clazz
-	 */
+	
 	public static void go(android.app.Activity from, Class<?> clazz) {
 		LSystem.getActivity().setDestroy(false);
 		android.content.Intent intent = new android.content.Intent(from, clazz);
@@ -536,12 +460,7 @@ public final class LSystem {
 				- Runtime.getRuntime().freeMemory();
 	}
 
-	/**
-	 * 判定当前Android系统版本是否高于指定的版本
-	 * 
-	 * @param ver
-	 * @return
-	 */
+	
 	public static boolean isAndroidVersionHigher(final int ver) {
 		return BULIDM_SDK >= ver;
 	}
@@ -591,19 +510,14 @@ public final class LSystem {
 		return isMotorola && (isDroid || isMilestone);
 	}
 
-	/**
-	 * 清空框架临时资源
-	 */
+	
 	public static void destroy() {
 		GraphicsUtils.destroy();
 		Resources.destroy();
 		LSystem.gc();
 	}
 
-	/**
-	 * 退出当前应用
-	 * 
-	 */
+	
 	public static void exit() {
 		if (screenProcess == null) {
 			return;
@@ -620,11 +534,7 @@ public final class LSystem {
 		}
 	}
 
-	/**
-	 * 返回当前的Activity
-	 * 
-	 * @return
-	 */
+	
 	public static LGame getActivity() {
 		return screenActivity;
 	}
@@ -633,20 +543,12 @@ public final class LSystem {
 		return new SystemTimer();
 	}
 
-	/**
-	 * 申请回收系统资源
-	 * 
-	 */
+	
 	final public static void gc() {
 		System.gc();
 	}
 
-	/**
-	 * 以指定范围内的指定概率执行gc
-	 * 
-	 * @param size
-	 * @param rand
-	 */
+	
 	final public static void gc(final int size, final long rand) {
 		if (rand > size) {
 			throw new RuntimeException(
@@ -657,21 +559,12 @@ public final class LSystem {
 		}
 	}
 
-	/**
-	 * 以指定概率使用gc回收系统资源
-	 * 
-	 * @param rand
-	 */
+	
 	final public static void gc(final long rand) {
 		gc(100, rand);
 	}
 
-	/**
-	 * 写入整型数据到OutputStream
-	 * 
-	 * @param out
-	 * @param number
-	 */
+	
 	public final static void writeInt(final OutputStream out, final int number) {
 		byte[] bytes = new byte[4];
 		try {
@@ -684,12 +577,7 @@ public final class LSystem {
 		}
 	}
 
-	/**
-	 * 从InputStream中获得整型数据
-	 * 
-	 * @param in
-	 * @return
-	 */
+	
 	final static public int readInt(final InputStream in) {
 		int data = -1;
 		try {
@@ -703,13 +591,7 @@ public final class LSystem {
 		return data;
 	}
 
-	/**
-	 * 合并hashCode和指定类型的数值生成新的Code值(以下同)
-	 * 
-	 * @param hashCode
-	 * @param value
-	 * @return
-	 */
+	
 	public static int unite(int hashCode, boolean value) {
 		int v = value ? 1231 : 1237;
 		return unite(hashCode, v);

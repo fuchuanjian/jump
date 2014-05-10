@@ -17,27 +17,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email：javachenpeng@yahoo.com
- * @version 0.1.1
- */
+
 public class LGameTools {
 
 	final static class ClickAndroid implements
@@ -186,12 +166,7 @@ public class LGameTools {
 
 	final static class Web extends android.webkit.WebView {
 
-		/**
-		 * Web自定义脚本(name即代表JavaScript中类名,以"name."形式执行Object封装的具体对象)
-		 * 比如构建一个脚本类名为App,提供一个具体类Home，其中只有一个函数go。那么执行脚本
-		 * App.go时即自动调用相关的Home类中同名函数，并且在Android系统中执行。
-		 * 
-		 */
+		
 		public interface JavaScript {
 
 			// 执行的对象，实际内部应该封装具体类
@@ -202,10 +177,7 @@ public class LGameTools {
 
 		}
 
-		/**
-		 * Web加载进度监听器
-		 * 
-		 */
+		
 		public interface WebProcess {
 
 			// 页面开始加载
@@ -365,12 +337,7 @@ public class LGameTools {
 			}
 		}
 
-		/**
-		 * 像当前Web界面进行内部标记性赋值
-		 * 
-		 * @param name
-		 * @param value
-		 */
+		
 		@SuppressWarnings("unchecked")
 		public void setWebParams(String name, Object value) {
 			Hashtable<String, Object> params = null;
@@ -383,12 +350,7 @@ public class LGameTools {
 			params.put(name, value);
 		}
 
-		/**
-		 * 获得当前Web界面的内部标记性传参
-		 * 
-		 * @param name
-		 * @return
-		 */
+		
 		@SuppressWarnings("unchecked")
 		public Object getWebParams(String name) {
 			if (getTag() == null) {
@@ -398,11 +360,7 @@ public class LGameTools {
 			return params.get(name);
 		}
 
-		/**
-		 * 添加一组自制JavaScript脚本到当前Web界面当中
-		 * 
-		 * @param sprites
-		 */
+		
 		public void addJavaScripts(JavaScript[] sprites) {
 			for (int i = 0; i < sprites.length; i++) {
 				this.addJavascriptInterface(sprites[i].getObject(),
@@ -410,11 +368,7 @@ public class LGameTools {
 			}
 		}
 
-		/**
-		 * 添加自制JavaScript脚本到当前Web界面当中
-		 * 
-		 * @param sprite
-		 */
+		
 		public void addJavaScripts(JavaScript sprite) {
 			this.addJavascriptInterface(sprite.getObject(), sprite.getName());
 		}
@@ -431,18 +385,12 @@ public class LGameTools {
 			super.loadUrl("javascript:" + function);
 		}
 
-		/**
-		 * 通过Intent进行跳转
-		 * 
-		 * @param intent
-		 */
+		
 		public void loadIntent(Intent intent) {
 			this.loadUrl(intent.getStringExtra(android.app.SearchManager.QUERY));
 		}
 
-		/**
-		 * 通过Url进行跳转
-		 */
+		
 		@Override
 		public void loadUrl(String url) {
 			boolean isURL = url.startsWith("http://")

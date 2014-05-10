@@ -23,28 +23,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
-
-/**
- * 
- * Copyright 2008 - 2011
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- * 
- * @project loon
- * @author cping
- * @email javachenpeng@yahoo.com
- * @version 0.1.3
- */
 public abstract class LGame extends Activity {
 
 	private static Class<?> getType(Object o) {
@@ -172,26 +150,13 @@ public abstract class LGame extends Activity {
 		initialization(landscape, true, mode);
 	}
 
-	/**
-	 * 以指定倾斜方式显示游戏画面
-	 * 
-	 * @param width
-	 * @param height
-	 * @param landscape
-	 */
+	
 	public void initialization(final int width, final int height,
 			final boolean landscape) {
 		initialization(width, height, landscape, LMode.Ratio);
 	}
 
-	/**
-	 * 以指定倾斜方式显示游戏画面
-	 * 
-	 * @param width
-	 * @param height
-	 * @param landscape
-	 * @param mode
-	 */
+	
 	public void initialization(final int width, final int height,
 			final boolean landscape, final LMode mode) {
 		maxScreen(width, height);
@@ -248,13 +213,7 @@ public abstract class LGame extends Activity {
 
 	public abstract void onMain();
 
-	/**
-	 * 弹出输入框
-	 * 
-	 * @param listener
-	 * @param title
-	 * @param message
-	 */
+	
 	public void showAndroidTextInput(final TextEvent listener,
 			final String title, final String message) {
 		if (listener == null) {
@@ -278,13 +237,7 @@ public abstract class LGame extends Activity {
 		builder.show();
 	}
 
-	/**
-	 * 弹出指定的HTML页面
-	 * 
-	 * @param listener
-	 * @param title
-	 * @param url
-	 */
+	
 	public void showAndroidOpenHTML(final ClickEvent listener,
 			final String title, final String url) {
 		if (listener == null) {
@@ -304,13 +257,7 @@ public abstract class LGame extends Activity {
 		builder.show();
 	}
 
-	/**
-	 * 弹出选择框
-	 * 
-	 * @param listener
-	 * @param title
-	 * @param text
-	 */
+	
 	public void showAndroidSelect(final SelectEvent listener,
 			final String title, final String text[]) {
 		if (listener == null) {
@@ -329,17 +276,7 @@ public abstract class LGame extends Activity {
 		alert.show();
 	}
 
-	/**
-	 * 弹出Yes or No判定
-	 * 
-	 * @param title
-	 * @param message
-	 * @param cancelable
-	 * @param yes
-	 * @param no
-	 * @param onYesClick
-	 * @param onNoClick
-	 */
+	
 	public void showAndroidYesOrNo(String title, String message,
 			boolean cancelable, String yes, String no,
 			android.content.DialogInterface.OnClickListener onYesClick,
@@ -415,12 +352,7 @@ public abstract class LGame extends Activity {
 		}
 	}
 
-	/**
-	 * 假的，糊弄反编译者中小白用……
-	 * 
-	 * @param ad
-	 * @return
-	 */
+	
 	public int setAD(String ad) {
 		int result = 0;
 		try {
@@ -517,90 +449,61 @@ public abstract class LGame extends Activity {
 		return layoutParams;
 	}
 
-	/**
-	 * 设定常规图像加载方法的扩大值
-	 * 
-	 * @param sampleSize
-	 */
+	
 	public void setSizeImage(int sampleSize) {
 		LSystem.setPoorImage(sampleSize);
 	}
 
-	/**
-	 * 取出第一个Screen并执行
-	 * 
-	 */
+	
 	public void runFirstScreen() {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.runFirstScreen();
 		}
 	}
 
-	/**
-	 * 取出最后一个Screen并执行
-	 */
+	
 	public void runLastScreen() {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.runLastScreen();
 		}
 	}
 
-	/**
-	 * 运行指定位置的Screen
-	 * 
-	 * @param index
-	 */
+	
 	public void runIndexScreen(int index) {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.runIndexScreen(index);
 		}
 	}
 
-	/**
-	 * 运行自当前Screen起的上一个Screen
-	 */
+	
 	public void runPreviousScreen() {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.runPreviousScreen();
 		}
 	}
 
-	/**
-	 * 运行自当前Screen起的下一个Screen
-	 */
+	
 	public void runNextScreen() {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.runNextScreen();
 		}
 	}
 
-	/**
-	 * 向缓存中添加Screen数据，但是不立即执行
-	 * 
-	 * @param screen
-	 */
+	
 	public void addScreen(Screen screen) {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.addScreen(screen);
 		}
 	}
 
-	/**
-	 * 切换当前窗体为指定Screen
-	 * 
-	 * @param screen
-	 */
+	
 	public void setScreen(Screen screen) {
 		if (LSystem.screenProcess != null) {
 			LSystem.screenProcess.setScreen(screen);
 		}
 	}
 
-	/**
-	 * 获得保存的Screen列表
-	 * 
-	 * @return
-	 */
+	
 	public LinkedList<Screen> getScreens() {
 		if (LSystem.screenProcess != null) {
 			return LSystem.screenProcess.getScreens();
@@ -608,9 +511,7 @@ public abstract class LGame extends Activity {
 		return null;
 	}
 
-	/**
-	 * 获得缓存的Screen总数
-	 */
+	
 	public int getScreenCount() {
 		if (LSystem.screenProcess != null) {
 			return LSystem.screenProcess.getScreenCount();
@@ -664,27 +565,17 @@ public abstract class LGame extends Activity {
 		return gameView;
 	}
 
-	/**
-	 * 键盘是否已显示
-	 * 
-	 * @return
-	 */
+	
 	public boolean isKeyboardOpen() {
 		return keyboardOpen;
 	}
 
-	/**
-	 * 当前窗体方向
-	 * 
-	 * @return
-	 */
+	
 	public int getOrientation() {
 		return orientation;
 	}
 
-	/**
-	 * 退出当前应用
-	 */
+	
 	public void close() {
 		finish();
 	}
@@ -693,11 +584,7 @@ public abstract class LGame extends Activity {
 		return isDestroy;
 	}
 
-	/**
-	 * 设定是否在Activity注销时强制关闭整个程序
-	 * 
-	 * @param isDestroy
-	 */
+	
 	public void setDestroy(boolean isDestroy) {
 		this.isDestroy = isDestroy;
 		if (!isDestroy) {
@@ -709,11 +596,7 @@ public abstract class LGame extends Activity {
 		return LSystem.isBackLocked;
 	}
 
-	/**
-	 * 设定锁死BACK事件不处理
-	 * 
-	 * @param isBackLocked
-	 */
+	
 	public void setBackLocked(boolean isBackLocked) {
 		LSystem.isBackLocked = isBackLocked;
 	}
