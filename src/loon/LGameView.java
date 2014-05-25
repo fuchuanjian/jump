@@ -105,7 +105,7 @@ public final class LGameView extends CallQueue implements Renderer {
 		this.context = activity.getApplicationContext();
 //		this.setFullScreen(fullScreen);
 		this.setLandscape(landscape, mode);
-		LSystem.screenActivity.checkConfigChanges(context);
+//		LSystem.screenActivity.checkConfigChanges(context);
 	}
 
 	public boolean isScale() {
@@ -241,7 +241,7 @@ public final class LGameView extends CallQueue implements Renderer {
 			sbr.append("\nMaxWidth:").append(maxWidth)
 					.append(",MaxHeight:" + maxHeight);
 			sbr.append("\nScale:").append(isScale());
-			Log.i("Android2DSize", sbr.toString());
+//			Log.i("Android2DSize", sbr.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -136,8 +136,17 @@ public class JumpMainActivity extends LGame {
 			
 			@Override
 			public void onDismissScreen(Ad arg0) {
-//				Util.setLoginCnt(-3);
+////				Util.setLoginCnt(-3);
 				_bottomLayout.setVisibility(View.GONE);
+				MainGame mainGame = MainGame.get();
+				if (mainGame != null)
+				{
+					int stars = Util.getIntFromSharedPref(Util.TOKEN, 10);
+					stars += 5;
+					Util.setIntToSharedPref(Util.TOKEN, stars);	
+					mainGame.m_iWorldTokens = stars;
+					Util.showToast("+5 Stars");
+				}
 			}
 		});
 	}

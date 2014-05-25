@@ -41,8 +41,6 @@ public class MainGame extends DrawableScreen {
 	private SpriteAnim m_BgSpriteAnim;
 	private boolean m_bJumpBig;
 	private boolean m_bJumpSmall;
-	private boolean[][] m_bLevelAllStarsDone = new boolean[3][0x15];
-	private boolean[][] m_bLevelInFirstTryDone = new boolean[3][0x15];
 	private boolean m_bLoadContent = true;
 	private boolean m_bLoadContentReady;
 	protected boolean m_bMusicOn = true;
@@ -94,7 +92,6 @@ public class MainGame extends DrawableScreen {
 	private int m_iBgNum;
 	private int m_iCurrentLevel;
 	private int m_iCurrentLevelCollectedStars;
-	private int m_iCurrentLevelScore;
 	private int m_iCurrentLevelTotalStars;
 	private int m_iCurrentWorld;
 	protected int m_iDeltaTimeMS;
@@ -102,16 +99,14 @@ public class MainGame extends DrawableScreen {
 	protected int m_iHandednessType;
 	private int m_iJumpBigTime;
 	private int m_iJumpSmallTime;
-	private int[][] m_iLevelBestScore = new int[3][0x15];
 	private int[][] m_iLevelState = new int[3][0x15];
 	private int m_iRTGLogoTimer;
-	private int m_iScoreToCurrentLevel;
 
 	protected int m_iScreenOrientation;
 
 	protected int m_iSocialGamingType;
 
-	private int[] m_iWorldTokens = new int[3];
+	public int  m_iWorldTokens = 0;
 	private EMenu m_LastActiveMenu;
 	private float m_LoadContentEnd;
 	private float m_LoadContentStart;
@@ -158,9 +153,10 @@ public class MainGame extends DrawableScreen {
 	public final int WORLD_LAST = 2;
 	public final int WORLD_NONE = -1;
 
-	//0开启
-	//2普通通过
-	//3完美通过
+	//0星
+	//1星
+	//2星
+	//3星
 	//4跳过
 	//5锁定
 	public MainGame() {
@@ -173,22 +169,23 @@ public class MainGame extends DrawableScreen {
 		this.m_LastActiveMenu = EMenu.Menu_None;
 		this.m_MenuCharacterMoveState = EItemMoveState.ItemMoveState_Out;
 		this.m_bFutureWorldPack1Unlocked = false;
+		this.m_iWorldTokens  = Util.getIntFromSharedPref(Util.TOKEN, 10);
 		for (int i = 0; i < 3; i++) {
 			this.m_bWorldUnlocked[i] = true; //false
-			this.m_iWorldTokens[i] = 1;
 			for (int j = 0; j < 21; j++) {
-				this.m_iLevelState[i][j] = 0; //5
-				this.m_iLevelBestScore[i][j] = 0;
-				this.m_bLevelInFirstTryDone[i][j] = false;
-				this.m_bLevelAllStarsDone[i][j] = false;
+				this.m_iLevelState[i][j] = Util.getLevelSharedPref(i, j); //5
 			}
 		}
 		this.m_bWorldUnlocked[0] = true;
-		this.m_iLevelState[0][0] = 0;
+		Util.setLevelSharedPref(0, 0, 0);
+		Util.setLevelSharedPref(1, 0, 0);
+		Util.setLevelSharedPref(2, 0, 0);
+		this.m_iLevelState[0][0] = Util.getLevelSharedPref(0, 0);
+		this.m_iLevelState[1][0] = Util.getLevelSharedPref(1, 0);
+		this.m_iLevelState[2][0] = Util.getLevelSharedPref(2, 0);
 	}
 
 	private void BeginGameState(EGameState newGameState) {
-		Trace.i("fu", TAG+"BeginGameState "+ newGameState);
 		this.m_GameState = newGameState;
 		if (this.m_GameState == EGameState.GameState_Menu) {
 			this.m_MainMenuBoxesSprite.SetColorAlpha(1f);
@@ -245,7 +242,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private void BeginMenuCharacterMoveState(EItemMoveState moveState) {
-		Trace.i("fu", TAG+"BeginMenuCharacterMoveState "+ moveState);
 		this.m_MenuCharacterMoveState = moveState;
 		if (this.m_MenuCharacterMoveState == EItemMoveState.ItemMoveState_GoIn) {
 			this.m_fMenuCharacterMoveValue = 0f;
@@ -259,7 +255,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private void BeginTitleMoveState(EItemMoveState moveState) {
-		Trace.i("fu", TAG+"BeginTitleMoveState "+ moveState);
 		this.m_TitleMoveState = moveState;
 		if (this.m_TitleMoveState == EItemMoveState.ItemMoveState_GoIn) {
 			this.m_fTitleMoveStateValue = 0f;
@@ -274,23 +269,19 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void ChangeGameSpeed(float fBySpeed) {
-		Trace.i("fu", TAG+"ChangeGameSpeed "+ fBySpeed);
 		this.m_fGameSpeed += fBySpeed;
 	}
 
 	public void ClearJumpBig() {
-		Trace.i("fu", TAG+"ClearJumpBig ");
 		this.m_bJumpBig = false;
 	}
 
 	public void ClearJumpSmall() {
-		Trace.i("fu", TAG+"ClearJumpSmall ");
 		this.m_bJumpSmall = false;
 	}
 
 	public void CreateBouncePadDown(int iAtBlock, int iDeltaQuarters,
 			int iQuartersFromGround) {
-		Trace.i("fu", TAG+"CreateBouncePadDown "+iAtBlock+"  "+iDeltaQuarters+"  "+iQuartersFromGround);
 		BouncePad nextFree = this.m_BouncePadPool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock, iDeltaQuarters, iQuartersFromGround);
@@ -299,7 +290,6 @@ public class MainGame extends DrawableScreen {
 
 	public void CreateBouncePadUp(int iAtBlock, int iDeltaQuarters,
 			int iQuartersFromGround) {
-		Trace.i("fu", TAG+"CreateBouncePadUp "+iAtBlock+"  "+iDeltaQuarters+"  "+iQuartersFromGround);
 		BouncePad nextFree = this.m_BouncePadPool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock, iDeltaQuarters, iQuartersFromGround);
@@ -308,7 +298,6 @@ public class MainGame extends DrawableScreen {
 
 	public void CreateExitableForceField(int iAtBlock, int iDeltaQuarters,
 			int iSizeBlocks, int iQuartersFromGround) {
-		Trace.i("fu", TAG+"CreateExitableForceField "+iAtBlock+"  "+iDeltaQuarters+"  "+iQuartersFromGround);
 		ForceField nextFree = this.m_ForceFieldPool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.CreateExitable(iAtBlock, iDeltaQuarters, iSizeBlocks,
@@ -317,7 +306,6 @@ public class MainGame extends DrawableScreen {
 
 	public void CreateForceField(int iAtBlock, int iDeltaQuarters,
 			int iSizeBlocks, int iQuartersFromGround) {
-		Trace.i("fu", TAG+"CreateForceField "+iAtBlock+"  "+iDeltaQuarters+"  "+iQuartersFromGround);
 		ForceField nextFree = this.m_ForceFieldPool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock, iDeltaQuarters, iSizeBlocks,
@@ -326,7 +314,6 @@ public class MainGame extends DrawableScreen {
 
 	public void CreateObstacle(int iAtBlock, int iDeltaQuarters,
 			int iSizeXQuarters, int iSizeYQuarters, int iQuartersFromGround) {
-		Trace.i("fu", TAG+"CreateObstacle "+iAtBlock+"  "+iDeltaQuarters+"  "+iQuartersFromGround);
 		Obstacle nextFree = this.m_ObstaclePool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock, iDeltaQuarters, iSizeXQuarters,
@@ -334,7 +321,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public SpeedChange CreateSpeedChange(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateSpeedChange "+iAtBlock);
 		SpeedChange nextFree = this.m_SpeedChangePool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock);
@@ -342,25 +328,21 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void CreateSpeedChangeDownEnd(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateSpeedChangeDownEnd "+iAtBlock);
 		this.CreateSpeedChange(iAtBlock).SetSpeedChangeType(
 				SpeedChange.ESpeedChangeType.SpeedChange_DownEnd);
 	}
 
 	public void CreateSpeedChangeDownStart(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateSpeedChangeDownStart "+iAtBlock);
 		this.CreateSpeedChange(iAtBlock).SetSpeedChangeType(
 				SpeedChange.ESpeedChangeType.SpeedChange_DownStart);
 	}
 
 	public void CreateSpeedChangeUpEnd(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateSpeedChangeUpEnd "+iAtBlock);
 		this.CreateSpeedChange(iAtBlock).SetSpeedChangeType(
 				SpeedChange.ESpeedChangeType.SpeedChange_UpEnd);
 	}
 
 	public void CreateSpeedChangeUpStart(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateSpeedChangeUpStart "+iAtBlock);
 		this.CreateSpeedChange(iAtBlock).SetSpeedChangeType(
 				SpeedChange.ESpeedChangeType.SpeedChange_UpStart);
 	}
@@ -370,39 +352,32 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void CreateStar(int iAtBlock, int iBlocksFromGround) {
-		Trace.i("fu", TAG+"CreateStar "+iAtBlock+"  "+iBlocksFromGround);
 		Star nextFree = this.m_StarPool.GetNextFree();
 		nextFree.inuse = true;
 		nextFree.Create(iAtBlock, iBlocksFromGround);
 	}
 
 	public void EndOfGround() {
-		Trace.i("fu", TAG+"EndOfGround ");
 		this.m_pPlayer.StartMovingOut();
 	}
 
 	public void EnterHiSpeed() {
-		Trace.i("fu", TAG+"EnterHiSpeed ");
 		this.m_pPlayer.EnterHiSpeed();
 	}
 
 	public void EnterLowSpeed() {
-		Trace.i("fu", TAG+"EnterLowSpeed ");
 		this.m_pPlayer.EnterLowSpeed();
 	}
 
 	public void ExitHiSpeed() {
-		Trace.i("fu", TAG+"ExitHiSpeed ");
 		this.m_pPlayer.ExitHiSpeed();
 	}
 
 	public void ExitLowSpeed() {
-		Trace.i("fu", TAG+"ExitLowSpeed ");
 		this.m_pPlayer.ExitLowSpeed();
 	}
 
 	public int GetCurrentWorld() {
-		Trace.i("fu", TAG+"GetCurrentWorld ");
 		return this.m_iCurrentWorld;
 	}
 
@@ -493,17 +468,6 @@ public class MainGame extends DrawableScreen {
 		return 48f;
 	}
 
-	private int GetWorldScore(int iWorld, int iToLevel) {
-		int num = 0;
-		if ((iToLevel <= 0) || (iToLevel > 0x15)) {
-			iToLevel = 0x15;
-		}
-		for (int i = 0; i < iToLevel; i++) {
-			num += this.m_iLevelBestScore[iWorld][i];
-		}
-		return num;
-	}
-
 	private void GoToMenu(EMenu newMenu, boolean bImmediately) {
 		this.m_LastActiveMenu = this.m_ActiveMenu;
 		if (bImmediately) {
@@ -525,7 +489,7 @@ public class MainGame extends DrawableScreen {
 		} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
 			num = 3f;
 		} else if (this.m_ActiveMenu == EMenu.Menu_Paused) {
-			if (this.m_iWorldTokens[this.m_iCurrentWorld] > 0) {
+			if (this.m_iWorldTokens > 0) {
 				num = 3f;
 			} else {
 				num = 2f;
@@ -610,46 +574,44 @@ public class MainGame extends DrawableScreen {
 
 	private void GotoNextLevel(boolean bSkip) {
 		if (bSkip) {
-			this.m_iWorldTokens[this.m_iCurrentWorld]--;
-			this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 4;
-			this.m_iLevelBestScore[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 0;
-			this.m_bLevelInFirstTryDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = false;
-			this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = false;
+			int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
+			if (mode == 0 )
+			{				
+				int spend = (this.m_iCurrentLevel ) + 21 * m_iCurrentWorld;
+				this.m_iWorldTokens -= spend;
+				Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
+			}
+			setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 4);
 		} else {
-			if (this.m_pPlayer.GetLevelTryCount() == 1) {
-				this.m_iCurrentLevelScore += 500;
-				this.m_bLevelInFirstTryDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = true;
-			} else {
-				int num = 100 - ((this.m_pPlayer.GetLevelTryCount() - 2) * 10);
-				if (num > 0) {
-					this.m_iCurrentLevelScore += num;
-				}
+			if (m_iCurrentLevelCollectedStars > m_iCurrentLevelTotalStars - 2 )
+			{
+				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 3);
+			}else if (m_iCurrentLevelCollectedStars > m_iCurrentLevelTotalStars - 5 )
+			{
+				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 2);
+			}else 
+			{
+				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 1);
 			}
-			if (this.m_iCurrentLevelTotalStars == this.m_iCurrentLevelCollectedStars) {
-				this.m_iCurrentLevelScore += 500;
-				this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = true;
-			} else {
-				this.m_iCurrentLevelScore += ((int) (((float) this.m_iCurrentLevelCollectedStars) / ((float) this.m_iCurrentLevelTotalStars))) * 100;
-			}
-			if ((this.m_pPlayer.GetLevelTryCount() == 1)
-					&& (this.m_iCurrentLevelTotalStars == this.m_iCurrentLevelCollectedStars)) {
-				this.m_iCurrentLevelScore += 0x3e8;
-				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 3;
-			} else if ((this.m_bLevelInFirstTryDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] && this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1])
-					&& (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] != 3)) {
-				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 2;
-			} else if ((this.m_bLevelInFirstTryDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] || this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1])
-					&& (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 0)) {
-				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 1;
-			} else if (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 4) {
-				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 0;
-			}
-			if (this.m_iCurrentLevelScore > this.m_iLevelBestScore[this.m_iCurrentWorld][this.m_iCurrentLevel - 1]) {
-				this.m_iLevelBestScore[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = this.m_iCurrentLevelScore;
-			}
+			
+//			if ((this.m_pPlayer.GetLevelTryCount() == 1)
+//					&& (this.m_iCurrentLevelTotalStars == this.m_iCurrentLevelCollectedStars)) {
+//				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 3;
+//			} else if (this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1]
+//					&& (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] != 3)) {
+//				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 2;
+//			} else if ( this.m_bLevelAllStarsDone[this.m_iCurrentWorld][this.m_iCurrentLevel - 1]
+//					&& (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 0)) {
+//				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 1;
+//			} else if (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 4) {
+//				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 0;
+//			}
+//			if (this.m_iCurrentLevelScore > this.m_iLevelBestScore[this.m_iCurrentWorld][this.m_iCurrentLevel - 1]) {
+//				this.m_iLevelBestScore[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = this.m_iCurrentLevelScore;
+//			}
 		}
 		boolean flag = true;
-		for (int i = 0; i < 0x15; i++) {
+		for (int i = 0; i < 21; i++) {
 			if ((this.m_iLevelState[this.m_iCurrentWorld][i] == 5)
 					|| (this.m_iLevelState[this.m_iCurrentWorld][i] == 4)) {
 				flag = false;
@@ -665,9 +627,11 @@ public class MainGame extends DrawableScreen {
 			}
 		}
 		this.m_iCurrentLevel++;
-		if (this.m_iCurrentLevel > 0x15) {
+		if (this.m_iCurrentLevel > 21) {
 			this.m_iCurrentLevel = 1;
 			this.m_iCurrentWorld++;
+			this.m_iWorldTokens += 3;
+			Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
 			if (this.m_iCurrentWorld > 2) {
 				this.m_iCurrentWorld = -1;
 				this.m_bFutureWorldPack1Unlocked = true;
@@ -675,24 +639,27 @@ public class MainGame extends DrawableScreen {
 			if (this.m_iCurrentWorld != -1) {
 				if (!this.m_bWorldUnlocked[this.m_iCurrentWorld]) {
 					this.m_bWorldUnlocked[this.m_iCurrentWorld] = true;
-					this.m_iWorldTokens[this.m_iCurrentWorld] = 1;
 				}
 				this.PrepareWorldBackground();
 			}
 		}
 		if (this.m_iCurrentWorld != -1) {
-			if (this.m_iCurrentLevel > 1) {
-				this.m_iScoreToCurrentLevel = this.GetWorldScore(
-						this.m_iCurrentWorld, this.m_iCurrentLevel - 1);
-			} else {
-				this.m_iScoreToCurrentLevel = 0;
+//			if (this.m_iCurrentLevel > 1) {
+//				this.m_iScoreToCurrentLevel = this.GetWorldScore(
+//						this.m_iCurrentWorld, this.m_iCurrentLevel - 1);
+//			} else {
+//				this.m_iScoreToCurrentLevel = 0;
+//			}
+			if (!bSkip)
+			{				
+				this.m_iWorldTokens += 1;
+				Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
 			}
 			if (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 5) {
-				this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] = 0;
-				if (((this.m_iCurrentLevel == 6) || (this.m_iCurrentLevel == 11))
-						|| (this.m_iCurrentLevel == 0x10)) {
-					this.m_iWorldTokens[this.m_iCurrentWorld]++;
-				}
+				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 0);
+//				if (((this.m_iCurrentLevel == 6) || (this.m_iCurrentLevel == 11))
+//						|| (this.m_iCurrentLevel == 0x10)) {
+//				}
 			}
 		}
 		if (this.m_iCurrentWorld != -1) {
@@ -702,12 +669,17 @@ public class MainGame extends DrawableScreen {
 		}
 	}
 
+	private void setLevelStatus(int set, int level, int value) {
+		Util.setLevelSharedPref(set,level, value);
+		this.m_iLevelState[set][level] = Util.getLevelSharedPref(set, level);
+		
+	}
+
 	private void InitSounds() {
 
 	}
 
 	private void InitUI() {
-		Trace.i("fu", TAG+"InitUI ");
 		float x = 256f * this.GetDeviceUnitScale();
 		float y = 64f * this.GetDeviceUnitScale();
 		this.m_TitleCloudSprite = new Sprite();
@@ -904,7 +876,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private void InitWorldsBackground() {
-		Trace.i("fu", TAG+"InitWorldsBackground ");
 		this.m_Bg1SpriteAnim = new SpriteAnim();
 		this.m_Bg1SpriteAnim.SetAnimLoopType(0);
 		this.m_Bg1SpriteAnim.AddTextureByName("bg01_1", false);
@@ -927,7 +898,6 @@ public class MainGame extends DrawableScreen {
 
 	private boolean IsBtnSpriteTouch(Sprite pSprite, float x, float y,
 			boolean bUIWideBtn) {
-		Trace.i("fu", TAG+"IsBtnSpriteTouch ");
 		float halfSizeY = 25f * this.GetDeviceUnitScale();
 		if (!bUIWideBtn) {
 			halfSizeY = pSprite.GetHalfSizeY();
@@ -999,11 +969,9 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnGroundBlockDone() {
-		this.m_iCurrentLevelScore += 2;
 	}
 
 	private void OnInitGame() {
-		Trace.i("fu", TAG+"OnInitGame ");
 		this.m_pDefaultFont = new Font("font");
 		this.InitUI();
 		this.InitSounds();
@@ -1064,12 +1032,10 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public final void OnPickupStar(Star pStar) {
-		this.m_iCurrentLevelScore += 10;
 		this.m_iCurrentLevelCollectedStars++;
 	}
 
 	private void OnPreInit() {
-		Trace.i("fu", TAG+"OnPreInit ");
 		this.m_fGroundPosY = this.GetScreenHeight()
 				- (this.GetUnitBlockSize() * 4f);
 		this.m_fGroundDeltaY = 0f;
@@ -1078,7 +1044,7 @@ public class MainGame extends DrawableScreen {
 		this.m_RTGLogoSprite.AddTextureByName("rtg_logo", true);
 		this.m_RTGLogoSprite.SetPosition(this.GetScreenWidth() * 0.5f,
 				this.GetScreenHeight() * 0.5f);
-		this.m_RTGLogoSprite.SetSize(256f, 256f);
+		this.m_RTGLogoSprite.SetSize(800f, 480f);
 		this.m_bJumpSmall = false;
 		this.m_bJumpBig = false;
 		this.LoadSettings();
@@ -1095,13 +1061,15 @@ public class MainGame extends DrawableScreen {
 				this.m_bLoadContent = false;
 				this.m_LoadContentEnd = System.currentTimeMillis() / 1000f;
 			} else if (!this.m_bLoadContent) {
-				float span = (this.m_LoadContentEnd - this.m_LoadContentStart);
-				int num2 = (int) (span * 1000.0);
+//				float span = (this.m_LoadContentEnd - this.m_LoadContentStart);
+//				int num2 = (int) (span * 1000.0);
 				this.m_iRTGLogoTimer += this.m_iDeltaTimeMS;
-				if (this.m_iRTGLogoTimer > (0x7d0 - num2)) {
-					this.BeginGameState(EGameState.GameState_Menu);
-					this.m_RTGLogoSprite.Unload();
-				}
+//				if (this.m_iRTGLogoTimer > (2000 - num2)) {
+//					this.BeginGameState(EGameState.GameState_Menu);
+//					this.m_RTGLogoSprite.Unload();
+//				}
+				this.BeginGameState(EGameState.GameState_Menu);
+				this.m_RTGLogoSprite.Unload();
 			}
 		} else if (this.m_GameState == EGameState.GameState_Menu) {
 			this.TickUI();
@@ -1294,12 +1262,12 @@ public class MainGame extends DrawableScreen {
 	private void PreparePlaySelectedLevel() {
 		this.m_bGamePaused = false;
 		this.PrepareWorldBackground();
-		if (this.m_iCurrentLevel > 1) {
-			this.m_iScoreToCurrentLevel = this.GetWorldScore(
-					this.m_iCurrentWorld, this.m_iCurrentLevel - 1);
-		} else {
-			this.m_iScoreToCurrentLevel = 0;
-		}
+//		if (this.m_iCurrentLevel > 1) {
+//			this.m_iScoreToCurrentLevel = this.GetWorldScore(
+//					this.m_iCurrentWorld, this.m_iCurrentLevel - 1);
+//		} else {
+//			this.m_iScoreToCurrentLevel = 0;
+//		}
 		this.ResetLevel(false);
 		this.m_pLevelMaker.CreateLevel(this.m_iCurrentLevel,
 				this.m_iCurrentWorld);
@@ -1381,22 +1349,22 @@ public class MainGame extends DrawableScreen {
 		this.m_pDefaultFont.SetColor(1f, 1f, 1f, 1f);
 		float textHeight = this.m_pDefaultFont.GetTextHeight(1.5f * this
 				.GetDeviceUnitScale());
-		String text = "SCORE: "
-				+ ((this.m_iScoreToCurrentLevel + "" + this.m_iCurrentLevelScore));
-		this.m_pDefaultFont.Print((int) (5f * this.GetDeviceUnitScale()),
-				(int) (2f * this.GetDeviceUnitScale()),
-				1.5f * this.GetDeviceUnitScale(),
-				1.5f * this.GetDeviceUnitScale(), text);
-		text = "LEVEL: " + (new Integer(this.m_iCurrentLevel)).toString();
+//		String text = "SCORE: "
+//				+ ((this.m_iScoreToCurrentLevel + "" + this.m_iCurrentLevelScore));
+//		this.m_pDefaultFont.Print((int) (5f * this.GetDeviceUnitScale()),
+//				(int) (2f * this.GetDeviceUnitScale()),
+//				1.5f * this.GetDeviceUnitScale(),
+//				1.5f * this.GetDeviceUnitScale(), text);
+		String text = "LEVEL: " + (new Integer(this.m_iCurrentLevel)).toString();
 		this.m_pDefaultFont.Print((float) (5f * this.GetDeviceUnitScale()),
-				(float) ((2f * this.GetDeviceUnitScale()) + textHeight),
+				(float) ((2f * this.GetDeviceUnitScale()) ),
 				1.5f * this.GetDeviceUnitScale(),
 				1.5f * this.GetDeviceUnitScale(), text);
-		text = "STAR: "
-				+ (new Integer(this.m_iWorldTokens[this.m_iCurrentWorld]))
+		text = "STARS: "
+				+ (new Integer(this.m_iWorldTokens))
 						.toString();
 		this.m_pDefaultFont.Print((float) (5f * this.GetDeviceUnitScale()),
-				(float) ((2f * this.GetDeviceUnitScale()) + (textHeight * 2f)),
+				(float) ((2f * this.GetDeviceUnitScale()) + (textHeight)),
 				1.5f * this.GetDeviceUnitScale(),
 				1.5f * this.GetDeviceUnitScale(), text);
 	}
@@ -1448,7 +1416,6 @@ public class MainGame extends DrawableScreen {
 	private RectBox rect = new RectBox();
 
 	private void RenderTutorial(SpriteBatch batch) {
-		Trace.i("fu", TAG+"RenderTutorial ");
 		if (this.m_Tutorial == ETutorial.Tutorial_Jumping) {
 			this.m_MsgSmallJumpSprite.Render(batch);
 			this.m_MsgBigJumpSprite.Render(batch);
@@ -1576,7 +1543,7 @@ public class MainGame extends DrawableScreen {
 		} else if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 			this.m_BtnResumeSprite.Render(batch);
 			this.m_BtnQuitToMenuSprite.Render(batch);
-			if (this.m_iWorldTokens[this.m_iCurrentWorld] > 0) {
+			if (this.m_iWorldTokens > 0) {
 				this.m_BtnUseTokenSprite.Render(batch);
 			}
 		} else if (this.m_ActiveMenu == EMenu.Menu_UseToken) {
@@ -1603,9 +1570,7 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private void ResetLevel(boolean bRestart) {
-		Trace.i("fu", TAG+"ResetLevel ");
 		this.m_bSkipLevel = false;
-		this.m_iCurrentLevelScore = 0;
 		this.m_iCurrentLevelTotalStars = 0;
 		this.m_iCurrentLevelCollectedStars = 0;
 		this.m_fGroundDeltaY = 0f;
@@ -2249,7 +2214,6 @@ public class MainGame extends DrawableScreen {
 
 	@Override
 	public void pressed(LTouch e) {
-		Trace.i("fu", TAG+"pressed "+e);
 		if ((this.m_GameState != EGameState.GameState_Menu)
 				|| (this.m_MenuButtonsState != EItemMoveState.ItemMoveState_In)) {
 			if (this.m_GameState == EGameState.GameState_PlayFadeIn) {
@@ -2297,13 +2261,28 @@ public class MainGame extends DrawableScreen {
 
 						this.GoToMenu(EMenu.Menu_Main, false);
 						JumpMainActivity.hideAd();
-					} else if ((this.m_iWorldTokens[this.m_iCurrentWorld] > 0)
+					} else if ((this.m_iWorldTokens > 0)
 							&& this.IsBtnSpriteTouch(this.m_BtnUseTokenSprite,
 									num10, num11, false)) {
 //						this.m_LastActiveMenu = this.m_ActiveMenu;
 //						this.m_ActiveMenu = EMenu.Menu_UseToken;
-						this.m_bSkipLevel = true;
-						this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
+						int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
+						if (mode != 0)
+						{
+							this.m_bSkipLevel = true;
+							this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
+						}else {							
+							int spend = m_iCurrentLevel + 21* m_iCurrentWorld;
+							if (m_iWorldTokens < spend )
+							{
+								Util.showToast("Need "+ spend+" Stars");
+							}else
+							{							
+								this.m_bSkipLevel = true;
+								this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
+								Util.showToast("- "+ spend+" Stars");
+							}
+						}
 //						this.GoToMenu(EMenu.Menu_UseToken, false);
 					}
 				} else if (this.m_ActiveMenu == EMenu.Menu_UseToken) {

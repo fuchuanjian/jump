@@ -110,7 +110,6 @@ public abstract class LGame extends Activity {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				Log.i("Android2DActivity", "LGame 2D Engine Start");
 				LSystem.screenActivity = LGame.this;
 				LGame.this.frameLayout =  new FrameLayout(LGame.this);
 				_bottomLayout = new LinearLayout(LGame.this);
