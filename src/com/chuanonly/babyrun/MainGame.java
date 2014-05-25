@@ -149,7 +149,7 @@ public class MainGame extends DrawableScreen {
 	private EItemMoveState m_TitleMoveState;
 	private ETutorial m_Tutorial;
 
-	public final int NUM_LEVELS_PER_WORLD = 0x15;
+	public final int NUM_LEVELS_PER_WORLD = 21;
 	public final int NUM_WORLDS = 3;
 
 	public final int WORLD_1 = 0;
@@ -158,6 +158,11 @@ public class MainGame extends DrawableScreen {
 	public final int WORLD_LAST = 2;
 	public final int WORLD_NONE = -1;
 
+	//0开启
+	//2普通通过
+	//3完美通过
+	//4跳过
+	//5锁定
 	public MainGame() {
 		MainGame.instance = this;
 		this.m_BgSpriteAnim = null;
@@ -171,7 +176,7 @@ public class MainGame extends DrawableScreen {
 		for (int i = 0; i < 3; i++) {
 			this.m_bWorldUnlocked[i] = true; //false
 			this.m_iWorldTokens[i] = 1;
-			for (int j = 0; j < 0x15; j++) {
+			for (int j = 0; j < 21; j++) {
 				this.m_iLevelState[i][j] = 0; //5
 				this.m_iLevelBestScore[i][j] = 0;
 				this.m_bLevelInFirstTryDone[i][j] = false;
@@ -361,7 +366,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void CreateStar(int iAtBlock) {
-		Trace.i("fu", TAG+"CreateStar "+iAtBlock);
 		this.CreateStar(iAtBlock, 0);
 	}
 
@@ -967,6 +971,7 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void LevelFailed() {
+		JumpMainActivity.showAd();
 		this.BeginGameState(EGameState.GameState_LevelFailed);
 	}
 
@@ -1282,6 +1287,7 @@ public class MainGame extends DrawableScreen {
 			this.m_fScreenFaderAlpha = 0f;
 			this.m_fScreenFaderAlphaDir = 1f;
 			this.GoToMenu(EMenu.Menu_Paused, true);
+			JumpMainActivity.showAd();
 		}
 	}
 
@@ -1386,7 +1392,7 @@ public class MainGame extends DrawableScreen {
 				(float) ((2f * this.GetDeviceUnitScale()) + textHeight),
 				1.5f * this.GetDeviceUnitScale(),
 				1.5f * this.GetDeviceUnitScale(), text);
-		text = "TOKENS: "
+		text = "STAR: "
 				+ (new Integer(this.m_iWorldTokens[this.m_iCurrentWorld]))
 						.toString();
 		this.m_pDefaultFont.Print((float) (5f * this.GetDeviceUnitScale()),
@@ -1727,7 +1733,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private void TickGame() {
-		Trace.i("fu", TAG+"TickGame ");
 		if (!this.IsGamePaused()) {
 			if (!this.m_pPlayer.IsCollided() && !this.m_pPlayer.IsLevelFailed()) {
 				this.m_pGround.Tick(this.m_iDeltaTimeMS);
@@ -2251,6 +2256,7 @@ public class MainGame extends DrawableScreen {
 				if ((this.m_fScreenFaderAlpha <= 0f)
 						&& (this.m_MsgMoveState == EItemMoveState.ItemMoveState_In)) {
 					this.m_MsgMoveState = EItemMoveState.ItemMoveState_GoOut;
+					JumpMainActivity.hideAd();
 				}
 			} else if (this.m_GameState == EGameState.GameState_WorldComplete) {
 				if (this.m_MsgMoveState == EItemMoveState.ItemMoveState_In) {
@@ -2285,15 +2291,20 @@ public class MainGame extends DrawableScreen {
 							num11, false)) {
 
 						this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
+						JumpMainActivity.hideAd();
 					} else if (this.IsBtnSpriteTouch(
 							this.m_BtnQuitToMenuSprite, num10, num11, false)) {
 
 						this.GoToMenu(EMenu.Menu_Main, false);
+						JumpMainActivity.hideAd();
 					} else if ((this.m_iWorldTokens[this.m_iCurrentWorld] > 0)
 							&& this.IsBtnSpriteTouch(this.m_BtnUseTokenSprite,
 									num10, num11, false)) {
-
-						this.GoToMenu(EMenu.Menu_UseToken, false);
+//						this.m_LastActiveMenu = this.m_ActiveMenu;
+//						this.m_ActiveMenu = EMenu.Menu_UseToken;
+						this.m_bSkipLevel = true;
+						this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
+//						this.GoToMenu(EMenu.Menu_UseToken, false);
 					}
 				} else if (this.m_ActiveMenu == EMenu.Menu_UseToken) {
 					if (this.IsBtnSpriteTouch(this.m_BtnYesSprite, num10,
@@ -2321,7 +2332,7 @@ public class MainGame extends DrawableScreen {
 					this.GoToMenu(EMenu.Menu_Options, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnMoreGamesSprite,
 						num, num2, true)) {
-
+					LSystem.exit();
 				}
 			} else if (this.m_ActiveMenu == EMenu.Menu_Options) {
 				if (this.IsBtnSpriteTouch(this.m_BtnSoundsSprite, num, num2,

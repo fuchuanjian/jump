@@ -371,6 +371,7 @@ public class GamePlayer extends Entity
 
 	public final void LevelComplete()
 	{
+		JumpMainActivity.showAd();
 		this.m_iLevelsCompleted++;
 		this.m_iLastLevelTryCount = this.m_iLevelTryCount;
 	}
