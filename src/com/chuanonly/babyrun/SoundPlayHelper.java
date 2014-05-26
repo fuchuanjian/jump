@@ -33,8 +33,8 @@ public class SoundPlayHelper {
 		AudioManager mgr = (AudioManager) context
 				.getSystemService(Context.AUDIO_SERVICE);
 		streamVolume = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);
-//		mMediaPlayer = MediaPlayer.create(context, R.raw.bgm);
-//		mMediaPlayer.setLooping(true);
+		mMediaPlayer = MediaPlayer.create(context, R.raw.music_w3);
+		mMediaPlayer.setLooping(true);
 	}
 
 	

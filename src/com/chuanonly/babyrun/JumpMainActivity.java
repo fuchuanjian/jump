@@ -31,21 +31,20 @@ public class JumpMainActivity extends LGame {
 	
 	//soundid
 	public static final int SOUND_BUTTON = 0;
-	public static final int SOUND_JUMP_BIG = 1;
-	public static final int SOUND_JUMP_SMALL = 1;
+	public static final int SOUND_JUMP = 1;
 	public static final int SOUND_SUCEESS = 2;
 	public static final int SOUND_COLLOD = 3;
-	public static final int SOUND_LAND = 4;
+//	public static final int SOUND_LAND = 4;
 	public static final int SOUND_SPEED_UP = 5;
 	public static final int SOUND_PICK_STAR = 6;
 	@Override
 	public void onGamePaused() {
-//		mHandler.sendEmptyMessage(MUSIC_STOP);
+		mHandler.sendEmptyMessage(MUSIC_STOP);
 	}
 
 	@Override
 	public void onGameResumed() {
-//		mHandler.sendEmptyMessageDelayed(MUSIC_START, 1500);
+		mHandler.sendEmptyMessageDelayed(MUSIC_START, 1500);
 	}
 
 	@Override
@@ -68,16 +67,12 @@ public class JumpMainActivity extends LGame {
 		mHandlerRef = new WeakReference<Handler>(mHandler);
 		 mSoundPlay = new SoundPlayHelper();
 	     mSoundPlay.initSounds(this);
-//	     mSoundPlay.loadSfx(this, R.raw.button, SOUND_BUTTON);
-//	     mSoundPlay.loadSfx(this, R.raw.wu, SOUND_WU);
-//	     mSoundPlay.loadSfx(this, R.raw.dangdang, SOUND_DANGDANG);
-//	     mSoundPlay.loadSfx(this, R.raw.burst, SOUND_CRASH);
-//	     mSoundPlay.loadSfx(this, R.raw.win, SOUND_SUCEESS);
-//	     mSoundPlay.loadSfx(this, R.raw.click, SOUND_CLICK);
-		
-		
-		
-		
+	     mSoundPlay.loadSfx(this, R.raw.button, SOUND_BUTTON);
+	     mSoundPlay.loadSfx(this, R.raw.jump, SOUND_JUMP);
+	     mSoundPlay.loadSfx(this, R.raw.win, SOUND_SUCEESS);
+	     mSoundPlay.loadSfx(this, R.raw.speed_up, SOUND_SPEED_UP);
+	     mSoundPlay.loadSfx(this, R.raw.sfx_hit, SOUND_COLLOD);
+	     mSoundPlay.loadSfx(this, R.raw.star_pickup, SOUND_PICK_STAR);	
 	}
 	
 	private Handler mHandler = new Handler()
@@ -179,7 +174,6 @@ public class JumpMainActivity extends LGame {
 	}
 	public static void playSound(int soundID)
 	{
-		if (true) return;
 		if (Util.isSoundSettingOn())
 		{			
 			Handler h =  mHandlerRef.get();

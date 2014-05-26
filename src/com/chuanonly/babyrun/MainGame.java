@@ -364,6 +364,7 @@ public class MainGame extends DrawableScreen {
 
 	public void EnterHiSpeed() {
 		this.m_pPlayer.EnterHiSpeed();
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_SPEED_UP);
 	}
 
 	public void EnterLowSpeed() {
@@ -958,15 +959,14 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnBounce() {
-
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_COLLOD);
 	}
 
 	public void OnCollided() {
-
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_COLLOD);
 	}
 
 	public void OnForceFieldEnter() {
-
 	}
 
 	public void OnGroundBlockDone() {
@@ -1013,15 +1013,14 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnJumpBig() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP_BIG);
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP);
 	}
 
 	public void OnJumpSmall() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP_BIG);
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP);
 	}
 
 	public void OnLanded() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_LAND);
 	}
 
 	public final void ExtractVarAndVal(String str, RefObject<String> sVar,
@@ -1035,6 +1034,7 @@ public class MainGame extends DrawableScreen {
 
 	public final void OnPickupStar(Star pStar) {
 		this.m_iCurrentLevelCollectedStars++;
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_PICK_STAR);
 	}
 
 	private void OnPreInit() {
@@ -1514,7 +1514,7 @@ public class MainGame extends DrawableScreen {
 			this.m_BtnWorld3Sprite.Render(batch);
 			this.m_BtnBackSprite.Render(batch);
 		} else if (this.m_ActiveMenu == EMenu.Menu_SelectLevel) {
-			for (int i = 0; i < 0x15; i++) {
+			for (int i = 0; i < 21; i++) {
 				float num2 = 0F;
 				float num3 = 0F;
 				RefObject<Float> tempRef_num2 = new RefObject<Float>(num2);
@@ -1527,22 +1527,20 @@ public class MainGame extends DrawableScreen {
 				this.m_SelLevelItemSprite.SetCurrentFrame(
 						this.m_iLevelState[this.m_iCurrentWorld][i], false);
 				this.m_SelLevelItemSprite.Render(batch);
+				this.m_BtnBackSprite.Render(batch);
 				if (this.m_iLevelState[this.m_iCurrentWorld][i] != 5) {
 					this.m_pDefaultFont.SetColor(1f, 1f, 1f, 1f);
-					String text = (new Integer(i + 1)).toString();
+					String text = (new Integer(i + 1 + 21 * m_iCurrentWorld) ).toString();
 					float textWidth = this.m_pDefaultFont.GetTextWidth(text, 2f * this.GetDeviceUnitScale());
 					float textHeight = this.m_pDefaultFont.GetTextHeight(2f * this.GetDeviceUnitScale());
-					Trace.i("fu","字体大小  "+ textWidth +"  "+ textHeight+" "+ text+"  "+ num2+"  "+num3);
-//					this.m_pDefaultFont.Print(
-//							(float) (num2 - (textWidth * 0.5f)),
-//							(float) (num3 - (textHeight * 0.75f)),
-//							2f * this.GetDeviceUnitScale(),
-//							2f * this.GetDeviceUnitScale(), text);
-					this.m_pDefaultFont.PrintCentered((int)num2, (int)num3 ,2f * this.GetDeviceUnitScale(),2f * this.GetDeviceUnitScale(), text);
+					this.m_pDefaultFont.Print(
+							(float) (num2 - (textWidth * 0.5f)),
+							(float) (num3 - (textHeight * 0.75f)),
+							2f * this.GetDeviceUnitScale(),
+							2f * this.GetDeviceUnitScale(), text);
+//					this.m_pDefaultFont.PrintCentered((int)num2, (int)num3 ,2f * this.GetDeviceUnitScale(),2f * this.GetDeviceUnitScale(), text);
 				}
 			}
-			this.m_BtnBackSprite.Render(batch);
-			this.m_pDefaultFont.PrintCentered((int) this.GetScreenWidth(),(int) GetScreenHeight(), 1, 1, "are you sure");
 		} else if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 			this.m_BtnResumeSprite.Render(batch);
 			this.m_BtnQuitToMenuSprite.Render(batch);
