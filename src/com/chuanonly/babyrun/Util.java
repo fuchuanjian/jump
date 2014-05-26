@@ -137,5 +137,4 @@ public class Util
     	editor.putInt(LOGIN_TIME, cnt);
     	editor.commit();
 	}
-    
 }

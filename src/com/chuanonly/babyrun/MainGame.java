@@ -50,7 +50,7 @@ public class MainGame extends DrawableScreen {
 	protected boolean m_bSoundsOn = true;
 	private Sprite m_BtnBackSprite;
 	private Sprite m_BtnMoreGamesSprite;
-	private SpriteAnim m_BtnMusicSprite;
+//	private SpriteAnim m_BtnMusicSprite;
 	private Sprite m_BtnNoSprite;
 	private Sprite m_BtnOptionsSprite;
 	private Sprite m_BtnPlaySprite;
@@ -167,6 +167,7 @@ public class MainGame extends DrawableScreen {
 		this.m_ActiveMenu = EMenu.Menu_None;
 		this.m_NextActiveMenu = EMenu.Menu_None;
 		this.m_LastActiveMenu = EMenu.Menu_None;
+		m_bSoundsOn = Util.isSoundSettingOn();
 		this.m_MenuCharacterMoveState = EItemMoveState.ItemMoveState_Out;
 		this.m_bFutureWorldPack1Unlocked = false;
 		this.m_iWorldTokens  = Util.getIntFromSharedPref(Util.TOKEN, 10);
@@ -553,11 +554,11 @@ public class MainGame extends DrawableScreen {
 			} else {
 				this.m_BtnSoundsSprite.SetCurrentFrame(0, false);
 			}
-			if (this.m_bMusicOn) {
-				this.m_BtnMusicSprite.SetCurrentFrame(1, false);
-			} else {
-				this.m_BtnMusicSprite.SetCurrentFrame(0, false);
-			}
+//			if (this.m_bMusicOn) {
+//				this.m_BtnMusicSprite.SetCurrentFrame(1, false);
+//			} else {
+//				this.m_BtnMusicSprite.SetCurrentFrame(0, false);
+//			}
 		} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
 			if (this.m_bWorldUnlocked[1]) {
 				this.m_BtnWorld2Sprite.SetCurrentFrame(0, false);
@@ -755,11 +756,11 @@ public class MainGame extends DrawableScreen {
 		this.m_BtnSoundsSprite.AddTextureByName("btn_soundson", false);
 		this.m_BtnSoundsSprite.SetSize(x, y);
 		this.m_BtnSoundsSprite.SetPosition(this.GetScreenWidth() / 2f, 100f);
-		this.m_BtnMusicSprite = new SpriteAnim();
-		this.m_BtnMusicSprite.AddTextureByName("btn_musicoff", false);
-		this.m_BtnMusicSprite.AddTextureByName("btn_musicon", false);
-		this.m_BtnMusicSprite.SetSize(x, y);
-		this.m_BtnMusicSprite.SetPosition(this.GetScreenWidth() / 2f, 100f);
+//		this.m_BtnMusicSprite = new SpriteAnim();
+//		this.m_BtnMusicSprite.AddTextureByName("btn_musicoff", false);
+//		this.m_BtnMusicSprite.AddTextureByName("btn_musicon", false);
+//		this.m_BtnMusicSprite.SetSize(x, y);
+//		this.m_BtnMusicSprite.SetPosition(this.GetScreenWidth() / 2f, 100f);
 		this.m_BtnWorld1Sprite = new SpriteAnim();
 		this.m_BtnWorld1Sprite.AddTextureByName("btn_world1", false);
 		this.m_BtnWorld1Sprite.SetSize(x, y);
@@ -1012,14 +1013,15 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnJumpBig() {
-
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP_BIG);
 	}
 
 	public void OnJumpSmall() {
-
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP_BIG);
 	}
 
 	public void OnLanded() {
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_LAND);
 	}
 
 	public final void ExtractVarAndVal(String str, RefObject<String> sVar,
@@ -1347,15 +1349,14 @@ public class MainGame extends DrawableScreen {
 			this.m_MsgWorldCompletedSprite.Render(batch);
 		}
 		this.m_pDefaultFont.SetColor(1f, 1f, 1f, 1f);
-		float textHeight = this.m_pDefaultFont.GetTextHeight(1.5f * this
-				.GetDeviceUnitScale());
+		float textHeight = this.m_pDefaultFont.GetTextHeight(1.5f * this.GetDeviceUnitScale());
 //		String text = "SCORE: "
 //				+ ((this.m_iScoreToCurrentLevel + "" + this.m_iCurrentLevelScore));
 //		this.m_pDefaultFont.Print((int) (5f * this.GetDeviceUnitScale()),
 //				(int) (2f * this.GetDeviceUnitScale()),
 //				1.5f * this.GetDeviceUnitScale(),
 //				1.5f * this.GetDeviceUnitScale(), text);
-		String text = "LEVEL: " + (new Integer(this.m_iCurrentLevel)).toString();
+		String text = "LEVEL: " + (new Integer(this.m_iCurrentLevel + 21 * m_iCurrentWorld)).toString();
 		this.m_pDefaultFont.Print((float) (5f * this.GetDeviceUnitScale()),
 				(float) ((2f * this.GetDeviceUnitScale()) ),
 				1.5f * this.GetDeviceUnitScale(),
@@ -1503,7 +1504,7 @@ public class MainGame extends DrawableScreen {
 			this.m_BtnMoreGamesSprite.Render(batch);
 		} else if (this.m_ActiveMenu == EMenu.Menu_Options) {
 			this.m_BtnSoundsSprite.Render(batch);
-			this.m_BtnMusicSprite.Render(batch);
+//			this.m_BtnMusicSprite.Render(batch);
 			this.m_BtnBackSprite.Render(batch);
 		} else if (this.m_ActiveMenu == EMenu.Menu_Credits) {
 			this.m_CreditsBgSprite.Render(batch);
@@ -1527,19 +1528,21 @@ public class MainGame extends DrawableScreen {
 						this.m_iLevelState[this.m_iCurrentWorld][i], false);
 				this.m_SelLevelItemSprite.Render(batch);
 				if (this.m_iLevelState[this.m_iCurrentWorld][i] != 5) {
+					this.m_pDefaultFont.SetColor(1f, 1f, 1f, 1f);
 					String text = (new Integer(i + 1)).toString();
-					float textWidth = this.m_pDefaultFont.GetTextWidth(text,
-							2f * this.GetDeviceUnitScale());
-					float textHeight = this.m_pDefaultFont
-							.GetTextHeight(2f * this.GetDeviceUnitScale());
-					this.m_pDefaultFont.Print(
-							(float) (num2 - (textWidth * 0.5f)),
-							(float) (num3 - (textHeight * 0.75f)),
-							2f * this.GetDeviceUnitScale(),
-							2f * this.GetDeviceUnitScale(), text);
+					float textWidth = this.m_pDefaultFont.GetTextWidth(text, 2f * this.GetDeviceUnitScale());
+					float textHeight = this.m_pDefaultFont.GetTextHeight(2f * this.GetDeviceUnitScale());
+					Trace.i("fu","字体大小  "+ textWidth +"  "+ textHeight+" "+ text+"  "+ num2+"  "+num3);
+//					this.m_pDefaultFont.Print(
+//							(float) (num2 - (textWidth * 0.5f)),
+//							(float) (num3 - (textHeight * 0.75f)),
+//							2f * this.GetDeviceUnitScale(),
+//							2f * this.GetDeviceUnitScale(), text);
+					this.m_pDefaultFont.PrintCentered((int)num2, (int)num3 ,2f * this.GetDeviceUnitScale(),2f * this.GetDeviceUnitScale(), text);
 				}
 			}
 			this.m_BtnBackSprite.Render(batch);
+			this.m_pDefaultFont.PrintCentered((int) this.GetScreenWidth(),(int) GetScreenHeight(), 1, 1, "are you sure");
 		} else if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 			this.m_BtnResumeSprite.Render(batch);
 			this.m_BtnQuitToMenuSprite.Render(batch);
@@ -1902,8 +1905,8 @@ public class MainGame extends DrawableScreen {
 					+ (this.m_fMenuButtonsBetweenDist * 2f));
 		} else if (this.m_ActiveMenu == EMenu.Menu_Options) {
 			this.m_BtnSoundsSprite.SetPositionY(this.m_fMenuButtonsFirstPosY);
-			this.m_BtnMusicSprite.SetPositionY(this.m_fMenuButtonsFirstPosY
-					+ this.m_fMenuButtonsBetweenDist);
+//			this.m_BtnMusicSprite.SetPositionY(this.m_fMenuButtonsFirstPosY
+//					+ this.m_fMenuButtonsBetweenDist);
 			this.m_BtnBackSprite.SetPositionY(this.m_fMenuButtonsFirstPosY
 					+ this.m_fMenuBackBtnDistFromFirstBtn);
 		} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
@@ -2253,19 +2256,20 @@ public class MainGame extends DrawableScreen {
 				if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 					if (this.IsBtnSpriteTouch(this.m_BtnResumeSprite, num10,
 							num11, false)) {
-
+						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
 						JumpMainActivity.hideAd();
 					} else if (this.IsBtnSpriteTouch(
 							this.m_BtnQuitToMenuSprite, num10, num11, false)) {
-
 						this.GoToMenu(EMenu.Menu_Main, false);
+						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						JumpMainActivity.hideAd();
 					} else if ((this.m_iWorldTokens > 0)
 							&& this.IsBtnSpriteTouch(this.m_BtnUseTokenSprite,
 									num10, num11, false)) {
 //						this.m_LastActiveMenu = this.m_ActiveMenu;
 //						this.m_ActiveMenu = EMenu.Menu_UseToken;
+						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
 						if (mode != 0)
 						{
@@ -2303,11 +2307,11 @@ public class MainGame extends DrawableScreen {
 			float num2 = e.y();
 			if (this.m_ActiveMenu == EMenu.Menu_Main) {
 				if (this.IsBtnSpriteTouch(this.m_BtnPlaySprite, num, num2, true)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_SelectWorld, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnOptionsSprite, num,
 						num2, true)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_Options, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnMoreGamesSprite,
 						num, num2, true)) {
@@ -2316,27 +2320,29 @@ public class MainGame extends DrawableScreen {
 			} else if (this.m_ActiveMenu == EMenu.Menu_Options) {
 				if (this.IsBtnSpriteTouch(this.m_BtnSoundsSprite, num, num2,
 						true)) {
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.m_bSoundsOn = !this.m_bSoundsOn;
+					Util.setSoundSettingON(m_bSoundsOn);
 					if (this.m_bSoundsOn) {
-
 						this.m_BtnSoundsSprite.SetCurrentFrame(1, false);
+						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_START);
 					} else {
 						this.m_BtnSoundsSprite.SetCurrentFrame(0, false);
+						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_STOP);
 					}
 
-				} else if (this.IsBtnSpriteTouch(this.m_BtnMusicSprite, num,
-						num2, true)) {
-
-					if (this.m_bMusicOn) {
-
-						this.m_bMusicOn = false;
-						this.m_BtnMusicSprite.SetCurrentFrame(0, false);
-					} else {
-						this.m_bMusicOn = true;
-
-						this.m_BtnMusicSprite.SetCurrentFrame(1, false);
-					}
-				} else if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num,
+				}
+//				else if (this.IsBtnSpriteTouch(this.m_BtnMusicSprite, num,
+//						num2, true)) {
+//					if (this.m_bMusicOn) {
+//						this.m_bMusicOn = false;
+//						this.m_BtnMusicSprite.SetCurrentFrame(0, false);
+//					} else {
+//						this.m_bMusicOn = true;
+//						this.m_BtnMusicSprite.SetCurrentFrame(1, false);
+//					}
+//				} 
+				else if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num,
 						num2, true)) {
 
 					this.GoToMenu(EMenu.Menu_Main, false);
@@ -2349,18 +2355,19 @@ public class MainGame extends DrawableScreen {
 								.GetDeviceUnitScale())))) {
 
 				} else {
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(this.m_LastActiveMenu, false);
 				}
 			} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
 				if (this.IsBtnSpriteTouch(this.m_BtnWorld1Sprite, num, num2,
 						true)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.m_iCurrentWorld = 0;
 					this.GoToMenu(EMenu.Menu_SelectLevel, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnWorld2Sprite, num,
 						num2, true)) {
 					if (this.m_bWorldUnlocked[1]) {
-
+						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						this.m_iCurrentWorld = 1;
 						this.GoToMenu(EMenu.Menu_SelectLevel, false);
 					} else {
@@ -2369,7 +2376,7 @@ public class MainGame extends DrawableScreen {
 				} else if (this.IsBtnSpriteTouch(this.m_BtnWorld3Sprite, num,
 						num2, true)) {
 					if (this.m_bWorldUnlocked[2]) {
-
+						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						this.m_iCurrentWorld = 2;
 						this.GoToMenu(EMenu.Menu_SelectLevel, false);
 					} else {
@@ -2377,12 +2384,12 @@ public class MainGame extends DrawableScreen {
 					}
 				} else if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num,
 						num2, true)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_Main, false);
 				}
 			} else if (this.m_ActiveMenu == EMenu.Menu_SelectLevel) {
 				if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num, num2, true)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_SelectWorld, false);
 				} else {
 					float num3 = 28f * this.GetDeviceUnitScale();
@@ -2402,7 +2409,7 @@ public class MainGame extends DrawableScreen {
 								&& ((num2 > (num7 - num4)) && (num2 < (num7 + num4)))) {
 							if (this.m_iLevelState[this.m_iCurrentWorld][i] != 5) {
 								this.m_iCurrentLevel = i + 1;
-
+								JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 								this.BeginGameState(EGameState.GameState_PlaySelectedLevel);
 								break;
 							}
@@ -2418,7 +2425,7 @@ public class MainGame extends DrawableScreen {
 				} else if (this.IsFacebookTouch(num, num2)) {
 
 				} else if (this.IsRTGTouch(num, num2)) {
-
+					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_Credits, false);
 				}
 			}

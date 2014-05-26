@@ -1,6 +1,4 @@
 <resources>
 
-    <string name="app_name">Baby Run Game</string>
-    <string name="title_activity_main">Baby Run Game</string>
-
+    <string name="app_name">Crazy Run Game</string>
 </resources>

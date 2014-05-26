@@ -6,6 +6,7 @@ import loon.LGame;
 import loon.LSetting;
 import loon.core.graphics.opengl.LTexture;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import com.google.ads.Ad;
@@ -30,11 +31,13 @@ public class JumpMainActivity extends LGame {
 	
 	//soundid
 	public static final int SOUND_BUTTON = 0;
-	public static final int SOUND_WU = 1;
+	public static final int SOUND_JUMP_BIG = 1;
+	public static final int SOUND_JUMP_SMALL = 1;
 	public static final int SOUND_SUCEESS = 2;
-	public static final int SOUND_CRASH = 3;
-	public static final int SOUND_DANGDANG = 4;
-	public static final int SOUND_CLICK = 5;
+	public static final int SOUND_COLLOD = 3;
+	public static final int SOUND_LAND = 4;
+	public static final int SOUND_SPEED_UP = 5;
+	public static final int SOUND_PICK_STAR = 6;
 	@Override
 	public void onGamePaused() {
 //		mHandler.sendEmptyMessage(MUSIC_STOP);
@@ -171,6 +174,21 @@ public class JumpMainActivity extends LGame {
 			if (h != null)
 			{
 				h.sendEmptyMessage(MSG_HIDE_AD);
+			}
+		}
+	}
+	public static void playSound(int soundID)
+	{
+		if (true) return;
+		if (Util.isSoundSettingOn())
+		{			
+			Handler h =  mHandlerRef.get();
+			if (h != null)
+			{
+				Message msg = h.obtainMessage();
+				msg.what = MSG_SOUND;
+				msg.arg1 = soundID;
+				msg.sendToTarget();
 			}
 		}
 	}
