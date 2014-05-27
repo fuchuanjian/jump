@@ -169,11 +169,9 @@ public class JumpMainActivity extends LGame {
 	}
 
 	public static void hideAd() {
-		if (Util.isNetworkAvailable(APP.getContext())) {
-			Handler h = mHandlerRef.get();
-			if (h != null) {
-				h.sendEmptyMessage(MSG_HIDE_AD);
-			}
+		Handler h = mHandlerRef.get();
+		if (h != null) {
+			h.sendEmptyMessage(MSG_HIDE_AD);
 		}
 	}
 
