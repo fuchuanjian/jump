@@ -52,7 +52,7 @@ public class MainGame extends DrawableScreen {
 	private Sprite m_BtnMoreGamesSprite;
 //	private SpriteAnim m_BtnMusicSprite;
 	private Sprite m_BtnNoSprite;
-	private Sprite m_BtnOptionsSprite;
+	private SpriteAnim m_BtnOptionsSprite;
 	private Sprite m_BtnPlaySprite;
 	private Sprite m_BtnQuitToMenuSprite;
 	private Sprite m_BtnResumeSprite;
@@ -174,7 +174,7 @@ public class MainGame extends DrawableScreen {
 		for (int i = 0; i < 3; i++) {
 			this.m_bWorldUnlocked[i] = true; //false
 			for (int j = 0; j < 21; j++) {
-				this.m_iLevelState[i][j] = Util.getLevelSharedPref(i, j); //5
+				this.m_iLevelState[i][j] =  Util.getLevelSharedPref(i, j); //5
 			}
 		}
 		this.m_bWorldUnlocked[0] = true;
@@ -571,6 +571,13 @@ public class MainGame extends DrawableScreen {
 			} else {
 				this.m_BtnWorld3Sprite.SetCurrentFrame(1, false);
 			}
+		}else if (this.m_ActiveMenu == EMenu.Menu_Main)
+		{
+			if (this.m_bSoundsOn) {
+				this.m_BtnOptionsSprite.SetCurrentFrame(1, false);
+			} else {
+				this.m_BtnOptionsSprite.SetCurrentFrame(0, false);
+			}
 		}
 	}
 
@@ -744,8 +751,10 @@ public class MainGame extends DrawableScreen {
 		this.m_BtnPlaySprite.AddTextureByName("btn_play", true);
 		this.m_BtnPlaySprite.SetSize(x, y);
 		this.m_BtnPlaySprite.SetPosition(this.GetScreenWidth() / 2f, 100f);
-		this.m_BtnOptionsSprite = new Sprite();
-		this.m_BtnOptionsSprite.AddTextureByName("btn_options", true);
+		this.m_BtnOptionsSprite = new SpriteAnim();
+//		this.m_BtnOptionsSprite.AddTextureByName("btn_options", true);
+		this.m_BtnOptionsSprite.AddTextureByName("btn_soundsoff", false);
+		this.m_BtnOptionsSprite.AddTextureByName("btn_soundson", false);
 		this.m_BtnOptionsSprite.SetSize(x, y);
 		this.m_BtnOptionsSprite.SetPosition(this.GetScreenWidth() / 2f, 100f);
 		this.m_BtnMoreGamesSprite = new Sprite();
@@ -2310,7 +2319,16 @@ public class MainGame extends DrawableScreen {
 				} else if (this.IsBtnSpriteTouch(this.m_BtnOptionsSprite, num,
 						num2, true)) {
 					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
-					this.GoToMenu(EMenu.Menu_Options, false);
+//					this.GoToMenu(EMenu.Menu_Options, false);
+					this.m_bSoundsOn = !this.m_bSoundsOn;
+					Util.setSoundSettingON(m_bSoundsOn);
+					if (this.m_bSoundsOn) {
+						this.m_BtnOptionsSprite.SetCurrentFrame(1, false);
+						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_START);
+					} else {
+						this.m_BtnOptionsSprite.SetCurrentFrame(0, false);
+						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_STOP);
+					}
 				} else if (this.IsBtnSpriteTouch(this.m_BtnMoreGamesSprite,
 						num, num2, true)) {
 					LSystem.exit();

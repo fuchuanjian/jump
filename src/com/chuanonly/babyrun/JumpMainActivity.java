@@ -45,7 +45,6 @@ public class JumpMainActivity extends LGame {
 
 	@Override
 	public void onMain() {
-		Util.setSoundSettingON(false);
 		LTexture.ALL_LINEAR = true;
 		LSetting setting = new LSetting();
 		setting.width = 800;
@@ -101,7 +100,7 @@ public class JumpMainActivity extends LGame {
 		try {
 			// mAdView = new AdView(this, AdSize.BANNER, "a1534d6f6acb6ed");
 			mAdView = new AdView(this);
-			mAdView.setAdUnitId("a1534d6f6acb6ed");
+			mAdView.setAdUnitId("a153848e9db1b45");
 			mAdView.setAdSize(AdSize.BANNER);
 			_bottomLayout.addView(mAdView);
 			AdRequest adRequest = new AdRequest.Builder().build();
