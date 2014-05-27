@@ -2268,7 +2268,11 @@ public class MainGame extends DrawableScreen {
 						JumpMainActivity.hideAd();
 					} else if (this.IsBtnSpriteTouch(
 							this.m_BtnQuitToMenuSprite, num10, num11, false)) {
-						this.GoToMenu(EMenu.Menu_Main, false);
+//						this.GoToMenu(EMenu.Menu_Main, false);
+						
+						this.m_GameState = EGameState.GameState_Menu;
+						this.GoToMenu(EMenu.Menu_SelectLevel, false);
+						
 						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						JumpMainActivity.hideAd();
 					} else if ((this.m_iWorldTokens > 0)
