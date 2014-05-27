@@ -1022,11 +1022,11 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnJumpBig() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP);
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMPB);
 	}
 
 	public void OnJumpSmall() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMP);
+		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMPS);
 	}
 
 	public void OnLanded() {
@@ -1112,7 +1112,7 @@ public class MainGame extends DrawableScreen {
 					this.m_fMsgMoveStateValue = 1f;
 					this.m_MsgMoveState = EItemMoveState.ItemMoveState_Out;
 					if ((this.m_iCurrentWorld == 0)
-							&& (this.m_iCurrentLevel == 1)) {
+							&& (this.m_iCurrentLevel < 5)) {
 						this.m_Tutorial = ETutorial.Tutorial_Jumping;
 						this.BeginGameState(EGameState.GameState_Tutorial);
 					} else if ((this.m_iCurrentWorld == 2)

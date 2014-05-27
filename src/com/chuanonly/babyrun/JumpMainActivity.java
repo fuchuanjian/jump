@@ -26,7 +26,8 @@ public class JumpMainActivity extends LGame {
 
 	// soundid
 	public static final int SOUND_BUTTON = 0;
-	public static final int SOUND_JUMP = 1;
+	public static final int SOUND_JUMPS = 1;
+	public static final int SOUND_JUMPB = 11;
 	public static final int SOUND_SUCEESS = 2;
 	public static final int SOUND_COLLOD = 3;
 	// public static final int SOUND_LAND = 4;
@@ -63,7 +64,8 @@ public class JumpMainActivity extends LGame {
 		mSoundPlay = new SoundPlayHelper();
 		mSoundPlay.initSounds(this);
 		mSoundPlay.loadSfx(this, R.raw.button, SOUND_BUTTON);
-		mSoundPlay.loadSfx(this, R.raw.jump, SOUND_JUMP);
+		mSoundPlay.loadSfx(this, R.raw.jumps, SOUND_JUMPS);
+		mSoundPlay.loadSfx(this, R.raw.jumpb, SOUND_JUMPB);
 		mSoundPlay.loadSfx(this, R.raw.win, SOUND_SUCEESS);
 		mSoundPlay.loadSfx(this, R.raw.speed_up, SOUND_SPEED_UP);
 		mSoundPlay.loadSfx(this, R.raw.sfx_hit, SOUND_COLLOD);
