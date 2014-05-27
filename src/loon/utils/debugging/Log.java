@@ -7,12 +7,10 @@ final public class Log {
 
 	public static void exception(Object o) {
 		if (o instanceof Throwable) {
-			android.util.Log.e("exception", ((Throwable) o).getMessage());
 		}
 	}
 
 	public static void debugWrite(String text) {
-		android.util.Log.i("debug", text);
 	}
 
 	private static final int MAX_LOG_MESSAGES = 25;

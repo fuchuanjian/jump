@@ -44,10 +44,8 @@ public class LogFormat {
 	public synchronized void title(int flag, String msg) {
 		switch (flag) {
 		case 0:
-			android.util.Log.i("info", msg);
 			break;
 		case 1:
-			android.util.Log.e("err", msg);
 			break;
 		}
 	}

@@ -333,8 +333,6 @@ public final class GLEx implements LTrans {
 				GLEx.isPixelFlinger = true;
 			}
 		}
-		Log.i("Android2DView", "GLES:" + renderer);
-		Log.i("PixelFlinger", String.valueOf(GLEx.isPixelFlinger));
 		if (g10 instanceof javax.microedition.khronos.opengles.GL11) {
 			String extensions = g10.glGetString(GL.GL_EXTENSIONS)
 					.toLowerCase();

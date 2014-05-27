@@ -658,7 +658,6 @@ public abstract class LGame extends Activity {
 			super.onDestroy();
 			// 当此项为True时，强制关闭整个程序
 			if (isDestroy) {
-				Log.i("Android2DActivity", "LGame 2D Engine Shutdown");
 				android.os.Process.killProcess(android.os.Process.myPid());
 			}
 		} catch (Exception e) {

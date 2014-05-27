@@ -84,7 +84,6 @@ public final class NativeSupport {
 			try {
 				loadLibrary("lplus");
 				useLoonNative = true;
-				System.out.println("Support of the native method call");
 			} catch (Error e) {
 				useLoonNative = false;
 			}
