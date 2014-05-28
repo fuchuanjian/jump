@@ -602,10 +602,10 @@ public class MainGame extends DrawableScreen {
 			}
 			setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 4);
 		} else {
-			if (m_iCurrentLevelCollectedStars > m_iCurrentLevelTotalStars - 2 )
+			if (m_iCurrentLevelCollectedStars >= m_iCurrentLevelTotalStars - 1 )
 			{
 				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 3);
-			}else if (m_iCurrentLevelCollectedStars > m_iCurrentLevelTotalStars - 5 )
+			}else if (m_iCurrentLevelCollectedStars > m_iCurrentLevelTotalStars - 3 )
 			{
 				setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 2);
 			}else 
