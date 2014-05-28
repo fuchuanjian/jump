@@ -722,7 +722,7 @@ public class LevelMaker {
           this.m_pGame.CreateObstacle(11, 0, 9, 9, 3);
           this.m_pGame.CreateStar(0x11);
           this.m_pGame.CreateStar(0x13);
-          this.m_pGround.AddHoleAt(20);
+//          this.m_pGround.AddHoleAt(20);
           this.m_pGround.AddHoleAt(0x15);
           this.m_pGround.AddHoleAt(0x16);
           this.m_pGround.AddHoleAt(0x17);
