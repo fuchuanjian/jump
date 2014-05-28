@@ -114,10 +114,10 @@ public class JumpMainActivity extends LGame {
 					MainGame mainGame = MainGame.get();
 					if (mainGame != null) {
 						int stars = Util.getIntFromSharedPref(Util.TOKEN, 10);
-						stars += 10;
+						stars += 20;
 						Util.setIntToSharedPref(Util.TOKEN, stars);
 						mainGame.m_iWorldTokens = stars;
-						Util.showToast("+10 Stars");
+						Util.showToast("+20 Stars");
 					}
 					super.onAdClosed();
 				}

@@ -673,7 +673,7 @@ public class MainGame extends DrawableScreen {
 			{		
 				if (m_iCurrentWorld ==0 )
 				{				
-					if (m_iCurrentLevel <=10 )
+					if (m_iCurrentLevel <= 6 )
 					{						
 						this.m_iWorldTokens += 1;
 					}else {
@@ -681,10 +681,10 @@ public class MainGame extends DrawableScreen {
 					}
 				}else if (m_iCurrentWorld == 1)
 				{
-					this.m_iWorldTokens += 3;
+					this.m_iWorldTokens += 4;
 				}else if (m_iCurrentWorld == 2)
 				{
-					this.m_iWorldTokens += 5;
+					this.m_iWorldTokens += 6;
 				}
 				Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
 			}
