@@ -584,11 +584,21 @@ public class MainGame extends DrawableScreen {
 	private void GotoNextLevel(boolean bSkip) {
 		if (bSkip) {
 			int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
-			if (mode == 0 )
+			if (mode == 0 || mode == 1 || mode == 2 || mode==4)
 			{				
 				int spend = (this.m_iCurrentLevel ) + 21 * m_iCurrentWorld;
 				this.m_iWorldTokens -= spend;
 				Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
+				if (mode == 0)
+				{
+					setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 4);
+				}else if (mode == 4) {
+					setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 1);
+				}else if (mode == 1) {
+					setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 2);
+				}else if (mode == 2) {
+					setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 3);
+				}
 			}
 			setLevelStatus(this.m_iCurrentWorld, this.m_iCurrentLevel - 1, 4);
 		} else {
@@ -660,8 +670,22 @@ public class MainGame extends DrawableScreen {
 //				this.m_iScoreToCurrentLevel = 0;
 //			}
 			if (!bSkip)
-			{				
-				this.m_iWorldTokens += 1;
+			{		
+				if (m_iCurrentWorld ==0 )
+				{				
+					if (m_iCurrentLevel <=10 )
+					{						
+						this.m_iWorldTokens += 1;
+					}else {
+						this.m_iWorldTokens += 2;
+					}
+				}else if (m_iCurrentWorld == 1)
+				{
+					this.m_iWorldTokens += 3;
+				}else if (m_iCurrentWorld == 2)
+				{
+					this.m_iWorldTokens += 5;
+				}
 				Util.setIntToSharedPref(Util.TOKEN, m_iWorldTokens);
 			}
 			if (this.m_iLevelState[this.m_iCurrentWorld][this.m_iCurrentLevel - 1] == 5) {
@@ -919,7 +943,6 @@ public class MainGame extends DrawableScreen {
 	}
 
 	private boolean IsFacebookTouch(float x, float y) {
-		Trace.i("fu", TAG+"IsFacebookTouch ");
 		return (((x > 715f) && (x < 795f)) && ((y > 290f) && (y < 365f)));
 	}
 
@@ -2282,11 +2305,7 @@ public class MainGame extends DrawableScreen {
 //						this.m_ActiveMenu = EMenu.Menu_UseToken;
 						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
 						int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
-						if (mode != 0)
-						{
-							this.m_bSkipLevel = true;
-							this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
-						}else {							
+						if (mode == 0 || mode == 1|| mode == 2|| mode == 4) {							
 							int spend = m_iCurrentLevel + 21* m_iCurrentWorld;
 							if (m_iWorldTokens < spend )
 							{
@@ -2297,6 +2316,9 @@ public class MainGame extends DrawableScreen {
 								this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
 								Util.showToast("- "+ spend+" Stars");
 							}
+						}else {
+							this.m_bSkipLevel = true;
+							this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
 						}
 //						this.GoToMenu(EMenu.Menu_UseToken, false);
 					}
