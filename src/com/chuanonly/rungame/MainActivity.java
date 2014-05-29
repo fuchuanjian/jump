@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
-public class JumpMainActivity extends LGame {
+public class MainActivity extends LGame {
 
 	private AdView mAdView;
 	private static WeakReference<Handler> mHandlerRef;

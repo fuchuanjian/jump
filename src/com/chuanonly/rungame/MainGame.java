@@ -12,6 +12,7 @@ import loon.core.input.LKey;
 import loon.core.input.LTouch;
 import loon.core.input.LTransition;
 import loon.core.timer.GameTime;
+import android.R.integer;
 
 import com.chuanonly.rungame.common.Font;
 import com.chuanonly.rungame.common.ObjectPool;
@@ -364,7 +365,7 @@ public class MainGame extends DrawableScreen {
 
 	public void EnterHiSpeed() {
 		this.m_pPlayer.EnterHiSpeed();
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_SPEED_UP);
+		MainActivity.playSound(MainActivity.SOUND_SPEED_UP);
 	}
 
 	public void EnterLowSpeed() {
@@ -975,7 +976,7 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void LevelFailed() {
-		JumpMainActivity.showAd();
+		MainActivity.showAd();
 		this.BeginGameState(EGameState.GameState_LevelFailed);
 	}
 
@@ -991,11 +992,11 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnBounce() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_COLLOD);
+		MainActivity.playSound(MainActivity.SOUND_COLLOD);
 	}
 
 	public void OnCollided() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_COLLOD);
+		MainActivity.playSound(MainActivity.SOUND_COLLOD);
 	}
 
 	public void OnForceFieldEnter() {
@@ -1045,11 +1046,11 @@ public class MainGame extends DrawableScreen {
 	}
 
 	public void OnJumpBig() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMPB);
+		MainActivity.playSound(MainActivity.SOUND_JUMPB);
 	}
 
 	public void OnJumpSmall() {
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_JUMPS);
+		MainActivity.playSound(MainActivity.SOUND_JUMPS);
 	}
 
 	public void OnLanded() {
@@ -1066,7 +1067,7 @@ public class MainGame extends DrawableScreen {
 
 	public final void OnPickupStar(Star pStar) {
 		this.m_iCurrentLevelCollectedStars++;
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_PICK_STAR);
+		MainActivity.playSound(MainActivity.SOUND_PICK_STAR);
 	}
 
 	private void OnPreInit() {
@@ -1289,7 +1290,7 @@ public class MainGame extends DrawableScreen {
 			this.m_fScreenFaderAlpha = 0f;
 			this.m_fScreenFaderAlphaDir = 1f;
 			this.GoToMenu(EMenu.Menu_Paused, true);
-			JumpMainActivity.showAd();
+			MainActivity.showAd();
 		}
 	}
 
@@ -1616,7 +1617,9 @@ public class MainGame extends DrawableScreen {
 		} else if (this.m_iCurrentWorld == 2) {
 			num = this.GetUnitBlockSize() * 6f;
 		}
-		this.m_fGameSpeed = num + (num2 * this.m_iCurrentLevel);
+//		this.m_fGameSpeed = num + (num2 * this.m_iCurrentLevel);
+		int maxSpeed = Math.min(this.m_iCurrentLevel/2, 8);
+		this.m_fGameSpeed = num + (num2 * maxSpeed);
 		this.m_pGround.Reset();
 		if (bRestart) {
 			this.m_pPlayer.Restart();
@@ -2253,7 +2256,7 @@ public class MainGame extends DrawableScreen {
 				if ((this.m_fScreenFaderAlpha <= 0f)
 						&& (this.m_MsgMoveState == EItemMoveState.ItemMoveState_In)) {
 					this.m_MsgMoveState = EItemMoveState.ItemMoveState_GoOut;
-					JumpMainActivity.hideAd();
+					MainActivity.hideAd();
 				}
 			} else if (this.m_GameState == EGameState.GameState_WorldComplete) {
 				if (this.m_MsgMoveState == EItemMoveState.ItemMoveState_In) {
@@ -2286,9 +2289,9 @@ public class MainGame extends DrawableScreen {
 				if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 					if (this.IsBtnSpriteTouch(this.m_BtnResumeSprite, num10,
 							num11, false)) {
-						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+						MainActivity.playSound(MainActivity.SOUND_BUTTON);
 						this.m_MenuButtonsState = EItemMoveState.ItemMoveState_GoOut;
-						JumpMainActivity.hideAd();
+						MainActivity.hideAd();
 					} else if (this.IsBtnSpriteTouch(
 							this.m_BtnQuitToMenuSprite, num10, num11, false)) {
 //						this.GoToMenu(EMenu.Menu_Main, false);
@@ -2296,14 +2299,14 @@ public class MainGame extends DrawableScreen {
 						this.m_GameState = EGameState.GameState_Menu;
 						this.GoToMenu(EMenu.Menu_SelectLevel, false);
 						
-						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
-						JumpMainActivity.hideAd();
+						MainActivity.playSound(MainActivity.SOUND_BUTTON);
+						MainActivity.hideAd();
 					} else if ((this.m_iWorldTokens > 0)
 							&& this.IsBtnSpriteTouch(this.m_BtnUseTokenSprite,
 									num10, num11, false)) {
 //						this.m_LastActiveMenu = this.m_ActiveMenu;
 //						this.m_ActiveMenu = EMenu.Menu_UseToken;
-						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+						MainActivity.playSound(MainActivity.SOUND_BUTTON);
 						int mode = Util.getLevelSharedPref(this.m_iCurrentWorld,  this.m_iCurrentLevel - 1);
 						if (mode == 0 || mode == 1|| mode == 2|| mode == 4) {							
 							int spend = m_iCurrentLevel + 21* m_iCurrentWorld;
@@ -2340,20 +2343,20 @@ public class MainGame extends DrawableScreen {
 			float num2 = e.y();
 			if (this.m_ActiveMenu == EMenu.Menu_Main) {
 				if (this.IsBtnSpriteTouch(this.m_BtnPlaySprite, num, num2, true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_SelectWorld, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnOptionsSprite, num,
 						num2, true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 //					this.GoToMenu(EMenu.Menu_Options, false);
 					this.m_bSoundsOn = !this.m_bSoundsOn;
 					Util.setSoundSettingON(m_bSoundsOn);
 					if (this.m_bSoundsOn) {
 						this.m_BtnOptionsSprite.SetCurrentFrame(1, false);
-						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_START);
+						MainActivity.handlerMessage(MainActivity.MUSIC_START);
 					} else {
 						this.m_BtnOptionsSprite.SetCurrentFrame(0, false);
-						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_STOP);
+						MainActivity.handlerMessage(MainActivity.MUSIC_STOP);
 					}
 				} else if (this.IsBtnSpriteTouch(this.m_BtnMoreGamesSprite,
 						num, num2, true)) {
@@ -2362,15 +2365,15 @@ public class MainGame extends DrawableScreen {
 			} else if (this.m_ActiveMenu == EMenu.Menu_Options) {
 				if (this.IsBtnSpriteTouch(this.m_BtnSoundsSprite, num, num2,
 						true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.m_bSoundsOn = !this.m_bSoundsOn;
 					Util.setSoundSettingON(m_bSoundsOn);
 					if (this.m_bSoundsOn) {
 						this.m_BtnSoundsSprite.SetCurrentFrame(1, false);
-						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_START);
+						MainActivity.handlerMessage(MainActivity.MUSIC_START);
 					} else {
 						this.m_BtnSoundsSprite.SetCurrentFrame(0, false);
-						JumpMainActivity.handlerMessage(JumpMainActivity.MUSIC_STOP);
+						MainActivity.handlerMessage(MainActivity.MUSIC_STOP);
 					}
 
 				}
@@ -2397,19 +2400,19 @@ public class MainGame extends DrawableScreen {
 								.GetDeviceUnitScale())))) {
 
 				} else {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.GoToMenu(this.m_LastActiveMenu, false);
 				}
 			} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
 				if (this.IsBtnSpriteTouch(this.m_BtnWorld1Sprite, num, num2,
 						true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.m_iCurrentWorld = 0;
 					this.GoToMenu(EMenu.Menu_SelectLevel, false);
 				} else if (this.IsBtnSpriteTouch(this.m_BtnWorld2Sprite, num,
 						num2, true)) {
 					if (this.m_bWorldUnlocked[1]) {
-						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+						MainActivity.playSound(MainActivity.SOUND_BUTTON);
 						this.m_iCurrentWorld = 1;
 						this.GoToMenu(EMenu.Menu_SelectLevel, false);
 					} else {
@@ -2418,7 +2421,7 @@ public class MainGame extends DrawableScreen {
 				} else if (this.IsBtnSpriteTouch(this.m_BtnWorld3Sprite, num,
 						num2, true)) {
 					if (this.m_bWorldUnlocked[2]) {
-						JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+						MainActivity.playSound(MainActivity.SOUND_BUTTON);
 						this.m_iCurrentWorld = 2;
 						this.GoToMenu(EMenu.Menu_SelectLevel, false);
 					} else {
@@ -2426,12 +2429,12 @@ public class MainGame extends DrawableScreen {
 					}
 				} else if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num,
 						num2, true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_Main, false);
 				}
 			} else if (this.m_ActiveMenu == EMenu.Menu_SelectLevel) {
 				if (this.IsBtnSpriteTouch(this.m_BtnBackSprite, num, num2, true)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+					MainActivity.playSound(MainActivity.SOUND_BUTTON);
 					this.GoToMenu(EMenu.Menu_SelectWorld, false);
 				} else {
 					float num3 = 28f * this.GetDeviceUnitScale();
@@ -2451,7 +2454,7 @@ public class MainGame extends DrawableScreen {
 								&& ((num2 > (num7 - num4)) && (num2 < (num7 + num4)))) {
 							if (this.m_iLevelState[this.m_iCurrentWorld][i] != 5) {
 								this.m_iCurrentLevel = i + 1;
-								JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+								MainActivity.playSound(MainActivity.SOUND_BUTTON);
 								this.BeginGameState(EGameState.GameState_PlaySelectedLevel);
 								break;
 							}

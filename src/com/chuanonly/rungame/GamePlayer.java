@@ -371,10 +371,10 @@ public class GamePlayer extends Entity
 
 	public final void LevelComplete()
 	{
-		JumpMainActivity.showAd();
+		MainActivity.showAd();
 		this.m_iLevelsCompleted++;
 		this.m_iLastLevelTryCount = this.m_iLevelTryCount;
-		JumpMainActivity.playSound(JumpMainActivity.SOUND_SUCEESS);
+		MainActivity.playSound(MainActivity.SOUND_SUCEESS);
 	}
 
 	@Override
