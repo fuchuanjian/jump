@@ -1,8 +1,8 @@
-﻿package com.chuanonly.babyrun;
+﻿package com.chuanonly.rungame;
 
-import com.chuanonly.babyrun.common.Sprite;
-import com.chuanonly.babyrun.common.SpriteAnim;
-import com.chuanonly.babyrun.common.Tools;
+import com.chuanonly.rungame.common.Sprite;
+import com.chuanonly.rungame.common.SpriteAnim;
+import com.chuanonly.rungame.common.Tools;
 
 import loon.action.sprite.SpriteBatch;
 import loon.core.LSystem;

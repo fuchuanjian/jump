@@ -1,4 +1,4 @@
-﻿package com.chuanonly.babyrun;
+﻿package com.chuanonly.rungame;
 
 public class BouncePad extends Entity
 {

@@ -1,4 +1,4 @@
-package com.chuanonly.babyrun;
+package com.chuanonly.rungame;
 
 import android.app.Application;
 import android.content.Context;

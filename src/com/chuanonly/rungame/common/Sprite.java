@@ -1,4 +1,4 @@
-﻿package com.chuanonly.babyrun.common;
+﻿package com.chuanonly.rungame.common;
 
 import loon.action.sprite.SpriteBatch;
 import loon.action.sprite.SpriteBatch.BlendState;

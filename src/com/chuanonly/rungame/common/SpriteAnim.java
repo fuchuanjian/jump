@@ -1,4 +1,4 @@
-﻿package com.chuanonly.babyrun.common;
+﻿package com.chuanonly.rungame.common;
 
 import loon.core.graphics.opengl.LTexture;
 

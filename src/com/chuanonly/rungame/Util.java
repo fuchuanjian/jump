@@ -1,4 +1,4 @@
-package com.chuanonly.babyrun;
+package com.chuanonly.rungame;
 
 import android.content.Context;
 import android.content.SharedPreferences;

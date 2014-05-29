@@ -1,9 +1,9 @@
-﻿package com.chuanonly.babyrun;
+﻿package com.chuanonly.rungame;
 
 import loon.action.sprite.SpriteBatch;
 
-import com.chuanonly.babyrun.common.SpriteAnim;
-import com.chuanonly.babyrun.common.Tools;
+import com.chuanonly.rungame.common.SpriteAnim;
+import com.chuanonly.rungame.common.Tools;
 
 public class Ground {
 

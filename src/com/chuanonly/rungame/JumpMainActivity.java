@@ -1,4 +1,4 @@
-package com.chuanonly.babyrun;
+package com.chuanonly.rungame;
 
 import java.lang.ref.WeakReference;
 
@@ -9,7 +9,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
-import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class JumpMainActivity extends LGame {
 

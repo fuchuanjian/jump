@@ -1,14 +1,10 @@
-package com.chuanonly.babyrun;
-import java.io.IOException;
+package com.chuanonly.rungame;
 import java.util.HashMap;
-
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
-import android.provider.MediaStore.Audio.Media;
-import android.util.Log;
 
 public class SoundPlayHelper {
 
