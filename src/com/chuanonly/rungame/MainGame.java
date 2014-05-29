@@ -22,7 +22,6 @@ import com.chuanonly.rungame.common.Tools;
 
 public class MainGame extends DrawableScreen {
 
-	private final String TAG = "MainGame: ";
 	private static MainGame instance;
 
 	public static MainGame get() {
@@ -1076,7 +1075,8 @@ public class MainGame extends DrawableScreen {
 		this.m_fGroundDeltaY = 0f;
 		this.m_fGameSpeed = this.GetUnitBlockSize() * 6f;
 		this.m_RTGLogoSprite = new Sprite();
-		this.m_RTGLogoSprite.AddTextureByName("rtg_logo", true);
+//		this.m_RTGLogoSprite.AddTextureByName("rtg_logo", true);
+		this.m_RTGLogoSprite.AddTextureByName("menu_bg", true);
 		this.m_RTGLogoSprite.SetPosition(this.GetScreenWidth() * 0.5f,
 				this.GetScreenHeight() * 0.5f);
 		this.m_RTGLogoSprite.SetSize(800f, 480f);
