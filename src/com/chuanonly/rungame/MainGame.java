@@ -64,7 +64,7 @@ public class MainGame extends DrawableScreen {
 	private Sprite m_BtnYesSprite;
 	protected boolean m_bVibrationOn;
 	private boolean[] m_bWorldUnlocked = new boolean[3];
-	private Sprite m_CreditsBgSprite;
+//	private Sprite m_CreditsBgSprite;
 	private float m_fBgPosX;
 	protected float m_fDeltaTime;
 	private float m_fGameSpeed;
@@ -506,7 +506,7 @@ public class MainGame extends DrawableScreen {
 						.GetDeviceUnitScale();
 			} else if (this.m_ActiveMenu == EMenu.Menu_Credits) {
 				this.m_fScreenFaderAlpha = 0f;
-				this.m_CreditsBgSprite.SetColorAlpha(this.m_fScreenFaderAlpha);
+//				this.m_CreditsBgSprite.SetColorAlpha(this.m_fScreenFaderAlpha);
 			} else {
 				this.m_fMenuButtonsDestPosY = this.GetScreenHeight()
 						- (this.m_BtnBackSprite.GetHalfSizeY() + (5f * this
@@ -832,12 +832,12 @@ public class MainGame extends DrawableScreen {
 		this.m_SelLevelItemSprite.AddTextureByName("sel_level_locked", false);
 		this.m_SelLevelItemSprite.SetSize(60f * this.GetDeviceUnitScale(),
 				120f * this.GetDeviceUnitScale());
-		this.m_CreditsBgSprite = new Sprite();
-		this.m_CreditsBgSprite.AddTextureByName("credits", false);
-		this.m_CreditsBgSprite.SetSize(800f, 480f);
-		this.m_CreditsBgSprite.SetPosition(
-				this.m_CreditsBgSprite.GetHalfSizeX(),
-				this.m_CreditsBgSprite.GetHalfSizeY());
+//		this.m_CreditsBgSprite = new Sprite();
+//		this.m_CreditsBgSprite.AddTextureByName("credits", false);
+//		this.m_CreditsBgSprite.SetSize(800f, 480f);
+//		this.m_CreditsBgSprite.SetPosition(
+//				this.m_CreditsBgSprite.GetHalfSizeX(),
+//				this.m_CreditsBgSprite.GetHalfSizeY());
 		this.m_PauseSprite = new Sprite();
 		this.m_PauseSprite.AddTextureByName("hud_pause", false);
 		this.m_PauseSprite.SetSize(50f * this.GetDeviceUnitScale(),
@@ -1539,7 +1539,7 @@ public class MainGame extends DrawableScreen {
 //			this.m_BtnMusicSprite.Render(batch);
 			this.m_BtnBackSprite.Render(batch);
 		} else if (this.m_ActiveMenu == EMenu.Menu_Credits) {
-			this.m_CreditsBgSprite.Render(batch);
+//			this.m_CreditsBgSprite.Render(batch);
 		} else if (this.m_ActiveMenu == EMenu.Menu_SelectWorld) {
 			this.m_BtnWorld1Sprite.Render(batch);
 			this.m_BtnWorld2Sprite.Render(batch);
@@ -1963,7 +1963,7 @@ public class MainGame extends DrawableScreen {
 			this.m_BtnBackSprite.SetPositionY(this.m_fMenuButtonsFirstPosY
 					+ this.m_fMenuBackBtnDistFromFirstBtn);
 		} else if (this.m_ActiveMenu == EMenu.Menu_Credits) {
-			this.m_CreditsBgSprite.SetColorAlpha(this.m_fScreenFaderAlpha);
+//			this.m_CreditsBgSprite.SetColorAlpha(this.m_fScreenFaderAlpha);
 		} else if (this.m_ActiveMenu == EMenu.Menu_Paused) {
 			this.m_BtnResumeSprite.SetPositionY(this.m_fMenuButtonsFirstPosY);
 			this.m_BtnQuitToMenuSprite
@@ -2467,8 +2467,8 @@ public class MainGame extends DrawableScreen {
 				} else if (this.IsFacebookTouch(num, num2)) {
 
 				} else if (this.IsRTGTouch(num, num2)) {
-					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
-					this.GoToMenu(EMenu.Menu_Credits, false);
+//					JumpMainActivity.playSound(JumpMainActivity.SOUND_BUTTON);
+//					this.GoToMenu(EMenu.Menu_Credits, false);
 				}
 			}
 		}
