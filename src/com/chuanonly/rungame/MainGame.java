@@ -1,6 +1,7 @@
 package com.chuanonly.rungame;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import loon.action.sprite.SpriteBatch;
 import loon.action.sprite.painting.DrawableScreen;
@@ -174,7 +175,7 @@ public class MainGame extends DrawableScreen {
 		for (int i = 0; i < 3; i++) {
 			this.m_bWorldUnlocked[i] = true; //false
 			for (int j = 0; j < 21; j++) {
-				this.m_iLevelState[i][j] =  Util.getLevelSharedPref(i, j); //5
+				this.m_iLevelState[i][j] = Util.getLevelSharedPref(i, j); //5
 			}
 		}
 		this.m_bWorldUnlocked[0] = true;
@@ -1618,7 +1619,7 @@ public class MainGame extends DrawableScreen {
 			num = this.GetUnitBlockSize() * 6f;
 		}
 //		this.m_fGameSpeed = num + (num2 * this.m_iCurrentLevel);
-		int maxSpeed = Math.min(this.m_iCurrentLevel/2, 8);
+		int maxSpeed = Math.min(this.m_iCurrentLevel/2, new Random().nextInt(4)+ 2);
 		this.m_fGameSpeed = num + (num2 * maxSpeed);
 		this.m_pGround.Reset();
 		if (bRestart) {

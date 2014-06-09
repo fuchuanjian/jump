@@ -1118,7 +1118,7 @@ public class LevelMaker {
           this.m_pGame.CreateStar(0x2d);
           this.m_pGame.CreateObstacle(0x2f, 3, 5, 6, 0);
           this.m_pGame.CreateStar(0x33);
-          this.m_pGame.CreateObstacle(0x34, 2, 5, 6, 0);
+//          this.m_pGame.CreateObstacle(0x34, 2, 5, 6, 0);
           this.m_pGame.CreateStar(0x37);
           this.m_pGame.CreateObstacle(0x3a, 1, 5, 6, 0);
           this.m_pGame.CreateStar(0x3d);
@@ -1426,8 +1426,8 @@ public class LevelMaker {
           this.m_pGame.CreateObstacle(10, 0, 5, 6, 0);
           this.m_pGame.CreateObstacle(10, 3, 5, 4, 6);
           this.m_pGame.CreateObstacle(12, 0, 5, 4, 6);
-          this.m_pGame.CreateObstacle(13, 1, 5, 4, 6);
-          this.m_pGame.CreateObstacle(14, 0, 5, 6, 0);
+//          this.m_pGame.CreateObstacle(13, 1, 5, 4, 6);
+          this.m_pGame.CreateObstacle(13, 0, 5, 6, 0);
           this.m_pGame.CreateStar(12, 4);
           this.m_pGame.CreateStar(0x10);
           this.m_pGame.CreateObstacle(0x13, 0, 5, 6, 0);
@@ -1818,7 +1818,7 @@ public class LevelMaker {
           this.m_pGame.CreateStar(0x1b, 3);
           this.m_pGame.CreateObstacle(0x15, 1, 5, 6, 0);
           this.m_pGame.CreateObstacle(0x17, 1, 6, 8, 0);
-          this.m_pGame.CreateObstacle(0x19, 3, 5, 6, 0);
+//          this.m_pGame.CreateObstacle(0x19, 3, 5, 6, 0);
           this.m_pGame.CreateStar(0x1c);
           this.m_pGame.CreateObstacle(0x1d, 2, 6, 0x20, 5);
           this.m_pGame.CreateStar(0x1f);
