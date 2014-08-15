@@ -22,7 +22,7 @@ public class Util
     private static Toast toast;
     private final static String name1 = "com";
 	private final static String name2 = "chuanonly";
-	private final static String name3 = "rungame";
+	private final static String name3 = "jump";
 	private final static String namedot = ".";
     private static final String[] ALLOWED_SIG = { "c321f556919b7209e99775ed827347f1","21375b3bcf6135526c48830f37f1e594","f89d0b7eaddc23807f69f5544fb567b2"};
     public static void showToast(String str) {
