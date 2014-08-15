@@ -1,14 +1,12 @@
-package com.chuanonly.rungame;
+package com.chuanonly.jump;
 
 import java.lang.ref.WeakReference;
 
 import loon.LGame;
 import loon.LSetting;
 import loon.core.graphics.opengl.LTexture;
-import android.R.integer;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.ads.AdListener;

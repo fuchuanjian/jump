@@ -1,4 +1,4 @@
-package com.chuanonly.rungame;
+package com.chuanonly.jump;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,13 +13,12 @@ import loon.core.input.LKey;
 import loon.core.input.LTouch;
 import loon.core.input.LTransition;
 import loon.core.timer.GameTime;
-import android.R.integer;
 
-import com.chuanonly.rungame.common.Font;
-import com.chuanonly.rungame.common.ObjectPool;
-import com.chuanonly.rungame.common.Sprite;
-import com.chuanonly.rungame.common.SpriteAnim;
-import com.chuanonly.rungame.common.Tools;
+import com.chuanonly.jump.common.Font;
+import com.chuanonly.jump.common.ObjectPool;
+import com.chuanonly.jump.common.Sprite;
+import com.chuanonly.jump.common.SpriteAnim;
+import com.chuanonly.jump.common.Tools;
 
 public class MainGame extends DrawableScreen {
 

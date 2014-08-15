@@ -1,10 +1,10 @@
-﻿package com.chuanonly.rungame;
+﻿package com.chuanonly.jump;
 
 import loon.action.sprite.SpriteBatch;
 import loon.utils.MathUtils;
 
-import com.chuanonly.rungame.common.SpriteAnim;
-import com.chuanonly.rungame.common.Tools;
+import com.chuanonly.jump.common.SpriteAnim;
+import com.chuanonly.jump.common.Tools;
 
 public class GamePlayer extends Entity
 {

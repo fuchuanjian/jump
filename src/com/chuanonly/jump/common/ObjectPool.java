@@ -1,4 +1,4 @@
-﻿package com.chuanonly.rungame.common;
+﻿package com.chuanonly.jump.common;
 
 public class ObjectPool<T>
 {

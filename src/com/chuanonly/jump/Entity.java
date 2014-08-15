@@ -1,14 +1,14 @@
-﻿package com.chuanonly.rungame;
-
-import com.chuanonly.rungame.common.Sprite;
-import com.chuanonly.rungame.common.SpriteAnim;
-import com.chuanonly.rungame.common.Tools;
+﻿package com.chuanonly.jump;
 
 import loon.action.sprite.SpriteBatch;
 import loon.core.LSystem;
 import loon.core.RefObject;
 import loon.core.geom.Vector2f;
 import loon.utils.MathUtils;
+
+import com.chuanonly.jump.common.Sprite;
+import com.chuanonly.jump.common.SpriteAnim;
+import com.chuanonly.jump.common.Tools;
 
 public class Entity {
 

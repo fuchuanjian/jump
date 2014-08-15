@@ -1,4 +1,4 @@
-﻿package com.chuanonly.rungame;
+﻿package com.chuanonly.jump;
 
 public class Obstacle extends Entity
 {

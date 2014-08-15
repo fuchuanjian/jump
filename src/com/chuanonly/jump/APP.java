@@ -1,4 +1,4 @@
-package com.chuanonly.rungame;
+package com.chuanonly.jump;
 
 import android.app.Application;
 import android.content.Context;

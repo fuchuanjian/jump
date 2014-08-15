@@ -1,4 +1,4 @@
-package com.chuanonly.rungame;
+package com.chuanonly.jump;
 import java.util.HashMap;
 
 import android.content.Context;
