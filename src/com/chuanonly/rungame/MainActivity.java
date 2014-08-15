@@ -5,18 +5,22 @@ import java.lang.ref.WeakReference;
 import loon.LGame;
 import loon.LSetting;
 import loon.core.graphics.opengl.LTexture;
+import android.R.integer;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 public class MainActivity extends LGame {
 
 	private AdView mAdView;
+	private InterstitialAd mInterstitialAd;
 	private static WeakReference<Handler> mHandlerRef;
 	private SoundPlayHelper mSoundPlay;
 
@@ -73,6 +77,12 @@ public class MainActivity extends LGame {
 		mSoundPlay.loadSfx(this, R.raw.speed_up, SOUND_SPEED_UP);
 		mSoundPlay.loadSfx(this, R.raw.sfx_hit, SOUND_COLLOD);
 		mSoundPlay.loadSfx(this, R.raw.star_pickup, SOUND_PICK_STAR);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Util.checkSignatures();
+			}
+		}).start();
 	}
 
 	private Handler mHandler = new Handler() {
@@ -84,6 +94,7 @@ public class MainActivity extends LGame {
 						loadAd();
 					}
 					_bottomLayout.setVisibility(View.VISIBLE);
+					showFullAd();
 				}
 			} else if (msg.what == MSG_HIDE_AD) {
 				_bottomLayout.setVisibility(View.GONE);
@@ -98,14 +109,15 @@ public class MainActivity extends LGame {
 				mHandler.removeMessages(MUSIC_START);
 				mSoundPlay.stopBGMusic();
 			}
-		};
+		}
+
 	};
 
 	private void loadAd() {
 		try {
 			// mAdView = new AdView(this, AdSize.BANNER, "a1534d6f6acb6ed");
 			mAdView = new AdView(this);
-			mAdView.setAdUnitId("a153848e9db1b45");
+			mAdView.setAdUnitId("ca-app-pub-7608478850470067/9477117637");
 			mAdView.setAdSize(AdSize.BANNER);
 			_bottomLayout.addView(mAdView);
 			AdRequest adRequest = new AdRequest.Builder().build();
@@ -162,7 +174,34 @@ public class MainActivity extends LGame {
 		}
 		
 	}
-
+	int cnt = 0;
+	private void showFullAd() {
+		cnt++;
+		if (cnt  %2 == 0) return;
+		try{
+			if (mInterstitialAd == null)
+			{
+				mInterstitialAd = new InterstitialAd(this);
+				mInterstitialAd.setAdUnitId("ca-app-pub-7608478850470067/8064639635");
+			}
+			AdRequest adRequest = new AdRequest.Builder().build();
+			mInterstitialAd.loadAd(adRequest);
+			mInterstitialAd.setAdListener(new AdListener() {
+				@Override
+				public void onAdLoaded() {
+					super.onAdLoaded();
+					if (mInterstitialAd.isLoaded())
+					{
+						mInterstitialAd.show();
+					}
+				}
+			});
+		}catch (Exception e)
+		{			
+			
+		}
+		
+	};
 	public static void showAd() {
 		if (Util.isNetworkAvailable(APP.getContext())) {
 			Handler h = mHandlerRef.get();

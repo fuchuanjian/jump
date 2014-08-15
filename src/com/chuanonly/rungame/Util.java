@@ -1,8 +1,14 @@
 package com.chuanonly.rungame;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
@@ -14,6 +20,11 @@ public class Util
     private static final String LOGIN_TIME = "login";
     public  static final String TOKEN = "token_star";
     private static Toast toast;
+    private final static String name1 = "com";
+	private final static String name2 = "chuanonly";
+	private final static String name3 = "rungame";
+	private final static String namedot = ".";
+    private static final String[] ALLOWED_SIG = { "c321f556919b7209e99775ed827347f1","21375b3bcf6135526c48830f37f1e594","f89d0b7eaddc23807f69f5544fb567b2"};
     public static void showToast(String str) {
        showToast(str, 0);
     }
@@ -137,4 +148,77 @@ public class Util
     	editor.putInt(LOGIN_TIME, cnt);
     	editor.commit();
 	}
+	public static void checkPkg() {
+		PackageManager pm = APP.getContext().getPackageManager();
+		PackageInfo packageinfo;
+		String packageName = null;
+		try {
+			packageinfo = pm.getPackageInfo(APP.getContext()
+					.getPackageName(), PackageManager.GET_SIGNATURES);
+			packageName = packageinfo.packageName;			  
+			if(!packageName.equals(name1+namedot+name2+namedot+name3))
+			{
+				android.os.Process.killProcess(android.os.Process.myPid());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+    public static boolean checkSignatures() {
+        try {
+        	PackageManager pm = APP.getContext().getPackageManager();
+            PackageInfo pkgInfo = pm.getPackageInfo(APP.getContext()
+					.getPackageName(), PackageManager.GET_SIGNATURES);
+            Signature[] sigs = pkgInfo.signatures;
+            if (sigs != null && sigs.length > 0) {
+            	boolean success = false;
+                for (Signature sig : sigs) {
+                    String codedSig = getMD5(sig.toByteArray());
+                    for (String allowedSig : ALLOWED_SIG) {
+                        if (allowedSig.equals(codedSig))
+                        	success = true;
+                    }
+                }
+                if (!success) System.exit(0);
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    public static byte[] MD5(byte[] input)
+    {
+      MessageDigest md = null;
+      try {
+        md = MessageDigest.getInstance("MD5");
+      } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+      }
+      if (md != null) {
+        md.update(input);
+        return md.digest();
+      }
+      return null;
+    }
+
+    public static String getMD5(byte[] input) {
+        return bytesToHexString(MD5(input));
+    }
+    public static String bytesToHexString(byte[] bytes)
+    {
+        if (bytes == null)
+          return null;
+        String table = "0123456789abcdef";
+        StringBuilder ret = new StringBuilder(2 * bytes.length);
+
+        for (int i = 0; i < bytes.length; ++i)
+        {
+          int b = 0xF & bytes[i] >> 4;
+          ret.append(table.charAt(b));
+          b = 0xF & bytes[i];
+          ret.append(table.charAt(b));
+        }
+
+        return ret.toString();
+      }
 }

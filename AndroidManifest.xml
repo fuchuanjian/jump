@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chuanonly.rungame"
-    android:versionCode="4"
-    android:versionName="1.4" >
+    android:versionCode="5"
+    android:versionName="1.5" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -32,5 +32,9 @@
              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>       
                 
     </application>
-
+ <supports-screens android:anyDensity="true"
+                      android:smallScreens="true"
+                      android:normalScreens="true"
+                      android:largeScreens="true"
+                      android:xlargeScreens="true"/>
 </manifest>

@@ -13,6 +13,7 @@ public class APP extends Application
 		super.onCreate();
 		mApplication = this;
 		mContext = getApplicationContext();
+		Util.checkPkg();
 	}
 	@Override
 	public void onLowMemory()
